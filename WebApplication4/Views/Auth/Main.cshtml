@@ -1,0 +1,196 @@
+﻿@model WebApplication4.Dto.DashboardViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pharmacy Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background: #eef1f6;
+            font-family: "Segoe UI", sans-serif;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 270px;
+            height: 100vh;
+            padding: 35px 25px;
+            background: linear-gradient(180deg, #007bff, #0056d6);
+            color: white;
+            box-shadow: 5px 0 25px rgba(0,0,0,0.1);
+            border-radius: 0 25px 25px 0;
+        }
+
+            .sidebar h2 {
+                font-size: 28px;
+                font-weight: 800;
+                margin-bottom: 40px;
+            }
+
+            .sidebar a {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                text-decoration: none;
+                font-size: 18px;
+                color: white;
+                padding: 12px 14px;
+                margin-bottom: 15px;
+                border-radius: 10px;
+                transition: 0.25s;
+                font-weight: 500;
+            }
+
+                .sidebar a:hover {
+                    background: rgba(255,255,255,0.15);
+                    transform: translateX(6px);
+                }
+
+        .main-content {
+            margin-left: 300px;
+            padding: 50px;
+        }
+
+        .page-title {
+            font-weight: 900;
+            font-size: 38px;
+            margin-bottom: 40px;
+            text-align: left;
+            letter-spacing: 1px;
+        }
+
+        .dashboard-card {
+            background: #ffffff;
+            padding: 30px 20px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            transition: 0.25s;
+            height: 230px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+            .dashboard-card:hover {
+                transform: translateY(-8px) scale(1.03);
+                box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+            }
+
+        .icon-box {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            background: #eef3ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            transition: 0.25s;
+        }
+
+        .dashboard-card:hover .icon-box {
+            background: #dbe7ff;
+            transform: scale(1.1);
+        }
+
+        .dashboard-card h4 {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .dashboard-card .number {
+            font-size: 42px;
+            font-weight: 900;
+            color: #007bff;
+        }
+
+        .dashboard-card p {
+            font-size: 16px;
+            color: #6c757d;
+        }
+
+        /* Different colors for each card */
+        .card-patients {
+            background: #fff3e0;
+        }
+
+        .card-medicines {
+            background: #e0f7fa;
+        }
+
+        .card-suppliers {
+            background: #e8f5e9;
+        }
+
+        .card-prescriptions {
+            background: #f3e5f5;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Pharmacy</h2>
+        <a href="/Patient/Index"><span>🧑‍⚕️</span> Patients</a>
+        <a href="/Medicine/Index"><span>💊</span> Medicines</a>
+        <a href="/Prescription/Index"><span>📄</span> Prescriptions</a>
+        <a href="/Supplier/Index"><span>🏭</span> Suppliers</a>
+        <a href="#"><span>📊</span> Reports</a>
+    </div>
+
+    <div class="main-content">
+        <h1 class="page-title">Dashboard Overview</h1>
+
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="dashboard-card card-patients">
+                    <div class="icon-box">🧑‍⚕️</div>
+                    <h4>Patients</h4>
+                    <div class="number">@Model.PatientsCount</div>
+                    <p>patients registered</p>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="dashboard-card card-medicines">
+                    <div class="icon-box">💊</div>
+                    <h4>Medicines</h4>
+                    <div class="number">@Model.MedicinesCount</div>
+                    <p>medicines in stock</p>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="dashboard-card card-suppliers">
+                    <div class="icon-box">🏭</div>
+                    <h4>Suppliers</h4>
+                    <div class="number">@Model.SuppliersCount</div>
+                    <p>suppliers registered</p>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="dashboard-card card-prescriptions">
+                    <div class="icon-box">📄</div>
+                    <h4>Prescriptions</h4>
+                    <div class="number">@Model.PrescriptionsCount</div>
+                    <p>manage prescriptions</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

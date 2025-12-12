@@ -1,0 +1,73 @@
+﻿@model PharmacistRegisterDto
+
+<style>
+    .register-card {
+        max-width: 450px;
+        margin: 40px auto;
+        padding: 30px;
+        border-radius: 20px;
+        background: #ffffff;
+        box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+        transition: 0.3s;
+    }
+
+    .register-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 35px rgba(0,0,0,0.15);
+    }
+
+    .register-title {
+        text-align: center;
+        font-weight: 700;
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: #0d6efd;
+    }
+
+    .form-control {
+        height: 48px;
+        border-radius: 12px;
+        padding-left: 15px;
+        font-size: 15px;
+    }
+
+    .btn-register {
+        width: 100%;
+        height: 50px;
+        border-radius: 12px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+</style>
+
+<div class="register-card">
+    <h2 class="register-title">Create Account</h2>
+
+    <form asp-action="Register" method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Full Name</label>
+            <input asp-for="FullName" class="form-control" placeholder="Enter your full name" />
+            <span asp-validation-for="FullName" class="text-danger small"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Email</label>
+            <input asp-for="Email" class="form-control" placeholder="example@mail.com" />
+            <span asp-validation-for="Email" class="text-danger small"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Password</label>
+            <input asp-for="Password" type="password" class="form-control" placeholder="********" />
+            <span asp-validation-for="Password" class="text-danger small"></span>
+        </div>
+
+        <button class="btn btn-primary btn-register mt-3">Register</button>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

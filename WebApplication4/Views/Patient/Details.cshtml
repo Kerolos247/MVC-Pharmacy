@@ -1,0 +1,16 @@
+﻿@model WebApplication4.Models.Patient
+
+<h1>Patient Details</h1>
+
+<div class="mb-3">
+    <strong>Full Name:</strong> @Model.FullName
+</div>
+<div class="mb-3">
+    <strong>Phone:</strong> @Model.Phone
+</div>
+<div class="mb-3">
+    <strong>Address:</strong> @Model.Address
+</div>
+
+<a asp-action="Edit" asp-route-id="@Model.PatientId" class="btn btn-warning">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>

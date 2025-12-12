@@ -1,0 +1,32 @@
+﻿@model IEnumerable<WebApplication4.Models.Patient>
+
+<h1>Patients</h1>
+
+<a asp-action="Create" class="btn btn-primary mb-3">Add New Patient</a>
+<a asp-controller="Auth" asp-action="Main" class="btn btn-secondary mb-3">Back to Dashboard</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var patient in Model)
+        {
+            <tr>
+                <td>@patient.FullName</td>
+                <td>@patient.Phone</td>
+                <td>@patient.Address</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@patient.PatientId" class="btn btn-sm btn-info">Details</a>
+                    <a asp-action="Edit" asp-route-id="@patient.PatientId" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@patient.PatientId" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

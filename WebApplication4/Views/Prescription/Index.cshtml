@@ -1,0 +1,35 @@
+﻿@model IEnumerable<WebApplication4.Models.Prescription>
+
+<h1>Prescriptions</h1>
+
+<div class="mb-3">
+    <a asp-action="Create" class="btn btn-primary">Add New Prescription</a>
+    <!-- زرار للرجوع للـ dashboard -->
+    <a href="/auth/main" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Patient</th>
+            <th>Notes</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pres in Model)
+        {
+            <tr>
+                <td>@pres.Date.ToString("yyyy-MM-dd")</td>
+                <td>@pres.Patient.FullName</td>
+                <td>@pres.Notes</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@pres.PrescriptionId" class="btn btn-sm btn-info">Details</a>
+                    <a asp-action="Edit" asp-route-id="@pres.PrescriptionId" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@pres.PrescriptionId" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
