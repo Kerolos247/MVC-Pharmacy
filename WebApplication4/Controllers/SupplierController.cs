@@ -13,14 +13,13 @@ namespace WebApplication4.Controllers
             _supplierService = supplierService;
         }
 
-        // GET: Supplier
+       
         public async Task<IActionResult> Index()
         {
             var suppliers = await _supplierService.GetAllSuppliersAsync();
             return View(suppliers);
         }
 
-        // GET: Supplier/Details/5
         public async Task<IActionResult> Details(int id)
         {
             var supplier = await _supplierService.GetByIdAsync(id);
@@ -28,13 +27,12 @@ namespace WebApplication4.Controllers
             return View(supplier);
         }
 
-        // GET: Supplier/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Supplier/Create
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(RequestCreateSupplier dto)
@@ -45,7 +43,7 @@ namespace WebApplication4.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Supplier/Edit/5
+       
         public async Task<IActionResult> Edit(int id)
         {
             var supplier = await _supplierService.GetByIdAsync(id);
@@ -60,7 +58,6 @@ namespace WebApplication4.Controllers
             return View(dto);
         }
 
-        // POST: Supplier/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, UpdateSupplierDto dto)
@@ -73,7 +70,7 @@ namespace WebApplication4.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Supplier/Delete/5
+     
         public async Task<IActionResult> Delete(int id)
         {
             var supplier = await _supplierService.GetByIdAsync(id);
@@ -81,7 +78,7 @@ namespace WebApplication4.Controllers
             return View(supplier);
         }
 
-        // POST: Supplier/Delete/5
+       
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

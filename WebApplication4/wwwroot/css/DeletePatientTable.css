@@ -1,0 +1,119 @@
+﻿
+body {
+    font-family: "Segoe UI", sans-serif;
+    background-color: #eef1f6;
+    padding: 30px;
+    margin: 0;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 32px;
+    color: #dc3545; 
+    margin-bottom: 25px;
+    text-align: center;
+}
+.table-details {
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.table-details th, .table-details td {
+    padding: 15px 20px;
+    text-align: left;
+    font-size: 16px;
+    color: #333;
+}
+
+.table-details th {
+    width: 40%;
+    background-color: #dc3545; 
+    color: #fff;
+    font-weight: 600;
+}
+
+.table-details td {
+    background-color: #f8f9fa;
+}
+
+.table-details tr:hover td {
+    background-color: #f8d7da;
+    transition: 0.25s;
+}
+
+.button-container {
+    max-width: 600px;
+    margin: 20px auto 0 auto;
+    text-align: center;
+}
+
+.btn {
+    border-radius: 12px;
+    padding: 10px 25px;
+    font-weight: 600;
+    font-size: 16px;
+    margin: 5px;
+    transition: 0.25s;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 28px;
+    }
+
+    .table-details th, .table-details td {
+        font-size: 15px;
+        padding: 12px 15px;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 24px;
+    }
+
+    .table-details th, .table-details td {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 8px 20px;
+    }
+}

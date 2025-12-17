@@ -1,16 +1,28 @@
-﻿@model WebApplication4.Models.Patient
+﻿@{
+    Layout = null;
+}
+@model WebApplication4.Models.Patient
+
+<link rel="stylesheet" href="~/css/PatientDetails.css" />
 
 <h1>Patient Details</h1>
 
-<div class="mb-3">
-    <strong>Full Name:</strong> @Model.FullName
-</div>
-<div class="mb-3">
-    <strong>Phone:</strong> @Model.Phone
-</div>
-<div class="mb-3">
-    <strong>Address:</strong> @Model.Address
-</div>
+<table class="table-details">
+    <tr>
+        <th>Full Name</th>
+        <td>@Model.FullName</td>
+    </tr>
+    <tr>
+        <th>Phone</th>
+        <td>@Model.Phone</td>
+    </tr>
+    <tr>
+        <th>Address</th>
+        <td>@Model.Address</td>
+    </tr>
+</table>
 
-<a asp-action="Edit" asp-route-id="@Model.PatientId" class="btn btn-warning">Edit</a>
-<a asp-action="Index" class="btn btn-secondary">Back to List</a>
+<div class="button-container">
+    <a asp-action="Edit" asp-route-id="@Model.PatientId" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

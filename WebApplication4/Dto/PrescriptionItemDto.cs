@@ -7,8 +7,13 @@ namespace WebApplication4.Dto
         [Required(ErrorMessage = "Medicine is required")]
         public int MedicineId { get; set; }
 
-        [Required(ErrorMessage = "Quantity is required")]
-        [Range(1, int.MaxValue, ErrorMessage = "Quantity must be at least 1")]
-        public int Quantity { get; set; }
+        [Required(ErrorMessage = "Dosage is required")]
+        public string Dosage { get; set; } = string.Empty;     
+
+        [Required(ErrorMessage = "Frequency is required")]
+        public string Frequency { get; set; } = string.Empty;   
+
+        [Required(ErrorMessage = "Duration is required")]
+        public int Duration { get; set; }                      
     }
 }

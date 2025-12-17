@@ -1,0 +1,48 @@
+﻿@{
+    Layout = null;
+}
+@model WebApplication4.Dto.InventoryDto
+@{
+    Layout = null;
+}
+<h1>Delete Inventory</h1>
+<link rel="stylesheet" href="~/css/delete-inventory.css" />
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<table class="table table-bordered">
+    <tbody>
+        <tr>
+            <th>Medicine Name</th>
+            <td>@Model.MedicineName</td>
+        </tr>
+        <tr>
+            <th>Dosage Form</th>
+            <td>@Model.DosageForm</td>
+        </tr>
+        <tr>
+            <th>Strength</th>
+            <td>@Model.Strength</td>
+        </tr>
+        <tr>
+            <th>Quantity</th>
+            <td>@Model.Quantity</td>
+        </tr>
+        <tr>
+            <th>Expiry Date</th>
+            <td>@Model.ExpiryDate.ToShortDateString()</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="buttons">
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="InventoryId" />
+        <button type="submit" class="btn btn-danger" onclick="return confirm('هل أنت متأكد من حذف هذا المخزون؟');">
+            Delete
+        </button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

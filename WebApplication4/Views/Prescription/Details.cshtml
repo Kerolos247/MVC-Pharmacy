@@ -1,25 +1,35 @@
-﻿@model WebApplication4.Models.Prescription
+﻿@{
+    Layout = null;
+}
+
+@model WebApplication4.Models.Prescription
+
+<link rel="stylesheet" href="~/css/PrescriptionDetails.css" />
 
 <h1>Prescription Details</h1>
 
-<table class="table table-bordered">
-    <tr>
-        <th>Date</th>
-        <td>@Model.Date.ToString("yyyy-MM-dd")</td>
-    </tr>
-    <tr>
-        <th>Patient</th>
-        <td>@Model.Patient.FullName</td>
-    </tr>
-    <tr>
-        <th>Notes</th>
-        <td>@Model.Notes</td>
-    </tr>
-    <tr>
-        <th>Pharmacist</th>
-        <td>@Model.Pharmacist.UserName</td>
-    </tr>
-</table>
+<div class="table-container">
+    <table class="table table-bordered">
+        <tr>
+            <th>Date</th>
+            <td>@Model.Date.ToString("yyyy-MM-dd")</td>
+        </tr>
+        <tr>
+            <th>Patient</th>
+            <td>@Model.Patient.FullName</td>
+        </tr>
+        <tr>
+            <th>Notes</th>
+            <td>@Model.Notes</td>
+        </tr>
+        <tr>
+            <th>Pharmacist</th>
+            <td>@Model.Pharmacist.UserName</td>
+        </tr>
+    </table>
+</div>
 
-<a asp-action="Edit" asp-route-id="@Model.PrescriptionId" class="btn btn-warning">Edit</a>
-<a asp-action="Index" class="btn btn-secondary">Back to List</a>
+<div style="text-align: center;">
+    <a asp-action="Edit" asp-route-id="@Model.PrescriptionId" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

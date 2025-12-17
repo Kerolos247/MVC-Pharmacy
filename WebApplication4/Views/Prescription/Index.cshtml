@@ -1,4 +1,9 @@
-﻿@model IEnumerable<WebApplication4.Models.Prescription>
+﻿@{
+    Layout = null;
+}
+
+
+@model IEnumerable<WebApplication4.Models.Prescription>
 
 <h1>Prescriptions</h1>
 
@@ -7,7 +12,7 @@
     <!-- زرار للرجوع للـ dashboard -->
     <a href="/auth/main" class="btn btn-secondary">Back to Dashboard</a>
 </div>
-
+<link rel="stylesheet" href="~/css/IndexPrescription.css" />
 <table class="table table-striped">
     <thead>
         <tr>

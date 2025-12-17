@@ -1,11 +1,18 @@
-﻿@model IEnumerable<WebApplication4.Models.Medicine>
+﻿@{
+    Layout = null;
+}
+
+@model IEnumerable<WebApplication4.Models.Medicine>
+
+<link rel="stylesheet" href="~/css/Indexmedicines.css" />
+
+<div class="top-buttons">
+    <a asp-controller="Auth" asp-action="Main" class="btn btn-secondary">Back to Dashboard</a>
+    <a asp-action="Create" class="btn btn-primary">Add New Medicine</a>
+</div>
 
 <h1>Medicines</h1>
 
-<!-- زرار للعودة للـ Dashboard -->
-<a asp-controller="Auth" asp-action="Main" class="btn btn-secondary mb-3">Back to Dashboard</a>
-
-<a asp-action="Create" class="btn btn-primary mb-3">Add New Medicine</a>
 
 <table class="table table-striped">
     <thead>
@@ -22,12 +29,12 @@
         @foreach (var med in Model)
         {
             <tr>
-                <td>@med.Name</td>
-                <td>@med.Description</td>
-                <td>@med.DosageForm</td>
-                <td>@med.Strength</td>
-                <td>@med.Price.ToString("C")</td>
-                <td>
+                <td data-label="Name">@med.Name</td>
+                <td data-label="Description">@med.Description</td>
+                <td data-label="Dosage Form">@med.DosageForm</td>
+                <td data-label="Strength">@med.Strength</td>
+                <td data-label="Price">@med.Price.ToString("C")</td>
+                <td data-label="Actions">
                     <a asp-action="Details" asp-route-id="@med.MedicineId" class="btn btn-sm btn-info">Details</a>
                     <a asp-action="Edit" asp-route-id="@med.MedicineId" class="btn btn-sm btn-warning">Edit</a>
                     <a asp-action="Delete" asp-route-id="@med.MedicineId" class="btn btn-sm btn-danger">Delete</a>

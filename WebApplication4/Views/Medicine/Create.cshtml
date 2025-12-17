@@ -1,35 +1,45 @@
-﻿@model WebApplication4.Dto.RequestCreateMedcine
+﻿@{
+    Layout = null;
+}
+
+@model WebApplication4.Dto.RequestCreateMedcine
 
 <h1>Create Medicine</h1>
+<link rel="stylesheet" href="~/css/create-medicine.css" />
 
 <form asp-action="Create" method="post">
+    <!-- Name -->
     <div class="mb-3">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
+    <!-- Description -->
     <div class="mb-3">
         <label asp-for="Description"></label>
         <input asp-for="Description" class="form-control" />
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
 
+    <!-- Dosage Form -->
     <div class="mb-3">
         <label asp-for="DosageForm"></label>
         <input asp-for="DosageForm" class="form-control" />
         <span asp-validation-for="DosageForm" class="text-danger"></span>
     </div>
 
+    <!-- Strength -->
     <div class="mb-3">
         <label asp-for="Strength"></label>
         <input asp-for="Strength" class="form-control" />
         <span asp-validation-for="Strength" class="text-danger"></span>
     </div>
 
+    <!-- Price -->
     <div class="mb-3">
         <label asp-for="Price"></label>
-        <input asp-for="Price" class="form-control" type="number" step="0.01" />
+        <input asp-for="Price" type="number" step="0.01" class="form-control" />
         <span asp-validation-for="Price" class="text-danger"></span>
     </div>
 
@@ -44,18 +54,27 @@
 
     <!-- Supplier Dropdown -->
     <div class="mb-3">
-        <label asp-for="supplierId">Supplier</label>
-        <select asp-for="supplierId" class="form-control" asp-items="ViewBag.Suppliers">
+        <label asp-for="SupplierId">Supplier</label>
+        <select asp-for="SupplierId" class="form-control" asp-items="ViewBag.Suppliers">
             <option value="">-- Select Supplier --</option>
         </select>
-        <span asp-validation-for="supplierId" class="text-danger"></span>
+        <span asp-validation-for="SupplierId" class="text-danger"></span>
+    </div>
+
+    <!-- Inventory Section -->
+    <h4>Inventory Details</h4>
+    <div class="mb-3">
+        <label asp-for="Quantity"></label>
+        <input asp-for="Quantity" type="number" class="form-control" min="1" />
+        <span asp-validation-for="Quantity" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ExpiryDate"></label>
+        <input asp-for="ExpiryDate" type="date" class="form-control" />
+        <span asp-validation-for="ExpiryDate" class="text-danger"></span>
     </div>
 
     <button type="submit" class="btn btn-success">Create</button>
 </form>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}

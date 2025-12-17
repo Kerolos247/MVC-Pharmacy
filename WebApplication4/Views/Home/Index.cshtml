@@ -1,8 +1,26 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Pharmacy System";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<nav class="navbar">
+    <div class="logo">💊 Pharmacy System</div>
+    <div class="nav-buttons">
+        <a href="/auth/login" class="btn-outline">Login</a>
+        <a href="/auth/Register" class="btn-primary">Sign Up</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="overlay"></div>
+
+    <div class="hero-content">
+        <h1 class="fade-in">Pharmacy Management System</h1>
+        <p class="fade-in delay">
+            Smart solution for pharmacies, doctors, and healthcare management
+        </p>
+
+        <div class="hero-buttons fade-in delay2">
+            <a href="/Home/Privacy" class="btn-outline large">Learn More</a>
+        </div>
+    </div>
+</section>

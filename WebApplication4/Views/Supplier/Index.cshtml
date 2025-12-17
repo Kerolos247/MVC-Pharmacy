@@ -1,31 +1,43 @@
-﻿@model IEnumerable<WebApplication4.Models.Supplier>
+﻿@{
+    Layout = null;
+}
 
-<h1>Suppliers</h1>
+@model IEnumerable<WebApplication4.Models.Supplier>
 
-<a asp-action="Create" class="btn btn-primary mb-3">Add New Supplier</a>
+<link rel="stylesheet" href="~/css/IndexSuppliers.css" />
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var supplier in Model)
-        {
-            <tr>
-                <td>@supplier.Name</td>
-                <td>@supplier.Phone</td>
-                <td>@supplier.Email</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@supplier.SupplierId" class="btn btn-info btn-sm">Details</a>
-                    <a asp-action="Edit" asp-route-id="@supplier.SupplierId" class="btn btn-warning btn-sm">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@supplier.SupplierId" class="btn btn-danger btn-sm">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="container">
+    <h1>Suppliers</h1>
+
+    <a asp-action="Create" class="add-button">Add New Supplier</a>
+    <a href="/auth/main" class="btn-back-dashboard">Back to Dashboard</a>
+
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var supplier in Model)
+                {
+                    <tr>
+                        <td>@supplier.Name</td>
+                        <td>@supplier.Phone</td>
+                        <td>@supplier.Email</td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@supplier.SupplierId" class="btn btn-info btn-sm">Details</a>
+                            <a asp-action="Edit" asp-route-id="@supplier.SupplierId" class="btn btn-warning btn-sm">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@supplier.SupplierId" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

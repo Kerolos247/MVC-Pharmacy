@@ -1,0 +1,134 @@
+﻿body {
+	font-family: Arial, sans-serif;
+	background-color: #f4f6f8;
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	text-align: center;
+	color: #333;
+	margin-top: 30px;
+}
+
+.container {
+	width: 90%;
+	max-width: 1000px;
+	margin: 0 auto;
+	padding: 20px 0;
+	text-align: center;
+}
+
+.add-button {
+	display: inline-block;
+	margin-bottom: 20px;
+	padding: 10px 25px;
+	font-weight: bold;
+	background-color: #007bff;
+	color: #fff;
+	border-radius: 8px;
+	text-decoration: none;
+	transition: background 0.3s;
+}
+
+	.add-button:hover {
+		background-color: #0056b3;
+	}
+
+.table-container {
+	overflow-x: auto;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	background-color: #fff;
+	border-radius: 10px;
+	overflow: hidden;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+	text-align: left;
+}
+
+thead {
+	background-color: #007bff;
+	color: #fff;
+}
+
+th, td {
+	padding: 15px 20px;
+	border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even) {
+	background-color: #f9f9f9;
+}
+
+tr:hover {
+	background-color: #e9f2ff;
+}
+
+td .btn {
+	padding: 5px 12px;
+	font-size: 13px;
+	border-radius: 5px;
+	margin-right: 5px;
+	text-decoration: none;
+	color: #fff;
+	transition: all 0.3s;
+}
+
+.btn-info {
+	background-color: #17a2b8;
+}
+
+	.btn-info:hover {
+		background-color: #138496;
+	}
+
+.btn-warning {
+	background-color: #ffc107;
+	color: #333;
+}
+
+	.btn-warning:hover {
+		background-color: #e0a800;
+	}
+
+.btn-danger {
+	background-color: #dc3545;
+}
+
+.btn-danger:hover
+{
+		background-color: #c82333;
+}
+
+.btn-back-dashboard {
+	display: inline-block;
+	margin: 10px 0 20px 0; 
+	padding: 10px 20px;
+	background-color: #6c757d;
+	color: #fff;
+	text-decoration: none;
+	font-weight: bold;
+	border-radius: 8px;
+	transition: all 0.3s ease;
+	box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+	text-align: center;
+}
+
+.btn-back-dashboard:hover
+{
+		background-color: #5a6268;
+		transform: translateY(-2px);
+		box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+}
+
+
+.container .btn-back-dashboard {
+	display: block;
+	width: max-content;
+	margin-left: auto;
+	margin-right: auto;
+}
+

@@ -16,14 +16,12 @@ namespace WebApplication4.Controllers
             _patientService = patientService;
         }
 
-        // ================= LIST =================
         public async Task<IActionResult> Index()
         {
             var prescriptions = await _prescriptionService.GetAllPrescriptionsAsync();
             return View(prescriptions);
         }
 
-        // ================= DETAILS =================
         public async Task<IActionResult> Details(int id)
         {
             var prescription = await _prescriptionService.GetByIdAsync(id);
@@ -31,7 +29,6 @@ namespace WebApplication4.Controllers
             return View(prescription);
         }
 
-        // ================= CREATE =================
         public async Task<IActionResult> Create()
         {
             var patients = await _patientService.GetAllPatientsAsync();
@@ -45,12 +42,12 @@ namespace WebApplication4.Controllers
         {
             if (!ModelState.IsValid)
             {
-                // إعادة عرض الفورم
+               
                 ViewBag.Patients = new SelectList(await _patientService.GetAllPatientsAsync(), "PatientId", "FullName");
                 return View(dto);
             }
 
-            // ربط الصيدلي الحالي
+           
             dto.PharmacistId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
 
             await _prescriptionService.CreateAsync(dto);
@@ -58,7 +55,6 @@ namespace WebApplication4.Controllers
         }
 
 
-        // ================= EDIT =================
         public async Task<IActionResult> Edit(int id)
         {
             var prescription = await _prescriptionService.GetByIdAsync(id);
@@ -88,7 +84,7 @@ namespace WebApplication4.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // ================= DELETE =================
+        
         public async Task<IActionResult> Delete(int id)
         {
             var prescription = await _prescriptionService.GetByIdAsync(id);

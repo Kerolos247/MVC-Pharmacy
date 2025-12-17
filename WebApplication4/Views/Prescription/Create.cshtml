@@ -1,36 +1,37 @@
-﻿@model WebApplication4.Dto.RequestCreatePrescription
+﻿@{
+    Layout = null;
+}
+
+@model WebApplication4.Dto.RequestCreatePrescription
+
+<link rel="stylesheet" href="~/css/CreatePrescription.css" />
 
 <h1>Create Prescription</h1>
 
-<form asp-action="Create" method="post">
-    <div class="mb-3">
-        <label asp-for="Date"></label>
-        <input asp-for="Date" class="form-control" type="date" />
-        <!-- رسالة الخطأ -->
-        <span asp-validation-for="Date" class="text-danger"></span>
-    </div>
+<div class="form-container">
+    <form asp-action="Create" method="post">
+        <div class="mb-3">
+            <label asp-for="Date"></label>
+            <input asp-for="Date" class="form-control" type="date" />
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
 
-    <div class="mb-3">
-        <label asp-for="PatientId">Patient</label>
-        <select asp-for="PatientId" asp-items="ViewBag.Patients" class="form-select">
-            <option value="">-- Select Patient --</option>
-        </select>
-        <span asp-validation-for="PatientId" class="text-danger"></span>
-    </div>
+        <div class="mb-3">
+            <label asp-for="PatientId">Patient</label>
+            <select asp-for="PatientId" asp-items="ViewBag.Patients" class="form-select">
+                <option value="">-- Select Patient --</option>
+            </select>
+            <span asp-validation-for="PatientId" class="text-danger"></span>
+        </div>
 
-    <div class="mb-3">
-        <label asp-for="Notes"></label>
-        <textarea asp-for="Notes" class="form-control"></textarea>
-        <span asp-validation-for="Notes" class="text-danger"></span>
-    </div>
+        <div class="mb-3">
+            <label asp-for="Notes"></label>
+            <textarea asp-for="Notes" class="form-control"></textarea>
+            <span asp-validation-for="Notes" class="text-danger"></span>
+        </div>
 
-    <input type="hidden" asp-for="PharmacistId" value="@User.Identity.Name" />
+        <input type="hidden" asp-for="PharmacistId" value="@User.Identity.Name" />
 
-    <button type="submit" class="btn btn-success">Create</button>
-</form>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
+        <button type="submit" class="btn btn-success">Create</button>
+    </form>
+</div>

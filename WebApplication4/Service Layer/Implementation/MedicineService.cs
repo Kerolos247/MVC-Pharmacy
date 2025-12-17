@@ -42,14 +42,26 @@ namespace WebApplication4.Service_Layer.Implementation
                 Strength = dto.Strength,
                 Price = dto.Price,
                 CategoryId = dto.CategoryId,
-                SupplierId = dto.supplierId
+                SupplierId = dto.SupplierId
             };
 
             await _context.Medicines.AddAsync(newMedicine);
             await _context.SaveChangesAsync();
 
+            // بعد إضافة الدواء، نضيف سجل Inventory
+            var inventory = new Inventory
+            {
+                MedicineId = newMedicine.MedicineId,
+                Quantity = dto.Quantity,
+                ExpiryDate = dto.ExpiryDate
+            };
+
+            await _context.Inventories.AddAsync(inventory);
+            await _context.SaveChangesAsync();
+
             return newMedicine;
         }
+
 
         public async Task<Medicine?> UpdateAsync(int id, UpdateMedcineDto dto)
         {
@@ -62,7 +74,7 @@ namespace WebApplication4.Service_Layer.Implementation
             if (!string.IsNullOrEmpty(dto.Strength)) medicine.Strength = dto.Strength;
             if (dto.Price.HasValue) medicine.Price = dto.Price.Value;
             if (dto.CategoryId.HasValue) medicine.CategoryId = dto.CategoryId.Value;
-            if (dto.supplierId.HasValue) medicine.SupplierId = dto.supplierId.Value;
+            if (dto.SupplierId.HasValue) medicine.SupplierId = dto.SupplierId.Value;
 
             await _context.SaveChangesAsync();
             return medicine;

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using WebApplication4.Dto;
 using WebApplication4.Service_Layer.Implementation;
 using WebApplication4.Service_Layer.Interface;
@@ -22,14 +23,14 @@ namespace WebApplication4.Controllers
             _supplierService = supplierService;
         }
 
-        // ================= LIST =================
+      
         public async Task<IActionResult> Index()
         {
             var medicines = await _medicineService.GetAllMedicinesAsync();
             return View(medicines);
         }
 
-        // ================= DETAILS =================
+       
         public async Task<IActionResult> Details(int id)
         {
             var medicine = await _medicineService.GetByIdAsync(id);
@@ -37,13 +38,11 @@ namespace WebApplication4.Controllers
             return View(medicine);
         }
 
-        // ================= CREATE =================
         [HttpGet]
         public async Task<IActionResult> Create()
         {
             ViewBag.Categories = new SelectList(await _categoryService.GetAllCategoriesAsync(), "CategoryId", "Name");
             ViewBag.Suppliers = new SelectList(await _supplierService.GetAllSuppliersAsync(), "SupplierId", "Name");
-
             return View();
         }
 
@@ -62,12 +61,16 @@ namespace WebApplication4.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // ================= EDIT =================
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             var medicine = await _medicineService.GetByIdAsync(id);
-            if (medicine == null) return NotFound();
+            if (medicine == null)
+                return NotFound();
+
+            var inventory = medicine.Inventory;
+                        
+
 
             var dto = new UpdateMedcineDto
             {
@@ -77,11 +80,24 @@ namespace WebApplication4.Controllers
                 Strength = medicine.Strength,
                 Price = medicine.Price,
                 CategoryId = medicine.CategoryId,
-                supplierId = medicine.SupplierId
+                SupplierId = medicine.SupplierId,
+                Quantity = inventory?.Quantity,
+                ExpiryDate = inventory?.ExpiryDate
             };
 
-            ViewBag.Categories = new SelectList(await _categoryService.GetAllCategoriesAsync(), "CategoryId", "Name", dto.CategoryId);
-            ViewBag.Suppliers = new SelectList(await _supplierService.GetAllSuppliersAsync(), "SupplierId", "Name", dto.supplierId);
+            ViewBag.Categories = new SelectList(
+                await _categoryService.GetAllCategoriesAsync(),
+                "CategoryId",
+                "Name",
+                dto.CategoryId
+            );
+
+            ViewBag.Suppliers = new SelectList(
+                await _supplierService.GetAllSuppliersAsync(),
+                "SupplierId",
+                "Name",
+                dto.SupplierId
+            );
 
             return View(dto);
         }
@@ -93,7 +109,7 @@ namespace WebApplication4.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.Categories = new SelectList(await _categoryService.GetAllCategoriesAsync(), "CategoryId", "Name", dto.CategoryId);
-                ViewBag.Suppliers = new SelectList(await _supplierService.GetAllSuppliersAsync(), "SupplierId", "Name", dto.supplierId);
+                ViewBag.Suppliers = new SelectList(await _supplierService.GetAllSuppliersAsync(), "SupplierId", "Name", dto.SupplierId);
                 return View(dto);
             }
 
@@ -103,7 +119,6 @@ namespace WebApplication4.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // ================= DELETE =================
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
@@ -116,9 +131,26 @@ namespace WebApplication4.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _medicineService.DeleteAsync(id);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+               
+                await _medicineService.DeleteAsync(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateException ex)
+            {
+               
+                var medicine = await _medicineService.GetByIdAsync(id);
+                if (medicine == null)
+                    return NotFound();
+
+               
+                ViewBag.ErrorMessage = "This cannot be deleted because it contains records related to securities. New inventory must be deleted.";
+
+               
+                return View("Delete", medicine);
+            }
         }
+
     }
 }
-

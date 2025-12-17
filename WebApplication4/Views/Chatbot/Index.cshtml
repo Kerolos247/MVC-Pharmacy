@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Chatbot";
+}
+
+<h2>Chatbot صيدلية</h2>
+
+<div>
+    <input type="text" id="question" placeholder="اسأل عن أي دواء..." style="width: 300px;" />
+    <button onclick="askQuestion()">اسأل</button>
+</div>
+
+<div id="answer" style="margin-top: 20px; font-weight: bold;"></div>
+
+<script>
+    async function askQuestion() {
+        const question = document.getElementById('question').value;
+        if (!question) {
+            alert("من فضلك اكتب السؤال");
+            return;
+        }
+
+        const response = await fetch('/Chatbot/Ask', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ Question: question })
+        });
+
+        if (!response.ok) {
+            alert("حصل خطأ أثناء الاتصال بالسيرفر");
+            return;
+        }
+
+        const data = await response.json();
+        document.getElementById('answer').innerText = data.answer;
+    }
+</script>

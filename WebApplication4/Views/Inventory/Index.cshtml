@@ -1,0 +1,47 @@
+﻿@{
+    Layout = null;
+}
+
+@model IEnumerable<WebApplication4.Dto.InventoryDto>
+
+<h1>Inventory List</h1>
+
+<!-- زر العودة -->
+<a asp-controller="Auth" asp-action="Main" class="btn btn-primary mb-3">
+    Back to Dashboard
+</a>
+
+<link rel="stylesheet" href="~/css/inventory-index.css" />
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Medicine</th>
+            <th>Dosage Form</th>
+            <th>Strength</th>
+            <th>Quantity</th>
+            <th>Expiry Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var inv in Model)
+        {
+            <tr>
+                <td>@inv.MedicineName</td>
+                <td>@inv.DosageForm</td>
+                <td>@inv.Strength</td>
+                <td>@inv.Quantity</td>
+                <td>@inv.ExpiryDate.ToShortDateString()</td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@inv.InventoryId" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

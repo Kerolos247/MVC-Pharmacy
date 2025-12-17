@@ -4,9 +4,9 @@
     {
         public int PrescriptionItemId { get; set; }
 
-        public string Dosage { get; set; }       // 1 tablet
-        public string Frequency { get; set; }    // twice daily
-        public int Duration { get; set; }        // 5 days
+        public string Dosage { get; set; }    
+        public string Frequency { get; set; }   
+        public int Duration { get; set; }      
 
         // FK Medicine
         public int MedicineId { get; set; }

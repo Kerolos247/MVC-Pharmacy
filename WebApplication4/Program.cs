@@ -19,12 +19,15 @@ builder.Services.AddIdentity<Pharmacist, IdentityRole>()
     .AddDefaultTokenProviders()
     .AddDefaultUI();
 
+
+
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IMedicineService, MedicineService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ISupplierService, SupplierService>();
-builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IPatientService, PatientService>();//Di
 builder.Services.AddScoped<IPrescriptionService, PrescriptionService>();
+builder.Services.AddScoped<IInventoryService, InventoryService>();
 
 
 var app = builder.Build();

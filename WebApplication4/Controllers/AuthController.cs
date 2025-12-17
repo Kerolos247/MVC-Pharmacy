@@ -28,7 +28,6 @@ namespace WebApplication4.Controllers
             _prescriptionService= prescriptionService;
         }
 
-        // ---------------- Register ----------------
         [HttpGet]
         public IActionResult Register()
         {
@@ -52,7 +51,6 @@ namespace WebApplication4.Controllers
             return RedirectToAction("Login");
         }
 
-        // ---------------- Login ----------------
         [HttpGet]
         public IActionResult Login()
         {
@@ -76,7 +74,6 @@ namespace WebApplication4.Controllers
             return RedirectToAction("Main");
         }
 
-        // ---------------- Main / Dashboard ----------------
         [HttpGet]
         public async Task<IActionResult> Main()
         {
@@ -91,7 +88,6 @@ namespace WebApplication4.Controllers
             return View(model);
         }
 
-        // ---------------- Logout ----------------
         public async Task<IActionResult> Logout()
         {
             await _authService.LogoutAsync();

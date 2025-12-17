@@ -1,0 +1,131 @@
+﻿
+body {
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #eef1f6, #dbe7ff);
+    padding: 40px 20px;
+    margin: 0;
+}
+
+
+h1 {
+    font-weight: 800;
+    font-size: 36px;
+    text-align: center;
+    color: #0d6efd;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+}
+
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 25px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    transition: 0.3s ease-in-out;
+}
+
+form:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+}
+
+
+.form-control {
+    height: 50px;
+    border-radius: 15px;
+    padding: 0 15px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 8px rgba(13,110,253,0.3);
+    outline: none;
+}
+
+
+label {
+    font-weight: 600;
+    font-size: 16px;
+    color: #333;
+}
+
+.text-danger {
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+}
+
+.btn-success {
+    width: 100%;
+    height: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 15px;
+    transition: 0.3s;
+    background: linear-gradient(90deg, #0d6efd, #0056d6);
+    border: none;
+    color: #fff;
+}
+
+.btn-success:hover {
+    background: linear-gradient(90deg, #0056d6, #0a58ca);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+}
+
+select.form-control {
+    background: #f8f9fa;
+    cursor: pointer;
+}
+
+select.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 8px rgba(13,110,253,0.3);
+}
+
+@media (max-width: 768px) {
+    form {
+        padding: 30px;
+    }
+
+    h1 {
+        font-size: 32px;
+        margin-bottom: 30px;
+    }
+
+    .form-control {
+        height: 45px;
+        font-size: 15px;
+    }
+
+    .btn-success {
+        font-size: 16px;
+        height: 45px;
+    }
+}
+
+@media (max-width: 480px) {
+    form {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .form-control {
+        font-size: 14px;
+        height: 40px;
+    }
+
+    .btn-success {
+        font-size: 15px;
+        height: 42px;
+    }
+}

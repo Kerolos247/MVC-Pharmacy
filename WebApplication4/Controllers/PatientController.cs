@@ -13,14 +13,12 @@ namespace WebApplication4.Controllers
             _patientService = patientService;
         }
 
-        // ================= LIST =================
         public async Task<IActionResult> Index()
         {
             var patients = await _patientService.GetAllPatientsAsync();
             return View(patients);
         }
 
-        // ================= DETAILS =================
         public async Task<IActionResult> Details(int id)
         {
             var patient = await _patientService.GetByIdAsync(id);
@@ -28,7 +26,6 @@ namespace WebApplication4.Controllers
             return View(patient);
         }
 
-        // ================= CREATE =================
         public IActionResult Create()
         {
             return View();
@@ -38,13 +35,13 @@ namespace WebApplication4.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(RequestCreatePatient dto)
         {
-            if (!ModelState.IsValid) return View(dto);
+            if (!ModelState.IsValid)
+                return View(dto);
 
             await _patientService.CreateAsync(dto);
             return RedirectToAction(nameof(Index));
         }
 
-        // ================= EDIT =================
         public async Task<IActionResult> Edit(int id)
         {
             var patient = await _patientService.GetByIdAsync(id);
@@ -72,7 +69,7 @@ namespace WebApplication4.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // ================= DELETE =================
+       
         public async Task<IActionResult> Delete(int id)
         {
             var patient = await _patientService.GetByIdAsync(id);

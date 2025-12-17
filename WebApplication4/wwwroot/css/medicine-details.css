@@ -1,0 +1,135 @@
+﻿body {
+	font-family: "Segoe UI", sans-serif;
+	background-color: #eef1f6;
+	padding: 30px;
+	margin: 0;
+}
+
+h1 {
+	font-weight: 700;
+	font-size: 32px;
+	color: #0d6efd;
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.details-table {
+	width: 100%;
+	max-width: 700px;
+	margin: 0 auto 30px auto;
+	border-collapse: collapse;
+	background-color: #ffffff;
+	border-radius: 20px;
+	overflow: hidden;
+	box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+}
+
+	.details-table th,
+	.details-table td {
+		padding: 15px 20px;
+		text-align: left;
+		font-size: 16px;
+		border-bottom: 1px solid #f0f0f0;
+	}
+
+	.details-table th {
+		background-color: #0d6efd;
+		color: #fff;
+		font-weight: 600;
+		width: 200px;
+	}
+
+	.details-table tr:last-child td {
+		border-bottom: none;
+	}
+
+.details-buttons {
+	text-align: center;
+	margin-top: 20px;
+}
+
+	.details-buttons .btn {
+		border-radius: 12px;
+		padding: 10px 20px;
+		font-weight: 600;
+		font-size: 15px;
+		margin: 5px;
+		transition: 0.25s;
+	}
+
+		.details-buttons .btn:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+		}
+
+.btn-warning {
+	background-color: #ffc107;
+	border-color: #ffc107;
+	color: #212529;
+}
+
+	.btn-warning:hover {
+		background-color: #e0a800;
+		border-color: #d39e00;
+	}
+
+.btn-secondary {
+	background-color: #6c757d;
+	border-color: #6c757d;
+	color: #fff;
+}
+
+	.btn-secondary:hover {
+		background-color: #5a6268;
+		border-color: #545b62;
+	}
+
+.btn-danger {
+	background-color: #dc3545;
+	border-color: #dc3545;
+	color: #fff;
+}
+
+	.btn-danger:hover {
+		background-color: #c82333;
+		border-color: #bd2130;
+	}
+
+
+@media (max-width: 768px) {
+	h1 {
+		font-size: 28px;
+	}
+
+	.details-table th,
+	.details-table td {
+		padding: 12px 15px;
+		font-size: 14px;
+	}
+
+	.details-buttons .btn {
+		width: 100%;
+		margin-bottom: 10px;
+	}
+}
+
+@media (max-width: 480px) {
+	.details-table th,
+	.details-table td {
+		display: block;
+		width: 100%;
+		text-align: left;
+	}
+
+	.details-table th {
+		background-color: transparent;
+		color: #0d6efd;
+		font-size: 14px;
+		margin-top: 10px;
+	}
+
+	.details-table td {
+		margin-bottom: 10px;
+		border-bottom: 1px solid #f0f0f0;
+	}
+}

@@ -8,7 +8,7 @@ namespace WebApplication4.Dto
         {
             if (value is DateTime dateValue)
             {
-                // التاريخ لازم يكون أقل من أو يساوي اليوم
+               
                 return dateValue.Date <= DateTime.Today;
             }
             return false;
