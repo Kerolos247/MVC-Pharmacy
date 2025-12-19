@@ -28,6 +28,7 @@ builder.Services.AddScoped<ISupplierService, SupplierService>();
 builder.Services.AddScoped<IPatientService, PatientService>();//Di
 builder.Services.AddScoped<IPrescriptionService, PrescriptionService>();
 builder.Services.AddScoped<IInventoryService, InventoryService>();
+//builder.Services.AddScoped<IPaymentStrategy,RegularDayStrategy>();
 
 
 var app = builder.Build();

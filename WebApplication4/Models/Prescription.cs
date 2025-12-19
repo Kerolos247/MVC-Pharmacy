@@ -2,6 +2,12 @@
 
 namespace WebApplication4.Models
 {
+    public enum PrescriptionStatus
+    {
+        Unpaid,
+        Paid,
+        Cancelled
+    }
     public class Prescription
     {
         public int PrescriptionId { get; set; }
@@ -20,5 +26,8 @@ namespace WebApplication4.Models
 
         // Items
         public ICollection<PrescriptionItem> PrescriptionItems { get; set; }
+
+        public PrescriptionStatus Status { get; set; } = PrescriptionStatus.Unpaid;
+
     }
 }

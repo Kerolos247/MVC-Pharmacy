@@ -6,9 +6,17 @@ namespace WebApplication4.Service_Layer.Interface
     public interface IPatientService
     {
         Task<Patient?> GetByIdAsync(int id);
+
+        
         Task<List<Patient>> GetAllPatientsAsync();
-        Task<Patient> CreateAsync(RequestCreatePatient patient);
-        Task<Patient?> UpdateAsync(int id, UpdatePatientDto patient);
+
+       
+        Task<Patient> CreateAsync(RequestCreatePatient dto);
+
+       
+        Task<Patient?> UpdateAsync(int id, UpdatePatientDto dto);
+
+      
         Task<bool> DeleteAsync(int id);
     }
 }

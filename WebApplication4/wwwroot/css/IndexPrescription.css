@@ -1,4 +1,5 @@
-﻿body {
+﻿
+body {
     font-family: "Segoe UI", sans-serif;
     background-color: #eef1f6;
     padding: 30px;
@@ -10,8 +11,9 @@ h1 {
     font-size: 32px;
     color: #0d6efd;
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 35px; 
 }
+
 
 .mb-3 a.btn,
 .mb-3 button {
@@ -48,6 +50,38 @@ h1 {
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
+.search-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 40px auto 35px auto; 
+}
+
+#searchInput {
+    width: 100%;
+    padding: 12px 45px 12px 15px;
+    border-radius: 12px;
+    border: 1px solid #ced4da;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+}
+
+#searchInput:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 10px rgba(13, 110, 253, 0.3);
+}
+
+.search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #6c757d;
+    pointer-events: none;
+}
+
 .table {
     width: 100%;
     border-radius: 12px;
@@ -78,6 +112,7 @@ h1 {
     background-color: #e2ebff;
     transition: 0.25s;
 }
+
 
 .btn-sm {
     padding: 5px 10px;
@@ -118,8 +153,7 @@ h1 {
         font-size: 28px;
     }
 
-    .mb-3 a.btn,
-    .mb-3 button {
+    .mb-3 a.btn {
         width: 100%;
         margin-bottom: 10px;
     }
@@ -160,7 +194,6 @@ h1 {
         position: absolute;
         left: 15px;
         width: 45%;
-        padding-left: 15px;
         font-weight: 600;
         text-align: left;
     }
@@ -170,3 +203,20 @@ h1 {
         margin-bottom: 10px;
     }
 }
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+    .btn-success:hover {
+        background-color: #218838;
+        transform: translateY(-2px);
+    }
+

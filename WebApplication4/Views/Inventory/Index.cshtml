@@ -7,7 +7,7 @@
 <h1>Inventory List</h1>
 
 <!-- زر العودة -->
-<a asp-controller="Auth" asp-action="Main" class="btn btn-primary mb-3">
+<a asp-controller="Auth" asp-action="Main" class="btn btn-primary mb-3 btn-back-dashboard">
     Back to Dashboard
 </a>
 
@@ -18,7 +18,13 @@
     <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
 }
 
-<table class="table table-striped">
+<!-- Search Box -->
+<div class="search-wrapper" style="text-align:center; margin:20px 0;">
+    <input type="text" id="searchInput" placeholder="Search inventory by medicine, dosage, strength, quantity, or expiry..."
+           style="padding:10px 15px; width:350px; border-radius:12px; border:1px solid #ccc; font-size:16px;" />
+</div>
+
+<table class="table table-striped" id="inventoryTable">
     <thead>
         <tr>
             <th>Medicine</th>
@@ -45,3 +51,30 @@
         }
     </tbody>
 </table>
+
+<!-- Search Script -->
+<script>
+    const searchInput = document.getElementById("searchInput");
+    const tableRows = document.querySelectorAll("#inventoryTable tbody tr");
+
+    searchInput.addEventListener("keyup", function () {
+        const filter = this.value.toLowerCase();
+
+        tableRows.forEach(row => {
+            const medicine = row.cells[0].innerText.toLowerCase();
+            const dosage = row.cells[1].innerText.toLowerCase();
+            const strength = row.cells[2].innerText.toLowerCase();
+            const quantity = row.cells[3].innerText.toLowerCase();
+            const expiry = row.cells[4].innerText.toLowerCase();
+
+            row.style.display =
+                medicine.includes(filter) ||
+                dosage.includes(filter) ||
+                strength.includes(filter) ||
+                quantity.includes(filter) ||
+                expiry.includes(filter)
+                    ? ""
+                    : "none";
+        });
+    });
+</script>

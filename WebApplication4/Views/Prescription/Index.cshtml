@@ -2,23 +2,52 @@
     Layout = null;
 }
 
-
 @model IEnumerable<WebApplication4.Models.Prescription>
 
 <h1>Prescriptions</h1>
 
-<div class="mb-3">
+@if (TempData["SuccessMessage"] != null)
+{
+    <script>alert('@TempData["SuccessMessage"]');</script>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <script>alert('@TempData["ErrorMessage"]');</script>
+}
+@if (ViewBag.Message != null)
+{
+    <script>alert('@ViewBag.Message');</script>
+}
+@if (TempData["TotalCost"] != null)
+{
+    <script>
+        alert('Total Cost: @TempData["TotalCost"]');
+    </script>
+}
+
+
+<!-- Buttons Above Table -->
+<div class="mb-3 text-center">
     <a asp-action="Create" class="btn btn-primary">Add New Prescription</a>
-    <!-- زرار للرجوع للـ dashboard -->
     <a href="/auth/main" class="btn btn-secondary">Back to Dashboard</a>
 </div>
+
+<!-- Search Input -->
+<div class="mb-3 search-container">
+    <input type="text" id="searchInput" class="form-control" placeholder="Search by patient, date, or notes..." />
+    <span class="search-icon">🔍</span>
+</div>
+
 <link rel="stylesheet" href="~/css/IndexPrescription.css" />
-<table class="table table-striped">
+
+<table class="table table-striped" id="presTable">
     <thead>
         <tr>
             <th>Date</th>
             <th>Patient</th>
             <th>Notes</th>
+            <th>Status</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -30,11 +59,46 @@
                 <td>@pres.Patient.FullName</td>
                 <td>@pres.Notes</td>
                 <td>
+                    @switch (pres.Status)
+                    {
+                        case WebApplication4.Models.PrescriptionStatus.Unpaid:
+                            <span class="badge bg-warning text-dark">Unpaid</span>
+                            break;
+                        case WebApplication4.Models.PrescriptionStatus.Paid:
+                            <span class="badge bg-success">Paid</span>
+                            break;
+                        case WebApplication4.Models.PrescriptionStatus.Cancelled:
+                            <span class="badge bg-danger">Cancelled</span>
+                            break;
+                    }
+                </td>
+                <td>
                     <a asp-action="Details" asp-route-id="@pres.PrescriptionId" class="btn btn-sm btn-info">Details</a>
                     <a asp-action="Edit" asp-route-id="@pres.PrescriptionId" class="btn btn-sm btn-warning">Edit</a>
                     <a asp-action="Delete" asp-route-id="@pres.PrescriptionId" class="btn btn-sm btn-danger">Delete</a>
+                    <form asp-action="Pay" method="post" style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@pres.PrescriptionId" />
+                        <button type="submit" class="btn btn-sm btn-success" @(pres.Status == WebApplication4.Models.PrescriptionStatus.Paid ? "disabled title='Already Paid'" : "")>Pay</button>
+                    </form>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<script>
+    window.onload = function() {
+        const searchInput = document.getElementById("searchInput");
+        const table = document.getElementById("presTable");
+        const rows = Array.from(table.getElementsByTagName("tr")).slice(1);
+
+        searchInput.addEventListener("input", function() {
+            const query = this.value.toLowerCase();
+            rows.forEach(row => {
+                const cells = Array.from(row.getElementsByTagName("td")).slice(0, 3);
+                row.style.display = cells.some(cell => cell.innerText.toLowerCase().includes(query)) ? "" : "none";
+            });
+        });
+    };
+</script>

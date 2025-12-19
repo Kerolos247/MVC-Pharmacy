@@ -10,5 +10,8 @@ namespace WebApplication4.Service_Layer.Interface
         Task<Prescription> CreateAsync(RequestCreatePrescription dto);
         Task<Prescription?> UpdateAsync(int id, UpdatePrescriptionDto dto);
         Task<bool> DeleteAsync(int id);
+
+        Task<ResponseCostDto> PayAsync(int id,IPaymentStrategy payment);
+
     }
-}
+}  

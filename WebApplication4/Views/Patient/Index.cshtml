@@ -2,19 +2,26 @@
     Layout = null;
 }
 
-
 @model IEnumerable<WebApplication4.Models.Patient>
 
 <link rel="stylesheet" href="~/css/IndexPatients.css" />
 
 <h1>Patients</h1>
 
+<!-- Top Buttons -->
 <div class="top-buttons">
     <a asp-action="Create" class="btn btn-primary">Add New Patient</a>
     <a asp-controller="Auth" asp-action="Main" class="btn btn-secondary">Back to Dashboard</a>
 </div>
 
-<table class="table table-striped">
+<!-- Search Box -->
+<div class="search-wrapper" style="text-align:center; margin:25px 0;">
+    <input type="text" id="searchInput" placeholder="Search patients by name, phone, or address..."
+           style="padding:10px 15px; width:300px; border-radius:12px; border:1px solid #ccc; font-size:16px;" />
+</div>
+
+<!-- Patients Table -->
+<table class="table table-striped" id="patientsTable">
     <thead>
         <tr>
             <th>Full Name</th>
@@ -39,3 +46,26 @@
         }
     </tbody>
 </table>
+
+<!-- Search Script -->
+<script>
+    const searchInput = document.getElementById("searchInput");
+    const tableRows = document.querySelectorAll("#patientsTable tbody tr");
+
+    searchInput.addEventListener("keyup", function () {
+        const filter = this.value.toLowerCase();
+
+        tableRows.forEach(row => {
+            const fullName = row.cells[0].innerText.toLowerCase();
+            const phone = row.cells[1].innerText.toLowerCase();
+            const address = row.cells[2].innerText.toLowerCase();
+
+            row.style.display =
+                fullName.includes(filter) ||
+                phone.includes(filter) ||
+                address.includes(filter)
+                    ? ""
+                    : "none";
+        });
+    });
+</script>

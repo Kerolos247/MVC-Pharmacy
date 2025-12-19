@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure;
+using Microsoft.EntityFrameworkCore;
 using WebApplication4.DB;
 using WebApplication4.Dto;
 using WebApplication4.Models;
@@ -9,7 +10,7 @@ namespace WebApplication4.Service_Layer.Implementation
     public class PrescriptionService :IPrescriptionService
     {
         private readonly ApplicationDbContext _context;
-
+ 
         public PrescriptionService(ApplicationDbContext context)
         {
             _context = context;
@@ -68,5 +69,43 @@ namespace WebApplication4.Service_Layer.Implementation
             await _context.SaveChangesAsync();
             return true;
         }
+        public async Task<ResponseCostDto> PayAsync(int id, IPaymentStrategy payment)
+        {
+            var prescription = await _context.Prescriptions.FindAsync(id);
+            if (prescription == null)
+                return new ResponseCostDto{ Cost = 0, operation = false };
+
+            var notesList = prescription.Notes.Split(',').Select(n => n.Trim()).ToList();
+            var medicines = await _context.Medicines
+                                          .Where(m => notesList.Contains(m.Name))
+                                          .ToListAsync();
+
+            foreach (var note in notesList)
+            {
+                var medcine = medicines.FirstOrDefault(m => m.Name == note);
+                if (medcine == null)
+                    return new ResponseCostDto { Cost = 0, operation = false };
+
+                var inventoryItem = await _context.Inventories.FirstOrDefaultAsync(i => i.MedicineId == medcine.MedicineId);
+                if (inventoryItem?.Quantity > 0)
+                {
+                    inventoryItem.Quantity -= 1;
+                }
+                else
+                {
+                    return new ResponseCostDto { Cost = 0, operation = false };
+                }
+            }
+            
+            decimal calc = payment.CalculateCost(medicines);
+            prescription.Status = PrescriptionStatus.Paid;
+            await _context.SaveChangesAsync();
+            return new ResponseCostDto { Cost = calc, operation = true };
+        }
+
+
+
+
+
     }
 }

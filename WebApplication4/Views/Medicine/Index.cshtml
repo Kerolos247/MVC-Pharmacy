@@ -4,7 +4,7 @@
 
 @model IEnumerable<WebApplication4.Models.Medicine>
 
-<link rel="stylesheet" href="~/css/Indexmedicines.css" />
+<link rel="stylesheet" href="~/css/IndexMedicines.css" />
 
 <div class="top-buttons">
     <a asp-controller="Auth" asp-action="Main" class="btn btn-secondary">Back to Dashboard</a>
@@ -13,8 +13,14 @@
 
 <h1>Medicines</h1>
 
+<!-- Search Box -->
+<div class="search-wrapper" style="text-align:center; margin:20px 0;">
+    <input type="text" id="searchInput" placeholder="Search medicines by name, description, dosage, strength, or price..."
+           style="padding:10px 15px; width:350px; border-radius:12px; border:1px solid #ccc; font-size:16px;" />
+</div>
 
-<table class="table table-striped">
+<!-- Medicines Table -->
+<table class="table table-striped" id="medicinesTable">
     <thead>
         <tr>
             <th>Name</th>
@@ -43,3 +49,30 @@
         }
     </tbody>
 </table>
+
+<!-- Search Script -->
+<script>
+    const searchInput = document.getElementById("searchInput");
+    const tableRows = document.querySelectorAll("#medicinesTable tbody tr");
+
+    searchInput.addEventListener("keyup", function () {
+        const filter = this.value.toLowerCase();
+
+        tableRows.forEach(row => {
+            const name = row.cells[0].innerText.toLowerCase();
+            const description = row.cells[1].innerText.toLowerCase();
+            const dosage = row.cells[2].innerText.toLowerCase();
+            const strength = row.cells[3].innerText.toLowerCase();
+            const price = row.cells[4].innerText.toLowerCase();
+
+            row.style.display =
+                name.includes(filter) ||
+                description.includes(filter) ||
+                dosage.includes(filter) ||
+                strength.includes(filter) ||
+                price.includes(filter)
+                    ? ""
+                    : "none";
+        });
+    });
+</script>
