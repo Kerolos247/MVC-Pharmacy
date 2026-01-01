@@ -133,8 +133,10 @@ namespace WebApplication4.Controllers
         {
             try
             {
-               
-                await _medicineService.DeleteAsync(id);
+                var medcine = await _medicineService.DeleteAsync(id);
+                if(!medcine)
+                    return View("Cannot_Delete");
+                
                 return RedirectToAction(nameof(Index));
             }
             catch (DbUpdateException ex)
@@ -144,11 +146,7 @@ namespace WebApplication4.Controllers
                 if (medicine == null)
                     return NotFound();
 
-               
-                ViewBag.ErrorMessage = "This cannot be deleted because it contains records related to securities. New inventory must be deleted.";
-
-               
-                return View("Delete", medicine);
+                return NotFound();
             }
         }
 

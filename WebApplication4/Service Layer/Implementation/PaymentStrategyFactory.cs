@@ -13,7 +13,7 @@ namespace WebApplication4.Service_Layer.Implementation
                 return new HolidayStrategy();
 
 
-            if(today.Month==12&&today.Day==19)
+            if(today.Month==1&&today.Day==1)
                 return new Discussion_DR_Raghda();
 
             return new RegularDayStrategy();

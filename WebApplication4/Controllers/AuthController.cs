@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using WebApplication4.Dto;
+using WebApplication4.Models;
 using WebApplication4.Service_Layer.Interface;
 
 namespace WebApplication4.Controllers
@@ -12,22 +14,32 @@ namespace WebApplication4.Controllers
         private readonly IPatientService _patientService;
         private readonly IMedicineService _medicineService;
         private readonly IPrescriptionService _prescriptionService;
+        private readonly IEmailService _emailService;
+        private readonly UserManager<Pharmacist> _userManager;
+        private readonly IConfiguration _configuration;
 
         public AuthController(
             IAuthService authService,
             ICategoryService categoryService,
             ISupplierService supplierService,
             IPatientService patientService,
-            IMedicineService medicineService, IPrescriptionService prescriptionService)
+            IMedicineService medicineService,
+            IPrescriptionService prescriptionService,
+            IEmailService emailService,
+            UserManager<Pharmacist> userManager, IConfiguration configuration)
         {
             _authService = authService;
             _categoryService = categoryService;
             _supplierService = supplierService;
             _patientService = patientService;
             _medicineService = medicineService;
-            _prescriptionService= prescriptionService;
+            _prescriptionService = prescriptionService;
+            _emailService = emailService;
+            _userManager = userManager;
+            _configuration = configuration;
         }
 
+        // ---------------- Register ----------------
         [HttpGet]
         public IActionResult Register()
         {
@@ -51,6 +63,7 @@ namespace WebApplication4.Controllers
             return RedirectToAction("Login");
         }
 
+        // ---------------- Login ----------------
         [HttpGet]
         public IActionResult Login()
         {
@@ -74,6 +87,7 @@ namespace WebApplication4.Controllers
             return RedirectToAction("Main");
         }
 
+        // ---------------- Dashboard ----------------
         [HttpGet]
         public async Task<IActionResult> Main()
         {
@@ -88,10 +102,76 @@ namespace WebApplication4.Controllers
             return View(model);
         }
 
+        // ---------------- Logout ----------------
+        [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await _authService.LogoutAsync();
             return RedirectToAction("Login");
         }
+
+        // ---------------- Forgot Password ----------------
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordDto model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+                return RedirectToAction("ForgotPasswordConfirmation");
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            // استخدام IP او domain صالح
+            var host = _configuration["LocalHost"];
+            var resetLink = $"http://{host}/Auth/ResetPassword?token={Uri.EscapeDataString(token)}&email={model.Email}";
+
+            await _emailService.SendEmailAsync(
+                model.Email,
+                "Reset Password",
+                $"Click <a href='{resetLink}'>here</a> to reset your password."
+            );
+
+            return RedirectToAction("ForgotPasswordConfirmation");
+        }
+
+        [HttpGet]
+        public IActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult ResetPassword(string token, string email)
+        {
+            var model = new ResetPasswordDto { Token = token, Email = email };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordDto model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null) return RedirectToAction("Login");
+
+            var result = await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
+
+            if (result.Succeeded)
+                return RedirectToAction("Login");
+
+            foreach (var error in result.Errors)
+                ModelState.AddModelError("", error.Description);
+
+            return View(model);
+        }
+
     }
 }

@@ -98,5 +98,32 @@ h1 {
         box-shadow: 0 0 0 4px rgba(0,123,255,0.15), 0 10px 28px rgba(0,123,255,0.28);
         transform: translateY(-1px);
     }
+/* الصفوف منخفضة الكمية */
+.low-stock {
+    background-color: #ffcccc; /* أحمر فاتح */
+}
+
+/* الصفوف نفدت الكمية */
+.out-of-stock {
+    background-color: #ff4d4d; /* أحمر غامق */
+    color: #fff; /* نص أبيض للوضوح */
+}
+
+/* نص الحالة */
+.status-text {
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* ممكن تضيف ألوان مختلفة للنصوص حسب الحالة */
+.low-stock .status-text {
+    color: #990000;
+}
+
+.out-of-stock .status-text {
+    color: #fff;
+}
+
 
 

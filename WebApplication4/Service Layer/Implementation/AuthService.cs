@@ -21,6 +21,7 @@ namespace WebApplication4.Service_Layer.Implementation
 
         public async Task<bool> RegisterAsync(PharmacistRegisterDto dto)
         {
+
             var user = new Pharmacist
             {
                 UserName = dto.Email,    

@@ -1,0 +1,45 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Cannot Delete Medicine</title>
+    <link rel="stylesheet" href="~/css/CannotDeleteMedicine.css" />
+</head>
+<body>
+
+    <div class="overlay">
+        <div class="warning-card">
+
+            <div class="icon">🚫</div>
+
+            <h2>Cannot Delete Medicine</h2>
+
+            <p>
+                This medicine <strong>cannot be deleted</strong> because it
+                still exists in the pharmacy inventory.
+            </p>
+
+            <p class="note">
+                Please remove all inventory records related to this medicine first,
+                then you will be able to delete it safely.
+            </p>
+
+            <div class="actions">
+                <a href="/Inventory/Index" class="btn btn-primary">
+                    Go To Inventory
+                </a>
+
+                <a href="/Medicine/Index" class="btn btn-secondary">
+                    Back
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

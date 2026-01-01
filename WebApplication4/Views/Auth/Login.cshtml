@@ -23,6 +23,15 @@
                    placeholder="********" />
             <span asp-validation-for="Password" class="text-danger small"></span>
 
+            <!-- Forgot Password -->
+            <div class="text-end mt-1">
+                <a asp-controller="Auth"
+                   asp-action="ForgotPassword"
+                   class="text-decoration-none small fw-semibold text-primary">
+                    Forgot your password?
+                </a>
+            </div>
+
             <button type="submit" class="btn btn-login mt-3">
                 Login
             </button>

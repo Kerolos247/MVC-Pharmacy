@@ -30,13 +30,15 @@ namespace WebApplication4.Dto
         [Required(ErrorMessage = "SupplierId is required")]
         public int SupplierId { get; set; }
 
-        // Inventory Fields
+        
         [Required(ErrorMessage = "Quantity is required")]
         [Range(1, int.MaxValue, ErrorMessage = "Quantity must be at least 1")]
         public int Quantity { get; set; }
 
         [Required(ErrorMessage = "Expiry date is required")]
         [DataType(DataType.Date)]
+
+        [CheckExpyired]
         public DateTime ExpiryDate { get; set; }
     }
 

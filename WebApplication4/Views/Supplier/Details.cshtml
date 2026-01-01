@@ -1,0 +1,78 @@
+﻿@{
+    Layout = null;
+}
+
+@model WebApplication4.Models.Supplier
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Supplier Details</title>
+    <link rel="stylesheet" href="~/css/SupplierDetails.css" />
+</head>
+<body>
+
+    <div class="page-container">
+
+        <div class="supplier-card">
+            <h2>Supplier Details</h2>
+
+            <div class="info">
+                <div>
+                    <span>ID</span>
+                    <p>@Model.SupplierId</p>
+                </div>
+
+                <div>
+                    <span>Name</span>
+                    <p>@Model.Name</p>
+                </div>
+
+                <div>
+                    <span>Phone</span>
+                    <p>@Model.Phone</p>
+                </div>
+
+                <div>
+                    <span>Email</span>
+                    <p>@Model.Email</p>
+                </div>
+            </div>
+
+            <h3>Medicines</h3>
+
+            @if (Model.Medicines != null && Model.Medicines.Any())
+            {
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Category</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var med in Model.Medicines)
+                        {
+                            <tr>
+                                <td>@med.Name</td>
+                                <td>@med.Price</td>
+                                <td>@med.Inventory.Quantity</td>
+                                <td>@med.Category.Name</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p class="empty">No medicines available.</p>
+            }
+        </div>
+
+    </div>
+
+</body>
+</html>

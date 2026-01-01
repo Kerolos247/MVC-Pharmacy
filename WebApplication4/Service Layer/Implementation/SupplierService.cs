@@ -17,9 +17,15 @@ namespace WebApplication4.Service_Layer.Implementation
 
         public async Task<Supplier?> GetByIdAsync(int id)
         {
-            // Include Medicines if needed
+          
             return await _context.Suppliers
                 .Include(s => s.Medicines)
+                    .ThenInclude(m => m.Inventory)
+
+                .Include(m=>m.Medicines)
+                    .ThenInclude(c => c.Category)
+
+
                 .FirstOrDefaultAsync(s => s.SupplierId == id);
         }
 
@@ -61,7 +67,15 @@ namespace WebApplication4.Service_Layer.Implementation
         public async Task<bool> DeleteAsync(int id)
         {
             var supplier = await _context.Suppliers.FindAsync(id);
-            if (supplier == null) return false;
+
+            var medcine = await _context.Medicines.AnyAsync(m => m.SupplierId == id);
+
+            if(medcine)
+                return false;
+
+
+            if (supplier == null)
+                return false;
 
             _context.Suppliers.Remove(supplier);
             await _context.SaveChangesAsync();

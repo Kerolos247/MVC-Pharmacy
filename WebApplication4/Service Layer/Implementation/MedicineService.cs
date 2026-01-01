@@ -21,13 +21,14 @@ namespace WebApplication4.Service_Layer.Implementation
             return await _context.Medicines
                 .Include(m => m.Category)
                 .Include(m => m.Supplier)
+                .Include(i=>i.Inventory)
                 .FirstOrDefaultAsync(m => m.MedicineId == id);
         }
 
         public async Task<List<Medicine>> GetAllMedicinesAsync()
         {
             return await _context.Medicines
-                .Include(m => m.Category)
+                .Include(c => c.Category)
                 .Include(m => m.Supplier)
                 .ToListAsync();
         }
@@ -48,7 +49,7 @@ namespace WebApplication4.Service_Layer.Implementation
             await _context.Medicines.AddAsync(newMedicine);
             await _context.SaveChangesAsync();
 
-            // بعد إضافة الدواء، نضيف سجل Inventory
+           
             var inventory = new Inventory
             {
                 MedicineId = newMedicine.MedicineId,
@@ -83,7 +84,15 @@ namespace WebApplication4.Service_Layer.Implementation
         public async Task<bool> DeleteAsync(int id)
         {
             var medicine = await _context.Medicines.FindAsync(id);
-            if (medicine == null) return false;
+
+            var Inventory = await _context.Inventories
+                .AnyAsync(i => i.MedicineId == id);
+
+            if (Inventory)
+                return false;
+
+            if (medicine == null)
+                return false;
 
             _context.Medicines.Remove(medicine);
             await _context.SaveChangesAsync();

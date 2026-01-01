@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApplication4.Dto;
+using WebApplication4.Models;
 using WebApplication4.Service_Layer.Interface;
 
 namespace WebApplication4.Controllers
@@ -74,7 +75,8 @@ namespace WebApplication4.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var supplier = await _supplierService.GetByIdAsync(id);
-            if (supplier == null) return NotFound();
+            if (supplier == null)
+                return NotFound();
             return View(supplier);
         }
 
@@ -84,7 +86,8 @@ namespace WebApplication4.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var success = await _supplierService.DeleteAsync(id);
-            if (!success) return NotFound();
+            if (!success) 
+                return View("No_Delete");
             return RedirectToAction(nameof(Index));
         }
     }

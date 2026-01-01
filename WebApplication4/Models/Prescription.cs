@@ -6,7 +6,8 @@ namespace WebApplication4.Models
     {
         Unpaid,
         Paid,
-        Cancelled
+        Cancelled,
+        PickedUp
     }
     public class Prescription
     {

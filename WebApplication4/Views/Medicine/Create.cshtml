@@ -8,42 +8,42 @@
 <link rel="stylesheet" href="~/css/create-medicine.css" />
 
 <form asp-action="Create" method="post">
-    <!-- Name -->
+   
     <div class="mb-3">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
-    <!-- Description -->
+   
     <div class="mb-3">
         <label asp-for="Description"></label>
         <input asp-for="Description" class="form-control" />
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
 
-    <!-- Dosage Form -->
+    
     <div class="mb-3">
         <label asp-for="DosageForm"></label>
         <input asp-for="DosageForm" class="form-control" />
         <span asp-validation-for="DosageForm" class="text-danger"></span>
     </div>
 
-    <!-- Strength -->
+   
     <div class="mb-3">
         <label asp-for="Strength"></label>
         <input asp-for="Strength" class="form-control" />
         <span asp-validation-for="Strength" class="text-danger"></span>
     </div>
 
-    <!-- Price -->
+   
     <div class="mb-3">
         <label asp-for="Price"></label>
         <input asp-for="Price" type="number" step="0.01" class="form-control" />
         <span asp-validation-for="Price" class="text-danger"></span>
     </div>
 
-    <!-- Category Dropdown -->
+   
     <div class="mb-3">
         <label asp-for="CategoryId">Category</label>
         <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories">
@@ -52,7 +52,7 @@
         <span asp-validation-for="CategoryId" class="text-danger"></span>
     </div>
 
-    <!-- Supplier Dropdown -->
+    
     <div class="mb-3">
         <label asp-for="SupplierId">Supplier</label>
         <select asp-for="SupplierId" class="form-control" asp-items="ViewBag.Suppliers">
@@ -61,7 +61,7 @@
         <span asp-validation-for="SupplierId" class="text-danger"></span>
     </div>
 
-    <!-- Inventory Section -->
+    
     <h4>Inventory Details</h4>
     <div class="mb-3">
         <label asp-for="Quantity"></label>

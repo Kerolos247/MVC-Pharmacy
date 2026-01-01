@@ -117,11 +117,14 @@ namespace WebApplication4.Controllers
                 TempData["ErrorMessage"] = "Payment failed. Check inventory or prescription status.";
                 return RedirectToAction("index");
             }
-
+            
             TempData["SuccessMessage"] = "Payment successful!";
             TempData["TotalCost"] = success.Cost.ToString("F2"); 
             return RedirectToAction(nameof(Index));
         }
+       
+
+
 
 
     }

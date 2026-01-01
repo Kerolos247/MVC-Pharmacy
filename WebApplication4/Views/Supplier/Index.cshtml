@@ -10,9 +10,7 @@
     <meta charset="UTF-8">
     <title>Suppliers</title>
     <style>
-        /* ===============================
-                   Buttons & Fancy Search
-                   =============================== */
+        
 
         body {
             font-family: Arial, sans-serif;
@@ -33,7 +31,7 @@
             color: #212529;
         }
 
-        /* ===== Top Action Buttons ===== */
+       
         .top-actions {
             text-align: center;
             margin: 25px 0 20px 0;
@@ -72,7 +70,7 @@
                 box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
             }
 
-        /* ===== Fancy Search ===== */
+       
         .search-wrapper {
             display: flex;
             justify-content: center;
@@ -121,7 +119,7 @@
                 pointer-events: none;
             }
 
-        /* ===== Table ===== */
+       
         table {
             width: 100%;
             border-collapse: collapse;
@@ -153,7 +151,7 @@
                     background-color: #e9ecef;
                 }
 
-            /* Action Buttons inside table */
+           
             table .btn-info,
             table .btn-warning,
             table .btn-danger {
@@ -194,7 +192,7 @@
                 transform: translateY(-2px);
             }
 
-        /* ===== Responsive ===== */
+        
         @@media (max-width: 576px) {
             .search-box
 
@@ -218,13 +216,13 @@
 
         <h1>Suppliers</h1>
 
-        <!-- Top Action Buttons -->
+       
         <div class="top-actions">
             <a asp-action="Create" class="add-button">Add New Supplier</a>
             <a href="/auth/main" class="btn-back-dashboard">Back to Dashboard</a>
         </div>
 
-        <!-- Search Box -->
+      
         <div class="search-wrapper">
             <div class="search-box">
                 <span class="search-icon">🔍</span>
@@ -232,7 +230,7 @@
             </div>
         </div>
 
-        <!-- Suppliers Table -->
+       
         <table id="suppliersTable">
             <thead>
                 <tr>
@@ -261,7 +259,7 @@
 
     </div>
 
-    <!-- Search Script -->
+   
     <script>
         const searchInput = document.getElementById("searchInput");
         const tableRows = document.querySelectorAll("#suppliersTable tbody tr");

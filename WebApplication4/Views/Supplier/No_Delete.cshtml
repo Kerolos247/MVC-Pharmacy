@@ -1,0 +1,45 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Cannot Delete Supplier</title>
+    <link rel="stylesheet" href="~/css/CannotDeleteSupplier.css" />
+</head>
+<body>
+
+    <div class="overlay">
+        <div class="warning-card">
+
+            <div class="icon">⚠</div>
+
+            <h2>Cannot Delete Supplier</h2>
+
+            <p>
+                This supplier <strong>cannot be deleted</strong> because there are
+                medicines linked to it.
+            </p>
+
+            <p class="note">
+                Please delete all medicines supplied by this supplier first
+                to avoid data inconsistency or system errors.
+            </p>
+
+            <div class="actions">
+                <a href="/Medicine/Index" class="btn btn-primary">
+                    Go To Medicines
+                </a>
+
+                <a href="/Supplier/Index" class="btn btn-secondary">
+                    Back
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
