@@ -18,31 +18,63 @@
 	border-radius: 0 25px 25px 0;
 }
 
-	.sidebar h2 {
-		font-size: 28px;
-		font-weight: 800;
-		margin-bottom: 40px;
-	}
+.sidebar h2 {
+	font-size: 28px;
+	font-weight: 800;
+	margin-bottom: 40px;
+}
 
-	.sidebar a {
-		display: flex;
-		align-items: center;
-		gap: 12px;
-		text-decoration: none;
-		font-size: 18px;
-		color: white;
-		padding: 12px 14px;
-		margin-bottom: 15px;
-		border-radius: 10px;
-		transition: 0.25s;
-		font-weight: 500;
-	}
+.sidebar a {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	text-decoration: none;
+	font-size: 18px;
+	color: white;
+	padding: 12px 14px;
+	margin-bottom: 15px;
+	border-radius: 10px;
+	transition: 0.25s;
+	font-weight: 500;
+}
 
-		.sidebar a:hover {
-			background: rgba(255,255,255,0.15);
-			transform: translateX(6px);
-		}
+.sidebar a:hover {
+	background: rgba(255,255,255,0.15);
+	transform: translateX(6px);
+}
 
+/* فشيخة Logout button */
+.sidebar .btn-logout {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	width: 100%;
+	background: linear-gradient(145deg, #ff4e50, #f9d423);
+	color: white;
+	border: none;
+	padding: 12px 14px;
+	margin-bottom: 15px;
+	border-radius: 12px;
+	font-size: 18px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: 0.3s;
+	text-align: left;
+	box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.sidebar .btn-logout span {
+	font-size: 20px; /* الايقونة */
+	transition: 0.3s;
+}
+
+.sidebar .btn-logout:hover {
+	background: linear-gradient(145deg, #f9d423, #ff4e50);
+	transform: translateX(6px) scale(1.05);
+	box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* باقي الـ main content */
 .main-content {
 	margin-left: 300px;
 	padding: 50px;
@@ -69,10 +101,10 @@
 	justify-content: center;
 }
 
-	.dashboard-card:hover {
-		transform: translateY(-8px) scale(1.03);
-		box-shadow: 0 15px 35px rgba(0,0,0,0.12);
-	}
+.dashboard-card:hover {
+	transform: translateY(-8px) scale(1.03);
+	box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
 
 .icon-box {
 	width: 80px;

@@ -18,7 +18,16 @@
         <a href="/Medicine/Index"><span>💊</span> Medicines</a>
         <a href="/Prescription/Index"><span>📄</span> Prescriptions</a>
         <a href="/Supplier/Index"><span>🏭</span> Suppliers</a>
-		<a href="/Auth/Logout"><span>🚪</span> Logout</a>
+        <form asp-controller="Auth" asp-action="Logout" method="post" class="d-inline">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn-logout">
+                <span>🚪</span> Logout
+            </button>
+        </form>
+       
+
+
+
         <a href="/Inventory/Index" class="active"><span>🏠</span>Inventory</a>
     </div>
 
