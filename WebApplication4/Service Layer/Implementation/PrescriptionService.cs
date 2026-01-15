@@ -1,4 +1,6 @@
 ﻿using Azure;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebApplication4.DB;
 using WebApplication4.Dto;
@@ -15,7 +17,7 @@ namespace WebApplication4.Service_Layer.Implementation
         {
             _context = context;
         }
-
+       
         public async Task<Prescription?> GetByIdAsync(int id)
         {
             return await _context.Prescriptions

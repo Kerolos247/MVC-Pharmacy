@@ -16,6 +16,7 @@ namespace WebApplication4.Service_Layer.Implementation
             if(today.Month==1&&today.Day==1)
                 return new Discussion_DR_Raghda();
 
+
             return new RegularDayStrategy();
         }
     }
