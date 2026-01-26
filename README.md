@@ -85,17 +85,3 @@ A full demo video will be shared on **LinkedIn**.
 
 🔗 Demo Link: *(Coming Soon)*
 
----
-
-## 📌 Future Improvements
-- Role-based permissions (Admin / Pharmacist)
-- Sales reports and analytics
-- Inventory forecasting
-- Barcode scanner integration
-
----
-
-## 👨‍⚕️ Author
-Developed by **[Your Name]**
-
-Feel free to connect with me on LinkedIn.
