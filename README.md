@@ -1,7 +1,7 @@
 # Pharmacy Management System
 
 A full-featured **Pharmacy Management System** that simulates real-world pharmacy operations.  
-The system is designed to help pharmacists manage medications, prescriptions, suppliers, and patients efficiently, with strong validation, and real-time alerts.
+The system is designed to help pharmacists manage medications, prescriptions, suppliers, and patients efficiently, with strong validation and real-time alerts.
 
 ---
 
@@ -11,6 +11,7 @@ The system is designed to help pharmacists manage medications, prescriptions, su
 - Secure login system for pharmacists
 - Password reset via email (Forgot Password & Reset Password)
 - Each logged-in pharmacist is linked to all actions performed on the system
+- Single role system (Pharmacist)
 
 ---
 
@@ -64,10 +65,24 @@ All dashboard data is real-time and linked to the currently logged-in pharmacist
 ---
 
 ## 🏗 Architecture
-- **MVC Architecture**
-- **Layered Architecture**
+- MVC Architecture
+- Layered Architecture
 - Clean separation of concerns
 - Scalable and maintainable codebase
+
+---
+
+## 🧩 Design Patterns Used
+
+### 🏭 Factory Pattern
+- Used to simplify and centralize object creation.
+- Improves maintainability by separating instantiation logic from business logic.
+- Makes the system easier to extend when adding new entities.
+
+### 🎯 Strategy Pattern
+- Used to handle multiple discount types dynamically.
+- Allows applying different discount strategies (e.g. holidays, celebrations, special offers) without modifying existing code.
+- Follows the Open/Closed Principle and improves system flexibility.
 
 ---
 
@@ -76,6 +91,7 @@ All dashboard data is real-time and linked to the currently logged-in pharmacist
 - MVC Pattern
 - Entity Framework
 - SQL Server
+- JavaScript (Client-side search & UI enhancements)
 - Email Service for Password Reset
 
 ---
