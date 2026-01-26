@@ -4,7 +4,7 @@ A full-featured Pharmacy Management System that simulates real-world pharmacy op
 The system is designed to help pharmacists manage medications, prescriptions, suppliers, and patients efficiently, with strong validation and real-time alerts.
 
 🚀 Features
-🔐 Authentication & Security
+🔐 Authentication & Security 
 
 Secure login system for pharmacists
 
