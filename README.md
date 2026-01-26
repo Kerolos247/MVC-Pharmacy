@@ -1,18 +1,17 @@
-Pharmacy Management System
+💊 Pharmacy Management System
 
 A full-featured Pharmacy Management System that simulates real-world pharmacy operations.
-The system is designed to help pharmacists manage medications, prescriptions, suppliers, and patients efficiently, with strong validation and real-time alerts.
+Designed to help pharmacists efficiently manage medications, prescriptions, patients, and suppliers, with strong validation and real-time alerts.
 
-🚀 Features
-🔐 Authentication & Security 
+🚀 Key Features
 
-Secure login system for pharmacists
+🔐 Authentication & Security
 
-Password reset via email (Forgot Password & Reset Password)
+Secure login system with password reset (Forgot & Reset Password)
 
-Each logged-in pharmacist is linked to all actions performed on the system
+All actions linked to the logged-in pharmacist
 
-Single role system (Pharmacist)
+Single role: Pharmacist
 
 Built using ASP.NET Identity (IdentityUser) for secure user management
 
@@ -20,116 +19,73 @@ Built using ASP.NET Identity (IdentityUser) for secure user management
 
 Add, update, search, and delete medications
 
-Strong validation (e.g. cannot add expired medications)
+Track expiration dates and prevent expired stock
 
 Alerts for low-stock and nearly-out-of-stock medications
 
-Expiration date tracking
-
 📝 Prescription Management
 
-Add and search prescriptions
+Add, search, and dispense prescriptions
 
-Dispense prescriptions
+Automatic total price calculation
 
-Automatic calculation of total price
+Discounts applied dynamically using Strategy Pattern
 
-Discount handling (holidays, celebrations, special offers)
+Print final bills efficiently using Factory Pattern
 
-Print final bill including discounts
+🤖 Chatbot Feature (Future)
 
-Discounts applied dynamically using Strategy Pattern, printing handled efficiently using Factory Pattern
+AI-powered chatbot to assist pharmacists with quick queries
 
-🤖 Chatbot Feature (in Future)
-
-Integrated AI-powered chatbot to assist pharmacists with quick queries
-
-Provides guidance on medication information, prescription handling, and patient management
+Provides guidance on medications, prescriptions, and patient management
 
 🧑‍🤝‍🧑 Patient Management
 
-Add new patients
-
-Search for patients
-
-Delete patients
+Add, search, and delete patients
 
 🚚 Supplier Management
 
-Add suppliers
-
-Search suppliers
-
-Delete suppliers
+Add, search, and delete suppliers
 
 📊 Dashboard
 
-A dynamic dashboard that displays:
+Displays total patients, medications, suppliers, and prescriptions
 
-Total number of patients
-
-Total number of medications
-
-Total number of suppliers
-
-Total number of prescriptions
-
-All dashboard data is real-time and linked to the currently logged-in pharmacist.
+Real-time data linked to the currently logged-in pharmacist
 
 ⚠️ Smart Alerts & Validation
 
 Warnings for low or nearly finished medications
 
-Prevent adding invalid or expired data
+Prevents invalid or expired data
 
-Strong input validation across the entire system
+Strong input validation across the system
 
-🏗 Architecture
+🏗 Architecture & Tech
 
-MVC Architecture
-
-Layered Architecture
-
-Clean separation of concerns
-
-Scalable and maintainable codebase
+MVC & Layered Architecture for clean separation of concerns
 
 Dependency Injection for better decoupling and maintainability
 
-🧩 Design Patterns Used
-🏭 Factory Pattern
-
-Used to simplify and centralize object creation
-
-Improves maintainability by separating instantiation logic from business logic
-
-Makes the system easier to extend when adding new entities
-
-🎯 Strategy Pattern
-
-Used to handle multiple discount types dynamically
-
-Allows applying different discount strategies (e.g. holidays, celebrations, special offers) without modifying existing code
-
-Follows the Open/Closed Principle and improves system flexibility
-
-🛠 Technologies Used
-
-ASP.NET (.NET)
-
-MVC Pattern
-
-Entity Framework
-
-SQL Server
-
-JavaScript (Client-side search & UI enhancements)
+ASP.NET (.NET), Entity Framework, SQL Server, JavaScript, LINQ
 
 Email Service for Password Reset
 
-ASP.NET Identity (IdentityUser) for secure user management
+🧩 Design Patterns
 
-Dependency Injection
+🏭 Factory Pattern
+
+Centralizes object creation
+
+Improves maintainability
+
+Makes the system easier to extend
+
+🎯 Strategy Pattern
+
+Handles multiple discount types dynamically
+
+Follows Open/Closed Principle for flexibility
 
 🎥 Demo
 
