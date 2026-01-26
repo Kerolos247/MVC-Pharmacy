@@ -31,6 +31,13 @@ The system is designed to help pharmacists manage medications, prescriptions, su
 - Print final bill including discounts
 
 ---
+🤖 Chatbot Feature (in Future)
+
+- Integrated AI-powered chatbot to assist pharmacists with quick queries
+
+- Provides guidance on medication information, prescription handling, and patient management
+
+---
 
 ### 🧑‍🤝‍🧑 Patient Management
 - Add new patients
