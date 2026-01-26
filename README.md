@@ -6,103 +6,103 @@ Designed to help pharmacists efficiently manage medications, prescriptions, pati
 🚀 Features
 🔐 Authentication & Security
 
-Secure login system with password reset (Forgot & Reset Password)
+- Secure login system with password reset (Forgot & Reset Password)
 
-All actions linked to the logged-in pharmacist
+- All actions linked to the logged-in pharmacist
 
-Single role: Pharmacist
+- Single role: Pharmacist
 
-Built using ASP.NET Identity (IdentityUser) for secure user management
+- Built using ASP.NET Identity (IdentityUser) for secure user management
 
 💊 Medication Management
 
-Add, update, search, and delete medications
+- Add, update, search, and delete medications
 
-Track expiration dates and prevent expired stock
+- Track expiration dates and prevent expired stock
 
-Alerts for low-stock and nearly-out-of-stock medications
+- Alerts for low-stock and nearly-out-of-stock medications
 
 📝 Prescription Management
 
-Add, search, and dispense prescriptions
+- Add, search, and dispense prescriptions
 
-Automatic total price calculation
+- Automatic total price calculation
 
-Discounts applied dynamically using Strategy Pattern
+- Discounts applied dynamically using Strategy Pattern
 
-Print final bills efficiently using Factory Pattern
+- Print final bills efficiently using Factory Pattern
 
 🤖 Chatbot Feature (Future)
 
-AI-powered chatbot to assist pharmacists with quick queries
+- AI-powered chatbot to assist pharmacists with quick queries
 
-Provides guidance on medications, prescriptions, and patient management
+- Provides guidance on medications, prescriptions, and patient management
 
 🧑‍🤝‍🧑 Patient Management
 
-Add, search, and delete patients
+- Add, search, and delete patients
 
 🚚 Supplier Management
 
-Add, search, and delete suppliers
+- Add, search, and delete suppliers
 
 📊 Dashboard
 
-Displays total patients, medications, suppliers, and prescriptions
+- Displays total patients, medications, suppliers, and prescriptions
 
-Real-time data linked to the currently logged-in pharmacist
+- Real-time data linked to the currently logged-in pharmacist
 
 ⚠️ Smart Alerts & Validation
 
-Warnings for low or nearly finished medications
+- Warnings for low or nearly finished medications
 
-Prevents invalid or expired data
+- Prevents invalid or expired data
 
-Strong input validation across the system
+- Strong input validation across the system
 
 🛠 Technologies Used
 
-ASP.NET (.NET)
+- ASP.NET (.NET)
 
-MVC Pattern
+- MVC Pattern
 
-Entity Framework
+- Entity Framework
 
-SQL Server
+- SQL Server
 
-JavaScript (Client-side search & UI enhancements)
+- JavaScript (Client-side search & UI enhancements)
 
-LINQ
+- LINQ
 
-Email Service for Password Reset
+- Email Service for Password Reset
 
-ASP.NET Identity (IdentityUser)
+- ASP.NET Identity (IdentityUser)
 
-Dependency Injection
+- Dependency Injection
 
 🏗 Architecture
 
-MVC & Layered Architecture for clean separation of concerns
+- MVC & Layered Architecture for clean separation of concerns
 
-Scalable and maintainable codebase
+- Scalable and maintainable codebase
 
-Dependency Injection for better decoupling and maintainability
+- Dependency Injection for better decoupling and maintainability
 
 🧩 Design Patterns
 
-🏭 Factory Pattern
+ Factory Pattern
 
-Centralizes object creation
+- Centralizes object creation
 
-Improves maintainability
+- Improves maintainability
 
-Makes the system easier to extend
+- Makes the system easier to extend
 
 🎯 Strategy Pattern
 
-Handles multiple discount types dynamically
+- Handles multiple discount types dynamically
 
-Follows Open/Closed Principle for flexibility
+- Follows Open/Closed Principle for flexibility
 
 🎥 Demo
 
