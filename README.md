@@ -3,8 +3,7 @@
 A full-featured Pharmacy Management System that simulates real-world pharmacy operations.
 Designed to help pharmacists efficiently manage medications, prescriptions, patients, and suppliers, with strong validation and real-time alerts.
 
-🚀 Key Features
-
+🚀 Features
 🔐 Authentication & Security
 
 Secure login system with password reset (Forgot & Reset Password)
@@ -61,15 +60,33 @@ Prevents invalid or expired data
 
 Strong input validation across the system
 
-🏗 Architecture & Tech
+🛠 Technologies Used
+
+ASP.NET (.NET)
+
+MVC Pattern
+
+Entity Framework
+
+SQL Server
+
+JavaScript (Client-side search & UI enhancements)
+
+LINQ
+
+Email Service for Password Reset
+
+ASP.NET Identity (IdentityUser)
+
+Dependency Injection
+
+🏗 Architecture
 
 MVC & Layered Architecture for clean separation of concerns
 
+Scalable and maintainable codebase
+
 Dependency Injection for better decoupling and maintainability
-
-ASP.NET (.NET), Entity Framework, SQL Server, JavaScript, LINQ
-
-Email Service for Password Reset
 
 🧩 Design Patterns
 
@@ -90,5 +107,4 @@ Follows Open/Closed Principle for flexibility
 🎥 Demo
 
 A full demo video will be shared on LinkedIn.
-
 🔗 Demo Link: (Coming Soon)
