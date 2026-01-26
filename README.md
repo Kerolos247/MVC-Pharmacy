@@ -123,8 +123,6 @@ Entity Framework
 
 SQL Server
 
-Linq
-
 JavaScript (Client-side search & UI enhancements)
 
 Email Service for Password Reset
