@@ -1,7 +1,7 @@
 # Pharmacy Management System
 
 A full-featured **Pharmacy Management System** that simulates real-world pharmacy operations.  
-The system is designed to help pharmacists manage medications, prescriptions, suppliers, and patients efficiently, with strong validation, role-based access, and real-time alerts.
+The system is designed to help pharmacists manage medications, prescriptions, suppliers, and patients efficiently, with strong validation, and real-time alerts.
 
 ---
 
