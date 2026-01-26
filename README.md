@@ -104,7 +104,6 @@ Designed to help pharmacists efficiently manage medications, prescriptions, pati
 
 - Follows Open/Closed Principle for flexibility
 
-🎥 Demo
+🎥 Demo: Shows pharmacist password reset functionality and workflow
 
-A full demo video will be shared on LinkedIn.
-🔗 Demo Link: (Coming Soon)
+-🔗 Demo Link: https://drive.google.com/file/d/1wDp0H-OAbrGYtAECVJpgPTsHOwm9VT5l/view?usp=drive_link
