@@ -1,110 +1,140 @@
-# Pharmacy Management System
+Pharmacy Management System
 
-A full-featured **Pharmacy Management System** that simulates real-world pharmacy operations.  
+A full-featured Pharmacy Management System that simulates real-world pharmacy operations.
 The system is designed to help pharmacists manage medications, prescriptions, suppliers, and patients efficiently, with strong validation and real-time alerts.
 
----
+🚀 Features
+🔐 Authentication & Security
 
-## 🚀 Features
+Secure login system for pharmacists
 
-### 🔐 Authentication & Security
-- Secure login system for pharmacists
-- Password reset via email (Forgot Password & Reset Password)
-- Each logged-in pharmacist is linked to all actions performed on the system
-- Single role system (Pharmacist)
+Password reset via email (Forgot Password & Reset Password)
 
----
+Each logged-in pharmacist is linked to all actions performed on the system
 
-### 💊 Medication Management
-- Add, update, search, and delete medications
-- Strong validation (e.g. cannot add expired medications)
-- Alerts for low-stock and nearly-out-of-stock medications
-- Expiration date tracking
+Single role system (Pharmacist)
 
----
+Built using ASP.NET Identity (IdentityUser) for secure user management
 
-### 📝 Prescription Management
-- Add and search prescriptions
-- Dispense prescriptions
-- Automatic calculation of total price
-- Discount handling (holidays, celebrations, special offers)
-- Print final bill including discounts
+💊 Medication Management
 
----
+Add, update, search, and delete medications
+
+Strong validation (e.g. cannot add expired medications)
+
+Alerts for low-stock and nearly-out-of-stock medications
+
+Expiration date tracking
+
+📝 Prescription Management
+
+Add and search prescriptions
+
+Dispense prescriptions
+
+Automatic calculation of total price
+
+Discount handling (holidays, celebrations, special offers)
+
+Print final bill including discounts
+
+Discounts applied dynamically using Strategy Pattern, printing handled efficiently using Factory Pattern
+
 🤖 Chatbot Feature (in Future)
 
-- Integrated AI-powered chatbot to assist pharmacists with quick queries
+Integrated AI-powered chatbot to assist pharmacists with quick queries
 
-- Provides guidance on medication information, prescription handling, and patient management
+Provides guidance on medication information, prescription handling, and patient management
 
----
+🧑‍🤝‍🧑 Patient Management
 
-### 🧑‍🤝‍🧑 Patient Management
-- Add new patients
-- Search for patients
-- Delete patients
+Add new patients
 
----
+Search for patients
 
-### 🚚 Supplier Management
-- Add suppliers
-- Search suppliers
-- Delete suppliers
+Delete patients
 
----
+🚚 Supplier Management
 
-### 📊 Dashboard
+Add suppliers
+
+Search suppliers
+
+Delete suppliers
+
+📊 Dashboard
+
 A dynamic dashboard that displays:
-- Total number of patients
-- Total number of medications
-- Total number of suppliers
-- Total number of prescriptions
+
+Total number of patients
+
+Total number of medications
+
+Total number of suppliers
+
+Total number of prescriptions
 
 All dashboard data is real-time and linked to the currently logged-in pharmacist.
 
----
+⚠️ Smart Alerts & Validation
 
-### ⚠️ Smart Alerts & Validation
-- Warnings for low or nearly finished medications
-- Prevent adding invalid or expired data
-- Strong input validation across the entire system
+Warnings for low or nearly finished medications
 
----
+Prevent adding invalid or expired data
 
-## 🏗 Architecture
-- MVC Architecture
-- Layered Architecture
-- Clean separation of concerns
-- Scalable and maintainable codebase
+Strong input validation across the entire system
 
----
+🏗 Architecture
 
-## 🧩 Design Patterns Used
+MVC Architecture
 
-### 🏭 Factory Pattern
-- Used to simplify and centralize object creation.
-- Improves maintainability by separating instantiation logic from business logic.
-- Makes the system easier to extend when adding new entities.
+Layered Architecture
 
-### 🎯 Strategy Pattern
-- Used to handle multiple discount types dynamically.
-- Allows applying different discount strategies (e.g. holidays, celebrations, special offers) without modifying existing code.
-- Follows the Open/Closed Principle and improves system flexibility.
+Clean separation of concerns
 
----
+Scalable and maintainable codebase
 
-## 🛠 Technologies Used
-- ASP.NET (.NET)
-- MVC Pattern
-- Entity Framework
-- SQL Server
-- JavaScript (Client-side search & UI enhancements)
-- Email Service for Password Reset
+Dependency Injection for better decoupling and maintainability
 
----
+🧩 Design Patterns Used
+🏭 Factory Pattern
 
-## 🎥 Demo
-A full demo video will be shared on **LinkedIn**.
+Used to simplify and centralize object creation
 
-🔗 Demo Link: *(Coming Soon)*
+Improves maintainability by separating instantiation logic from business logic
 
+Makes the system easier to extend when adding new entities
+
+🎯 Strategy Pattern
+
+Used to handle multiple discount types dynamically
+
+Allows applying different discount strategies (e.g. holidays, celebrations, special offers) without modifying existing code
+
+Follows the Open/Closed Principle and improves system flexibility
+
+🛠 Technologies Used
+
+ASP.NET (.NET)
+
+MVC Pattern
+
+Entity Framework
+
+SQL Server
+
+Linq
+
+JavaScript (Client-side search & UI enhancements)
+
+Email Service for Password Reset
+
+ASP.NET Identity (IdentityUser) for secure user management
+
+Dependency Injection
+
+🎥 Demo
+
+A full demo video will be shared on LinkedIn.
+
+🔗 Demo Link: (Coming Soon)
