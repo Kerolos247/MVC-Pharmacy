@@ -1,0 +1,154 @@
+﻿:root {
+    --danger: #ef4444;
+    --danger-hover: #dc2626;
+    --bg-dark: #020617;
+    --glass: rgba(255, 255, 255, 0.03);
+    --text-dim: #94a3b8;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg-dark);
+    background-image: radial-gradient(at 0% 0%, rgba(239, 68, 68, 0.07) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(30, 41, 59, 0.1) 0px, transparent 50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.delete-card {
+    width: 100%;
+    max-width: 480px;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(30px);
+    border-radius: 35px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 40px;
+    box-shadow: 0 50px 100px rgba(0,0,0,0.6);
+    text-align: center;
+}
+
+.warning-badge {
+    width: 70px;
+    height: 70px;
+    background: rgba(239, 68, 68, 0.1);
+    border: 2px solid var(--danger);
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    font-size: 32px;
+    color: var(--danger);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+    }
+
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 15px rgba(239, 68, 68, 0);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+    }
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.confirm-text {
+    color: var(--text-dim);
+    font-size: 15px;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+/* ================= PATIENT MINI-FILE ================= */
+.patient-preview {
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 24px;
+    padding: 25px;
+    margin-bottom: 35px;
+    text-align: left;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.data-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+    .data-row:last-child {
+        margin-bottom: 0;
+    }
+
+.label {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.value {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+}
+
+/* ================= BUTTONS ================= */
+.action-group {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    flex: 1;
+    padding: 15px;
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+    text-align: center;
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: white;
+    box-shadow: 0 10px 20px rgba(239, 68, 68, 0.2);
+}
+
+    .btn-danger:hover {
+        background: var(--danger-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 15px 30px rgba(239, 68, 68, 0.3);
+    }
+
+.btn-secondary {
+    background: rgba(255,255,255,0.05);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+    .btn-secondary:hover {
+        background: rgba(255,255,255,0.1);
+    }

@@ -1,33 +1,48 @@
-﻿@{
+﻿@model WebApplication4.Models.Patient
+@{
     Layout = null;
 }
-@model WebApplication4.Models.Patient
 
-<link rel="stylesheet" href="~/css/DeletePatientTable.css" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Pharmacy | Delete Patient</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-<h1>Delete Patient</h1>
+    <link rel="stylesheet" href="~/css/Patient_Delete.css">
+</head>
+<body>
 
-<p style="text-align:center; font-size:16px; color:#555;">Are you sure you want to delete this patient?</p>
+    <div class="delete-card">
+        <div class="warning-badge">⚠️</div>
+        <h1>Remove Patient?</h1>
+        <p class="confirm-text">You are about to delete this patient's profile. This action is irreversible and will remove all associated contact data.</p>
 
-<table class="table-details">
-    <tr>
-        <th>Full Name</th>
-        <td>@Model.FullName</td>
-    </tr>
-    <tr>
-        <th>Phone</th>
-        <td>@Model.Phone</td>
-    </tr>
-    <tr>
-        <th>Address</th>
-        <td>@Model.Address</td>
-    </tr>
-</table>
+        <div class="patient-preview">
+            <div class="data-row">
+                <span class="label">Patient Name</span>
+                <span class="value">@Model.FullName</span>
+            </div>
+            <div class="data-row">
+                <span class="label">Phone Number</span>
+                <span class="value">@Model.Phone</span>
+            </div>
+            <div class="data-row">
+                <span class="label">Registered Address</span>
+                <span class="value">@Model.Address</span>
+            </div>
+        </div>
 
-<div class="button-container">
-    <form asp-action="Delete" method="post" style="display:inline;">
-        <input type="hidden" asp-for="PatientId" />
-        <button type="submit" class="btn btn-danger">Delete</button>
-    </form>
-    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-</div>
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="PatientId" />
+            <div class="action-group">
+                <a asp-action="Index" class="btn btn-secondary">Keep Profile</a>
+                <button type="submit" class="btn btn-danger">Confirm Delete</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

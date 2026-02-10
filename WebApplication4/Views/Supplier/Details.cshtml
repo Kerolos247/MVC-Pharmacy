@@ -1,77 +1,95 @@
-﻿@{
+﻿@model Supplier
+@{
     Layout = null;
 }
 
-@model WebApplication4.Models.Supplier
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title>Supplier Details</title>
-    <link rel="stylesheet" href="~/css/SupplierDetails.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier Profile | @Model.Name</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/Supplier_Details.css">
 </head>
 <body>
 
     <div class="page-container">
-
         <div class="supplier-card">
-            <h2>Supplier Details</h2>
 
-            <div class="info">
-                <div>
-                    <span>ID</span>
-                    <p>@Model.SupplierId</p>
+            <div class="header-section">
+                <h2>Supplier Profile</h2>
+                <div class="status-pill" style="font-size: 10px; background: rgba(34,197,94,0.1); color: #22c55e; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(34,197,94,0.2);">ACTIVE PARTNER</div>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-box">
+                    <span>Reference ID</span>
+                    <p>#@Model.SupplierId</p>
                 </div>
-
-                <div>
-                    <span>Name</span>
+                <div class="info-box">
+                    <span>Company Name</span>
                     <p>@Model.Name</p>
                 </div>
-
-                <div>
-                    <span>Phone</span>
-                    <p>@Model.Phone</p>
+                <div class="info-box">
+                    <span>Direct Phone</span>
+                    <p>📞 @Model.Phone</p>
                 </div>
-
-                <div>
-                    <span>Email</span>
-                    <p>@Model.Email</p>
+                <div class="info-box">
+                    <span>Email Address</span>
+                    <p>📧 @Model.Email</p>
                 </div>
             </div>
 
-            <h3>Medicines</h3>
+            <h3>Linked Inventory</h3>
 
             @if (Model.Medicines != null && Model.Medicines.Any())
             {
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Category</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var med in Model.Medicines)
-                        {
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
                             <tr>
-                                <td>@med.Name</td>
-                                <td>@med.Price</td>
-                                <td>@med.Inventory.Quantity</td>
-                                <td>@med.Category.Name</td>
+                                <th>Medicine Name</th>
+                                <th>Unit Price</th>
+                                <th>In Stock</th>
+                                <th>Category</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var med in Model.Medicines)
+                            {
+                                <tr>
+                                    <td style="font-weight: 600; color: #fff;">@med.Name</td>
+                                    <td>$@med.Price</td>
+                                    <td>
+                                        @* استخدمنا الـ ? للحماية و ?? 0 كقيمة بديلة *@
+                                        <span style="color: @((med.Inventory?.Quantity ?? 0) < 10 ? "#ef4444" : "#22c55e")">
+                                            @(med.Inventory?.Quantity ?? 0) Units
+                                        </span>
+                                    </td>
+                                    <td>
+                                        @* إذا كان القسم غير موجود سيعرض N/A بدلاً من إظهار إيرور *@
+                                        @(med.Category?.Name ?? "N/A")
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             }
             else
             {
-                <p class="empty">No medicines available.</p>
+                <div class="empty-state">
+                    <p>No medicines are currently associated with this supplier.</p>
+                </div>
             }
-        </div>
 
+            <div class="footer-actions">
+                <a href="/Supplier/Index" class="btn btn-back">← Back to Registry</a>
+                <a href="/Supplier/Edit/@Model.SupplierId" class="btn btn-edit">✏️ Edit Profile</a>
+            </div>
+        </div>
     </div>
 
 </body>

@@ -1,33 +1,52 @@
-﻿@{
+﻿@model WebApplication4.Dto.UpdatePrescriptionDto
+@{
     Layout = null;
 }
 
-@model WebApplication4.Dto.UpdatePrescriptionDto
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Pharmacy | Edit Prescription</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="~/css/EditPrescription.css" />
+    <link rel="stylesheet" href="~/css/Prescription_Edit.css">
+</head>
+<body>
 
-<div class="container-center">
-    <h1>Edit Prescription</h1>
-    <form asp-action="Edit" method="post">
-        <input type="hidden" asp-for="PharmacistId" />
-
-        <div class="mb-3">
-            <label asp-for="Date"></label>
-            <input asp-for="Date" class="form-control" type="date" value="@Model.Date?.ToString("yyyy-MM-dd")" />
+    <div class="edit-container">
+        <div class="header">
+            <h1>Edit Prescription</h1>
+            <p>Modify the details for the selected prescription record</p>
         </div>
 
-        <div class="mb-3">
-            <label asp-for="PatientId">Patient</label>
-            <select asp-for="PatientId" asp-items="ViewBag.Patients" class="form-select">
-                <option value="">-- Select Patient --</option>
-            </select>
-        </div>
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="PharmacistId" />
 
-        <div class="mb-3">
-            <label asp-for="Notes"></label>
-            <textarea asp-for="Notes" class="form-control">@Model.Notes</textarea>
-        </div>
+            <div class="form-group">
+                <label asp-for="Date">Issue Date</label>
+                <input asp-for="Date" class="form-control" type="date" value="@Model.Date?.ToString("yyyy-MM-dd")" />
+            </div>
 
-        <button type="submit" class="btn btn-warning">Update</button>
-    </form>
-</div>
+            <div class="form-group">
+                <label asp-for="PatientId">Patient Name</label>
+                <select asp-for="PatientId" asp-items="ViewBag.Patients" class="form-select">
+                    <option value="">-- Choose Patient --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Notes">Clinical Notes</label>
+                <textarea asp-for="Notes" class="form-control" placeholder="Update medical instructions or observations...">@Model.Notes</textarea>
+            </div>
+
+            <div class="actions">
+                <button type="submit" class="btn btn-warning">Save Changes</button>
+                <a asp-action="Index" class="btn btn-cancel">Go Back</a>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

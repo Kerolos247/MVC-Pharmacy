@@ -3,38 +3,41 @@
 }
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Cannot Delete Supplier</title>
-    <link rel="stylesheet" href="~/css/CannotDeleteSupplier.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Action Required | Integrity Check</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/Supplier_NoDelete.css">
 </head>
 <body>
 
     <div class="overlay">
         <div class="warning-card">
 
-            <div class="icon">⚠</div>
+            <div class="icon">⚠️</div>
 
-            <h2>Cannot Delete Supplier</h2>
+            <h2>Dependency Detected</h2>
 
             <p>
-                This supplier <strong>cannot be deleted</strong> because there are
-                medicines linked to it.
+                This supplier <strong>cannot be removed</strong> because there are active
+                medicines currently linked to their profile in the inventory.
             </p>
 
-            <p class="note">
-                Please delete all medicines supplied by this supplier first
-                to avoid data inconsistency or system errors.
-            </p>
+            <div class="note">
+                💡 <b>System Rule:</b> To maintain data integrity, please reassign or delete
+                all medicines associated with this supplier before attempting deletion.
+            </div>
 
             <div class="actions">
                 <a href="/Medicine/Index" class="btn btn-primary">
-                    Go To Medicines
+                    📦 Manage Linked Medicines
                 </a>
 
                 <a href="/Supplier/Index" class="btn btn-secondary">
-                    Back
+                    ↩️ Return to Suppliers
                 </a>
             </div>
 

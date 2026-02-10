@@ -10,14 +10,12 @@ namespace WebApplication4.Controllers
     public class AuthController : Controller
     {
         private readonly IAuthService _authService;
-        private readonly ICategoryService _categoryService;
         private readonly ISupplierService _supplierService;
         private readonly IPatientService _patientService;
         private readonly IMedicineService _medicineService;
         private readonly IPrescriptionService _prescriptionService;
         private readonly IEmailService _emailService;
         private readonly UserManager<Pharmacist> _userManager;
-        private readonly IConfiguration _configuration;
 
         public AuthController(
             IAuthService authService,
@@ -27,18 +25,15 @@ namespace WebApplication4.Controllers
             IMedicineService medicineService,
             IPrescriptionService prescriptionService,
             IEmailService emailService,
-            UserManager<Pharmacist> userManager,
-            IConfiguration configuration)
+            UserManager<Pharmacist> userManager)
         {
             _authService = authService;
-            _categoryService = categoryService;
             _supplierService = supplierService;
             _patientService = patientService;
             _medicineService = medicineService;
             _prescriptionService = prescriptionService;
             _emailService = emailService;
             _userManager = userManager;
-            _configuration = configuration;
         }
 
         // ---------------- Register ----------------
@@ -99,7 +94,7 @@ namespace WebApplication4.Controllers
         public async Task<IActionResult> Logout()
         {
             await _authService.LogoutAsync();
-            return RedirectToAction("Login");
+            return RedirectToAction("Index","Home");
         }
 
         // ---------------- Forgot Password ----------------

@@ -17,21 +17,21 @@ namespace WebApplication4.Service_Layer.Implementation
 
         public async Task<Supplier?> GetByIdAsync(int id)
         {
-          
-            return await _context.Suppliers
+
+            var supplier = await _context.Suppliers
                 .Include(s => s.Medicines)
-                    .ThenInclude(m => m.Inventory)
+                    .ThenInclude(m => m.Inventory) // هذا السطر يحل مشكلة med.Inventory
+                    .Include(s => s.Medicines)
+                    .ThenInclude(m => m.Category)  // هذا السطر يحل مشكلة med.Category
+                      .FirstOrDefaultAsync(s => s.SupplierId == id);
 
-                .Include(m=>m.Medicines)
-                    .ThenInclude(c => c.Category)
 
-
-                .FirstOrDefaultAsync(s => s.SupplierId == id);
+            return supplier;
         }
 
         public async Task<List<Supplier>> GetAllSuppliersAsync()
         {
-            return await _context.Suppliers
+            return await _context.Suppliers.AsNoTracking()
                 .Include(s => s.Medicines)
                 .ToListAsync();
         }

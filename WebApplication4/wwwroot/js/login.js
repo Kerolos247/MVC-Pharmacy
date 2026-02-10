@@ -1,24 +1,22 @@
-﻿console.log("🔥 PRO LEVEL Login page loaded!");
+﻿const charBox = document.getElementById('doctor-ai');
+const passField = document.getElementById('password-field');
+const pupils = document.querySelectorAll('.pupil');
 
-
-document.querySelectorAll('.form-control').forEach(input => {
-    input.addEventListener('focus', () => {
-        input.style.background = 'rgba(25,135,84,0.08)';
-    });
-    input.addEventListener('blur', () => {
-        input.style.background = 'white';
-    });
+document.addEventListener('mousemove', (e) => {
+    if (!charBox.classList.contains('hide-eyes')) {
+        pupils.forEach(pupil => {
+            const rect = pupil.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+            const angle = Math.atan2(e.clientY - y, e.clientX - x);
+            pupil.style.transform = `translate(${Math.cos(angle) * 4.5}px, ${Math.sin(angle) * 4.5}px)`;
+        });
+    }
 });
 
-document.querySelectorAll('.btn-login, .btn-outline-primary').forEach(btn => {
-    btn.addEventListener('click', e => {
-        const ripple = document.createElement('span');
-        ripple.classList.add('ripple');
-        ripple.style.left = e.offsetX + 'px';
-        ripple.style.top = e.offsetY + 'px';
-        btn.appendChild(ripple);
-        setTimeout(() => {
-            ripple.remove();
-        }, 600);
-    });
+passField.addEventListener('focus', () => {
+    charBox.classList.add('hide-eyes');
+    pupils.forEach(p => p.style.transform = 'translate(0,0)');
 });
+
+passField.addEventListener('blur', () => charBox.classList.remove('hide-eyes'));

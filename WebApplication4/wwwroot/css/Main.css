@@ -1,0 +1,236 @@
+﻿:root {
+    --primary: #22c55e;
+    --primary-glow: rgba(34, 197, 94, 0.3);
+    --bg-dark: #020617;
+    --sidebar-bg: #0f172a;
+    --card-bg: rgba(30, 41, 59, 0.7);
+    --text-main: #f8fafc;
+    --text-dim: #94a3b8;
+}
+
+body {
+    background-color: var(--bg-dark);
+    background-image: radial-gradient(at 0% 0%, rgba(34, 197, 94, 0.05) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(15, 118, 110, 0.1) 0px, transparent 50%);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+    width: 260px;
+    background: var(--sidebar-bg);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    position: fixed;
+    height: 100vh;
+    z-index: 100;
+    transition: all 0.3s;
+}
+
+    .sidebar h2 {
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--primary);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 40px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .sidebar h2::before {
+            content: '💊';
+            font-size: 24px;
+        }
+
+    .sidebar a {
+        color: var(--text-dim);
+        text-decoration: none;
+        padding: 12px 15px;
+        border-radius: 12px;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        transition: 0.3s;
+        font-weight: 500;
+    }
+
+        .sidebar a span {
+            font-size: 18px;
+        }
+
+        .sidebar a:hover, .sidebar a.active {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .sidebar a.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+
+.btn-logout {
+    background: rgba(248, 113, 113, 0.1);
+    color: #f87171;
+    border: 1px solid rgba(248, 113, 113, 0.2);
+    padding: 12px 15px;
+    border-radius: 12px;
+    width: 100%;
+    text-align: left;
+    margin-top: auto;
+    transition: 0.3s;
+    font-weight: 600;
+}
+
+    .btn-logout:hover {
+        background: #f87171;
+        color: white;
+    }
+
+/* ================= MAIN CONTENT ================= */
+.main-content {
+    margin-left: 260px;
+    padding: 40px;
+    width: 100%;
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    background: linear-gradient(90deg, #fff, var(--text-dim));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ================= DASHBOARD CARDS ================= */
+.dashboard-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    padding: 25px;
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+    .dashboard-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--primary);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .dashboard-card::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+        opacity: 0;
+        transition: 0.4s;
+    }
+
+    .dashboard-card:hover::after {
+        opacity: 1;
+    }
+
+.icon-box {
+    width: 50px;
+    height: 50px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.dashboard-card h4 {
+    color: var(--text-dim);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.dashboard-card .number {
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.dashboard-card p {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin: 0;
+}
+
+/* Colors for specific cards */
+.card-patients .icon-box {
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.1);
+}
+
+.card-medicines .icon-box {
+    color: #fbbf24;
+    background: rgba(251, 191, 36, 0.1);
+}
+
+.card-suppliers .icon-box {
+    color: #a78bfa;
+    background: rgba(167, 139, 250, 0.1);
+}
+
+.card-prescriptions .icon-box {
+    color: #f472b6;
+    background: rgba(244, 114, 182, 0.1);
+}
+
+/* ================= RESPONSIVE ================= */
+@@media (max-width: 992px) {
+    .sidebar {
+        width: 80px;
+        padding: 15px 10px;
+    }
+
+        .sidebar h2 {
+            display: none;
+        }
+
+        .sidebar a span {
+            margin: 0;
+        }
+
+        .sidebar a {
+            justify-content: center;
+            font-size: 0;
+        }
+
+    .main-content {
+        margin-left: 80px;
+        padding: 20px;
+    }
+}
+
+@@media (max-width: 576px) {
+    .sidebar {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+}

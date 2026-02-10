@@ -1,35 +1,79 @@
 ﻿@model PharmacistRegisterDto
-
-<link rel="stylesheet" href="~/css/register.css" />
-
-<div class="register-card">
-    <h2 class="register-title">Create Account</h2>
-
-    <form asp-action="Register" method="post">
-        @Html.AntiForgeryToken()
-
-        <div class="mb-3">
-            <label class="form-label fw-semibold">Full Name</label>
-            <input asp-for="FullName" class="form-control" placeholder="Enter your full name" />
-            <span asp-validation-for="FullName" class="text-danger small"></span>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label fw-semibold">Email</label>
-            <input asp-for="Email" class="form-control" placeholder="example@mail.com" />
-            <span asp-validation-for="Email" class="text-danger small"></span>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label fw-semibold">Password</label>
-            <input asp-for="Password" type="password" class="form-control" placeholder="********" />
-            <span asp-validation-for="Password" class="text-danger small"></span>
-        </div>
-
-        <button class="btn btn-primary btn-register mt-3">Register</button>
-    </form>
-</div>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+@{
+    Layout = null;
 }
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Pharmacy | Create Account</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/Register.css" />
+</head>
+<body>
+
+    <div class="character-wrapper" id="doctor-ai">
+        <svg class="doctor-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path d="M40,200 L160,200 L152,130 Q100,95 48,130 Z" fill="#ffffff" />
+            <path d="M85,135 L100,160 L115,135" fill="#f1f5f9" />
+            <circle cx="100" cy="82" r="48" fill="#ffdbac" />
+            <g id="eyes">
+                <circle cx="82" cy="85" r="10" fill="white" />
+                <circle cx="118" cy="85" r="10" fill="white" />
+                <circle class="pupil" cx="82" cy="85" r="5" fill="#111" />
+                <circle class="pupil" cx="118" cy="85" r="5" fill="#111" />
+            </g>
+            <path d="M52,70 Q100,20 148,70" fill="none" stroke="#2d1b15" stroke-width="15" stroke-linecap="round" />
+            <g class="hand hand-left">
+                <rect x="25" y="160" width="40" height="35" rx="18" fill="#3b82f6" />
+            </g>
+            <g class="hand hand-right">
+                <rect x="135" y="160" width="40" height="35" rx="18" fill="#3b82f6" />
+            </g>
+        </svg>
+    </div>
+
+    <div class="register-card">
+        <div class="register-header">
+            <h1>Create Account</h1>
+            <p>Join our Pharmacy SaaS network</p>
+        </div>
+
+        <form asp-action="Register" method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input asp-for="FullName" class="form-control" placeholder="Dr. John Doe" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input asp-for="Email" class="form-control" placeholder="example@mail.com" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <input asp-for="Password" id="password-field" type="password" class="form-control" placeholder="••••••••" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn-register">Register Now</button>
+
+            <div class="login-footer">
+                Already have an account? <a asp-action="Login">Sign In</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+   
+    <script src="~/js/Register.js"></script>
+</body>
+</html>

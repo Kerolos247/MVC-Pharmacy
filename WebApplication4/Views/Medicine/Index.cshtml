@@ -1,78 +1,79 @@
-﻿@{
+﻿@model IEnumerable<WebApplication4.Models.Medicine>
+@{
     Layout = null;
 }
 
-@model IEnumerable<WebApplication4.Models.Medicine>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Pharmacy | Medicines Catalog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/Medicine_Main.css">
+</head>
+<body>
 
-<link rel="stylesheet" href="~/css/IndexMedicines.css" />
+    <div class="container">
+        <header class="page-header">
+            <h1>Medicines Catalog</h1>
+            <div class="btn-group">
+                <a asp-controller="Auth" asp-action="Main" class="btn btn-back">
+                    <span>←</span> Dashboard
+                </a>
+                <a asp-action="Create" class="btn btn-add">
+                    <span>+</span> Add Medicine
+                </a>
+            </div>
+        </header>
 
-<div class="top-buttons">
-    <a asp-controller="Auth" asp-action="Main" class="btn btn-secondary">Back to Dashboard</a>
-    <a asp-action="Create" class="btn btn-primary">Add New Medicine</a>
-</div>
+        <div class="search-section">
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" placeholder="Search by name, description, strength..." />
+            </div>
+        </div>
 
-<h1>Medicines</h1>
+        <div class="table-container">
+            <table class="table" id="medicinesTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Dosage Form</th>
+                        <th>Strength</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var med in Model)
+                    {
+                        <tr>
+                            <td data-label="Name">
+                                <span class="medicine-name">@med.Name</span>
+                                <small style="color:var(--text-dim)">@med.Description</small>
+                            </td>
+                            <td data-label="Dosage Form">
+                                <span class="dosage-badge">@med.DosageForm</span>
+                            </td>
+                            <td data-label="Strength">@med.Strength</td>
+                            <td data-label="Price">
+                                <span class="price-tag">@med.Price.ToString("C")</span>
+                            </td>
+                            <td data-label="Actions">
+                                <div class="actions-cell">
+                                    <a asp-action="Details" asp-route-id="@med.MedicineId" class="action-btn btn-details" title="Details">👁</a>
+                                    <a asp-action="Edit" asp-route-id="@med.MedicineId" class="action-btn btn-edit" title="Edit">✏️</a>
+                                    <a asp-action="Delete" asp-route-id="@med.MedicineId" class="action-btn btn-delete" title="Delete">🗑</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 
+    <script src="~/js/Medicine_Main.js"></script>
 
-<div class="search-wrapper" style="text-align:center; margin:20px 0;">
-    <input type="text" id="searchInput" placeholder="Search medicines by name, description, dosage, strength, or price..."
-           style="padding:10px 15px; width:350px; border-radius:12px; border:1px solid #ccc; font-size:16px;" />
-</div>
-
-
-<table class="table table-striped" id="medicinesTable">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Dosage Form</th>
-            <th>Strength</th>
-            <th>Price</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var med in Model)
-        {
-            <tr>
-                <td data-label="Name">@med.Name</td>
-                <td data-label="Description">@med.Description</td>
-                <td data-label="Dosage Form">@med.DosageForm</td>
-                <td data-label="Strength">@med.Strength</td>
-                <td data-label="Price">@med.Price.ToString("C")</td>
-                <td data-label="Actions">
-                    <a asp-action="Details" asp-route-id="@med.MedicineId" class="btn btn-sm btn-info">Details</a>
-                    <a asp-action="Edit" asp-route-id="@med.MedicineId" class="btn btn-sm btn-warning">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@med.MedicineId" class="btn btn-sm btn-danger">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-
-<script>
-    const searchInput = document.getElementById("searchInput");
-    const tableRows = document.querySelectorAll("#medicinesTable tbody tr");
-
-    searchInput.addEventListener("keyup", function () {
-        const filter = this.value.toLowerCase();
-
-        tableRows.forEach(row => {
-            const name = row.cells[0].innerText.toLowerCase();
-            const description = row.cells[1].innerText.toLowerCase();
-            const dosage = row.cells[2].innerText.toLowerCase();
-            const strength = row.cells[3].innerText.toLowerCase();
-            const price = row.cells[4].innerText.toLowerCase();
-
-            row.style.display =
-                name.includes(filter) ||
-                description.includes(filter) ||
-                dosage.includes(filter) ||
-                strength.includes(filter) ||
-                price.includes(filter)
-                    ? ""
-                    : "none";
-        });
-    });
-</script>
+</body>
+</html>

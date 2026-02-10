@@ -3,41 +3,44 @@
 }
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Cannot Delete Medicine</title>
-    <link rel="stylesheet" href="~/css/CannotDeleteMedicine.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Pharmacy | Action Prohibited</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/Medicine_cannot_delete.css">
 </head>
 <body>
 
-    <div class="overlay">
-        <div class="warning-card">
+    <div class="error-card">
+        <div class="icon-container">
+            🚫
+        </div>
 
-            <div class="icon">🚫</div>
+        <h2>Access Denied</h2>
 
-            <h2>Cannot Delete Medicine</h2>
+        <p class="message">
+            This medicine <span class="highlight">cannot be deleted</span> because it is still linked to existing
+            records in your pharmacy inventory.
+        </p>
 
-            <p>
-                This medicine <strong>cannot be deleted</strong> because it
-                still exists in the pharmacy inventory.
-            </p>
+        <div class="instruction-box">
+            To maintain data integrity, please <strong>remove all inventory stock</strong>
+            associated with this item before attempting to delete the medicine profile.
+        </div>
 
-            <p class="note">
-                Please remove all inventory records related to this medicine first,
-                then you will be able to delete it safely.
-            </p>
+        <div class="actions">
+            <a href="/Inventory/Index" class="btn btn-primary">
+                Manage Inventory
+            </a>
+            <a href="/Medicine/Index" class="btn btn-secondary">
+                Return to Catalog
+            </a>
+        </div>
 
-            <div class="actions">
-                <a href="/Inventory/Index" class="btn btn-primary">
-                    Go To Inventory
-                </a>
-
-                <a href="/Medicine/Index" class="btn btn-secondary">
-                    Back
-                </a>
-            </div>
-
+        <div class="footer-note">
+            SaaS PHARMACY SYSTEM • DATA PROTECTION ACTIVE
         </div>
     </div>
 
