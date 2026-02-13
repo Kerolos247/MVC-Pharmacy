@@ -4,8 +4,8 @@ namespace WebApplication4.Application.IServices
 {
     public interface IAuthService
     {
-        Task<bool> RegisterAsync(PharmacistRegisterDto dto);
-        Task<bool> LoginAsync(PharmacistLoginDto dto);
+        Task<AuthResult> RegisterAsync(PharmacistRegisterDto dto);
+        Task<AuthResult> LoginAsync(PharmacistLoginDto dto);
         Task LogoutAsync();
     }
 }

@@ -45,9 +45,9 @@ namespace WebApplication4.Pressention.Controllers
             if (!ModelState.IsValid) return View(dto);
 
             var success = await _authService.RegisterAsync(dto);
-            if (!success)
+            if (!success.Success)
             {
-                ModelState.AddModelError("", "Registration Failed!");
+                ModelState.AddModelError("",success.Message);
                 return View(dto);
             }
 
@@ -60,15 +60,21 @@ namespace WebApplication4.Pressention.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(PharmacistLoginDto dto)
         {
-            if (!ModelState.IsValid) return View(dto);
+            if (!ModelState.IsValid)
+                return View(dto);
 
             var success = await _authService.LoginAsync(dto);
-            if (!success)
+
+            if(!success.Success)
             {
-                ModelState.AddModelError("", "Invalid email or password");
+                ModelState.AddModelError("",success.Message);
                 return View(dto);
             }
-
+            if(success.Message == "Account Is Block")
+            {
+                ModelState.AddModelError("", success.Message);
+                return View(dto);
+            }
             return RedirectToAction("Main");
         }
 

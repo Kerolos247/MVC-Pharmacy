@@ -12,6 +12,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="~/css/Register.css" />
+
+    <style>
+       
+        .error-summary-box {
+            background-color: #fee2e2;
+            border-left: 4px solid #ef4444;
+            color: #b91c1c;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+            .error-summary-box ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+    </style>
 </head>
 <body>
 
@@ -45,6 +65,12 @@
         <form asp-action="Register" method="post">
             @Html.AntiForgeryToken()
 
+            @* عرض أخطاء الـ ModelState فقط هنا *@
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div asp-validation-summary="All" class="error-summary-box"></div>
+            }
+
             <div class="form-group">
                 <label class="form-label">Full Name</label>
                 <input asp-for="FullName" class="form-control" placeholder="Dr. John Doe" />
@@ -73,7 +99,7 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <partial name="_ValidationScriptsPartial" />
-   
+
     <script src="~/js/Register.js"></script>
 </body>
 </html>

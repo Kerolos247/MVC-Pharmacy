@@ -9,8 +9,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SaaS Pharmacy | Professional Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="~/css/Login.css" />
+
+    <style>
+        /* ستايل سريع لعرض أخطاء الـ ModelState بشكل واضح */
+        .error-summary-box {
+            background-color: #fee2e2;
+            border-left: 4px solid #ef4444;
+            color: #b91c1c;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+            .error-summary-box ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+    </style>
 </head>
 <body>
 
@@ -44,6 +63,12 @@
         <form method="post" asp-action="Login">
             @Html.AntiForgeryToken()
 
+            @* عرض أخطاء الـ ModelState هنا *@
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div asp-validation-summary="All" class="error-summary-box"></div>
+            }
+
             <div class="form-group">
                 <input type="email" name="Email" placeholder="Email Address" required>
             </div>
@@ -63,6 +88,7 @@
             </div>
         </form>
     </div>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <partial name="_ValidationScriptsPartial" />
     <script src="~/js/Login.js"></script>
