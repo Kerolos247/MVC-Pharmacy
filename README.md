@@ -113,5 +113,6 @@ Designed to help pharmacists efficiently manage medications, prescriptions, pati
 
  -Follows Open/Closed Principle for flexibility
 
-🎥 Demo: Shows pharmacist password reset functionality and workflow
-🔗 Demo Link
+🎥 Demo Highlight: This project includes a working demo showing how a pharmacist can reset passwords and the workflow involved. It also illustrates how the system notifies the pharmacist in real-time when someone attempts unauthorized access to their account.
+
+🔗 https://drive.google.com/file/d/14wziabgBlKxHNud8WYIalyb1ykSPFlPR/view?usp=sharing
