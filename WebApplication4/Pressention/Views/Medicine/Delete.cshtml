@@ -1,0 +1,62 @@
+﻿@model Medicine
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Pharmacy | Delete Confirmation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/Medicine_Delete.css">
+</head>
+<body>
+
+    <div class="delete-container">
+        <div class="warning-icon">🗑️</div>
+        <h1>Delete Medicine?</h1>
+        <p class="subtitle">This action will permanently remove the record from the system. Please confirm the details below.</p>
+
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="error-msg">
+                ⚠️ @ViewBag.ErrorMessage
+            </div>
+        }
+
+        <div class="item-preview">
+            <div class="preview-row">
+                <span class="label">Medicine Name</span>
+                <span class="value">@Model.Name</span>
+            </div>
+            <div class="preview-row">
+                <span class="label">Form & Strength</span>
+                <span class="value">@Model.DosageForm (@Model.Strength)</span>
+            </div>
+            <div class="preview-row">
+                <span class="label">Category</span>
+                <span class="value">@(Model.Category?.Name ?? "General")</span>
+            </div>
+            <div class="preview-row">
+                <span class="label">Stock Level</span>
+                <span class="value">@(Model.Inventory?.Quantity ?? 0) Units</span>
+            </div>
+            <div class="preview-row">
+                <span class="label">Current Price</span>
+                <span class="value">@Model.Price.ToString("C")</span>
+            </div>
+        </div>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="MedicineId" />
+            <div class="btn-group">
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-danger">Confirm Delete</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

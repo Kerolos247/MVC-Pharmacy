@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Medicine>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Pharmacy | Medicines Catalog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/Medicine_Main.css">
+</head>
+<body>
+
+    <div class="container">
+        <header class="page-header">
+            <h1>Medicines Catalog</h1>
+            <div class="btn-group">
+                <a asp-controller="Auth" asp-action="Main" class="btn btn-back">
+                    <span>←</span> Dashboard
+                </a>
+                <a asp-action="Create" class="btn btn-add">
+                    <span>+</span> Add Medicine
+                </a>
+            </div>
+        </header>
+
+        <div class="search-section">
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" placeholder="Search by name, description, strength..." />
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="table" id="medicinesTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Dosage Form</th>
+                        <th>Strength</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var med in Model)
+                    {
+                        <tr>
+                            <td data-label="Name">
+                                <span class="medicine-name">@med.Name</span>
+                                <small style="color:var(--text-dim)">@med.Description</small>
+                            </td>
+                            <td data-label="Dosage Form">
+                                <span class="dosage-badge">@med.DosageForm</span>
+                            </td>
+                            <td data-label="Strength">@med.Strength</td>
+                            <td data-label="Price">
+                                <span class="price-tag">@med.Price.ToString("C")</span>
+                            </td>
+                            <td data-label="Actions">
+                                <div class="actions-cell">
+                                    <a asp-action="Details" asp-route-id="@med.MedicineId" class="action-btn btn-details" title="Details">👁</a>
+                                    <a asp-action="Edit" asp-route-id="@med.MedicineId" class="action-btn btn-edit" title="Edit">✏️</a>
+                                    <a asp-action="Delete" asp-route-id="@med.MedicineId" class="action-btn btn-delete" title="Delete">🗑</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="~/js/Medicine_Main.js"></script>
+
+</body>
+</html>

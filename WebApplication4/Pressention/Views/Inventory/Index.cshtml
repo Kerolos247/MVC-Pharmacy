@@ -1,0 +1,70 @@
+﻿@model IEnumerable<InventoryDto>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Pharmacy | Inventory Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/InventoryIndex.css" />
+</head>
+<body>
+
+    <div class="container">
+        <div class="top-bar">
+            <h1>Inventory List</h1>
+            <a asp-controller="Auth" asp-action="Main" class="btn-back-dashboard">
+                ← Back to Dashboard
+            </a>
+        </div>
+
+       
+
+        <div class="top-bar">
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" placeholder="Search by medicine, dosage, or status..." />
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="table" id="inventoryTable">
+                <thead>
+                    <tr>
+                        <th>Medicine</th>
+                        <th>Dosage Form</th>
+                        <th>Strength</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
+                        <th>Expiry Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var inv in Model)
+                    {
+                        <tr>
+                            <td style="font-weight: 600;">@inv.MedicineName</td>
+                            <td style="color: var(--text-dim);">@inv.DosageForm</td>
+                            <td>@inv.Strength</td>
+                            <td class="quantity-cell" data-quantity="@inv.Quantity">@inv.Quantity</td>
+                            <td class="status-cell"></td>
+                            <td style="color: var(--text-dim);">@inv.ExpiryDate.ToShortDateString()</td>
+                            <td>
+                                <a asp-action="Delete" asp-route-id="@inv.InventoryId" class="btn-delete">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="~/js/InventoryIndex.js"></script>
+
+</body>
+</html>

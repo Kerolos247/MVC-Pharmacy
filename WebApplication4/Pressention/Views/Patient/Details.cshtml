@@ -1,0 +1,72 @@
+﻿@model Patient
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Pharmacy | Patient Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/Patient_Details.css">
+</head>
+<body>
+
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="avatar-circle">
+                @(Model.FullName.Substring(0, 1).ToUpper())
+            </div>
+            <h1>@Model.FullName</h1>
+            <p>Patient Profile</p>
+        </div>
+
+        <div class="info-list">
+            <div class="info-row">
+                <div class="info-icon">👤</div>
+                <div class="info-content">
+                    <span class="info-label">Full Name</span>
+                    <span class="info-value">@Model.FullName</span>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-icon">📞</div>
+                <div class="info-content">
+                    <span class="info-label">Contact Number</span>
+                    <span class="info-value">@Model.Phone</span>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-icon">📍</div>
+                <div class="info-content">
+                    <span class="info-label">Current Address</span>
+                    <span class="info-value">@Model.Address</span>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-icon">🆔</div>
+                <div class="info-content">
+                    <span class="info-label">System ID</span>
+                    <span class="info-value">#PAT-@Model.PatientId.ToString("D4")</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <a asp-action="Index" class="btn btn-back">
+                <span>←</span> Back to List
+            </a>
+            <a asp-action="Edit" asp-route-id="@Model.PatientId" class="btn btn-edit">
+                <span>✏️</span> Edit Profile
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

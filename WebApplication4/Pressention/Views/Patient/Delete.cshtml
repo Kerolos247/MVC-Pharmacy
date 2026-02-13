@@ -1,0 +1,48 @@
+﻿@model Patient
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Pharmacy | Delete Patient</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/Patient_Delete.css">
+</head>
+<body>
+
+    <div class="delete-card">
+        <div class="warning-badge">⚠️</div>
+        <h1>Remove Patient?</h1>
+        <p class="confirm-text">You are about to delete this patient's profile. This action is irreversible and will remove all associated contact data.</p>
+
+        <div class="patient-preview">
+            <div class="data-row">
+                <span class="label">Patient Name</span>
+                <span class="value">@Model.FullName</span>
+            </div>
+            <div class="data-row">
+                <span class="label">Phone Number</span>
+                <span class="value">@Model.Phone</span>
+            </div>
+            <div class="data-row">
+                <span class="label">Registered Address</span>
+                <span class="value">@Model.Address</span>
+            </div>
+        </div>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="PatientId" />
+            <div class="action-group">
+                <a asp-action="Index" class="btn btn-secondary">Keep Profile</a>
+                <button type="submit" class="btn btn-danger">Confirm Delete</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+﻿@model Supplier
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Pharmacy | Delete Supplier</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/Supplier_Delete.css">
+</head>
+<body>
+
+    <div class="delete-card">
+        <div class="icon-warning">⚠️</div>
+        <h1>Delete Supplier</h1>
+        <p class="warning-text">This action is permanent and cannot be undone.</p>
+
+        <div class="details-list">
+            <div class="detail-item">
+                <span class="label">Name</span>
+                <span class="value">@Model.Name</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Phone</span>
+                <span class="value">@Model.Phone</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Email</span>
+                <span class="value">@Model.Email</span>
+            </div>
+        </div>
+
+        <form asp-action="Delete" method="post" class="actions">
+            <input type="hidden" asp-for="SupplierId" />
+            <button type="submit" class="btn btn-danger">Confirm Deletion</button>
+            <a asp-action="Index" class="btn btn-secondary">Keep Supplier</a>
+        </form>
+    </div>
+
+</body>
+</html>
