@@ -68,7 +68,7 @@ builder.Services.AddScoped<ISupplierRepo, SupplierRepo>();
 builder.Services.AddScoped<IPatientRepo, PatientRepo>();
 builder.Services.AddScoped<IPrescriptionRepo, PrescriptionRepo>();
 builder.Services.AddScoped<IInventoryRepo, InventoryRepo>();
-
+builder.Services.AddScoped<IValidationService,ValidationService>();
 
 var app = builder.Build();
 

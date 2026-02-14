@@ -24,12 +24,12 @@ namespace WebApplication4.Pressention.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var deleted = await _inventoryService.DeleteAsync(id);
-            if (!deleted)
-            {
-                TempData["ErrorMessage"] = "An error occurred while deleting the inventory.";
-                return RedirectToAction(nameof(Index));
-            }
+            var res = await _inventoryService.DeleteAsync(id);
+            if (!res.IsSuccess)
+                TempData["DeleteMessage"] = res.ErrorMessage;
+            else
+                TempData["DeleteMessage"] = "Inventory deleted successfully!";
+          
 
             return RedirectToAction(nameof(Index));
         }

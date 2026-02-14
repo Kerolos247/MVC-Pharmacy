@@ -14,11 +14,11 @@ namespace WebApplication4.Application.Dto
 
         [RegularExpression(@"^(01)[0-9]{9}$",
             ErrorMessage = "Phone number must be a valid Egyptian mobile number")]
-        public string? Phone { get; set; }
+        public string Phone { get; set; }
 
 
         [StringLength(100, ErrorMessage = "Email cannot exceed 100 characters")]
         [EmailAddress(ErrorMessage = "Invalid email address")]
-        public string? Email { get; set; }
+        public string Email { get; set; }
     }
 }

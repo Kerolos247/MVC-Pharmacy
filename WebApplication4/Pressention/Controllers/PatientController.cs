@@ -35,17 +35,24 @@ namespace WebApplication4.Pressention.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(RequestCreatePatient dto)
         {
+            
             if (!ModelState.IsValid)
                 return View(dto);
 
-            await _patientService.CreateAsync(dto);
+            var res =await _patientService.CreateAsync(dto);
+            if(!res.IsSuccess)
+                TempData["CreatedMessage"] = res.ErrorMessage;
+            else
+                TempData["CreatedMessage"] = "Patient created successfully!";
             return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Edit(int id)
         {
             var patient = await _patientService.GetByIdAsync(id);
-            if (patient == null) return NotFound();
+            if (patient == null)
+                return NotFound();
+
 
             var dto = new UpdatePatientDto
             {
@@ -64,8 +71,11 @@ namespace WebApplication4.Pressention.Controllers
             if (!ModelState.IsValid) 
                 return View(dto);
 
-            var updated = await _patientService.UpdateAsync(id, dto);
-            if (updated == null) return NotFound();
+            var res = await _patientService.UpdateAsync(id, dto);
+            if (!res.IsSuccess)
+                TempData["UpdateMessage"] = res.ErrorMessage;
+            else
+                TempData["UpdateMessage"] = "Patient updated successfully!";
 
             return RedirectToAction(nameof(Index));
         }
@@ -73,7 +83,8 @@ namespace WebApplication4.Pressention.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var patient = await _patientService.GetByIdAsync(id);
-            if (patient == null) return NotFound();
+            if (patient == null) 
+                return NotFound();
 
             return View(patient);
         }
@@ -82,7 +93,11 @@ namespace WebApplication4.Pressention.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _patientService.DeleteAsync(id);
+            var res=await _patientService.DeleteAsync(id);
+            if (!res.IsSuccess)
+                TempData["DeleteMessage"] = res.ErrorMessage;
+            else
+                TempData["DeleteMessage"] = "Patient deleted successfully!";
             return RedirectToAction(nameof(Index));
         }
     }

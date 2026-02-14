@@ -54,7 +54,11 @@ namespace WebApplication4.Pressention.Controllers
                 return View(dto);
             }
 
-            await _medicineService.CreateAsync(dto);
+            var res =await _medicineService.CreateAsync(dto);
+            if (!res.IsSuccess)
+                TempData["CreatedMessage"] = res.ErrorMessage;
+            else
+                TempData["CreatedMessage"] = "Medicine created successfully!";
             return RedirectToAction(nameof(Index));
         }
 
@@ -108,8 +112,11 @@ namespace WebApplication4.Pressention.Controllers
                 return View(dto);
             }
 
-            var updated = await _medicineService.UpdateAsync(id, dto);
-            if (updated == null) return NotFound();
+            var res = await _medicineService.UpdateAsync(id, dto);
+            if (!res.IsSuccess)
+                TempData["UpdatedMessage"] = res.ErrorMessage;
+            else
+                TempData["UpdatedMessage"] = "Medicine updated successfully!";
 
             return RedirectToAction(nameof(Index));
         }
@@ -128,9 +135,11 @@ namespace WebApplication4.Pressention.Controllers
         {
             try
             {
-                var medcine = await _medicineService.DeleteAsync(id);
-                if (!medcine)
-                    return View("Cannot_Delete");
+                var res = await _medicineService.DeleteAsync(id);
+                if (!res.IsSuccess)
+                    TempData["DeletedMessage"] = res.ErrorMessage;
+                else
+                    TempData["DeletedMessage"] = "Medicine deleted successfully!";
 
                 return RedirectToAction(nameof(Index));
             }

@@ -12,8 +12,96 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="~/css/InventoryIndex.css" />
+    
+
+    <!-- Toast Message CSS -->
+    <style>
+        /* Toast Notification */
+        .alert-toast {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            min-width: 300px;
+            max-width: 400px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 15px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            z-index: 9999;
+            animation: slideIn 0.5s ease forwards, fadeOut 0.5s ease 4s forwards;
+        }
+
+            .alert-toast.success {
+                border-left: 6px solid #22c55e;
+            }
+
+            .alert-toast.error {
+                border-left: 6px solid #ef4444;
+            }
+
+        .toast-icon {
+            font-size: 22px;
+        }
+
+        .toast-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .toast-label {
+            font-weight: 600;
+            font-size: 14px;
+            color: #111827;
+        }
+
+        .toast-msg {
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 2px;
+        }
+
+        @@keyframes slideIn {
+            from
+
+        {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        }
+
+        @@keyframes fadeOut {
+            to
+
+        {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Delete Message Toast -->
+    @if (!string.IsNullOrEmpty(TempData["DeleteMessage"] as string))
+    {
+        <div class="alert-toast success">
+            <span class="toast-icon">🗑️</span>
+            <div class="toast-content">
+                <span class="toast-label">System Notification</span>
+                <span class="toast-msg">@TempData["DeleteMessage"]</span>
+            </div>
+        </div>
+    }
 
     <div class="container">
         <div class="top-bar">
@@ -22,8 +110,6 @@
                 ← Back to Dashboard
             </a>
         </div>
-
-       
 
         <div class="top-bar">
             <div class="search-wrapper">

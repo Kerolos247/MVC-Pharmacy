@@ -12,42 +12,64 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="~/css/Prescription_Main.css">
+
+
 </head>
 <body>
 
     <div id="toast-container">
-        @if (TempData["TotalCost"] != null)
+        @* Alerts Component *@
+        @{
+            var alertMessages = new Dictionary<string, string?>
+        {
+        { "CreatedMessage", TempData["CreatedMessage"] as string },
+        { "UpdateMessage", TempData["UpdateMessage"] as string },
+        { "DeleteMessage", TempData["DeleteMessage"] as string },
+        { "PaymentMessage", TempData["PaymentMessage"] as string },
+        { "ErrorMessage", TempData["ErrorMessage"] as string },
+        { "TotalCost", TempData["TotalCost"] as string }
+        };
+        }
+
+        @* Total Cost Toast *@
+        @if (!string.IsNullOrEmpty(alertMessages["TotalCost"]))
         {
             <div class="alert-toast success">
                 <span class="toast-icon">💰</span>
                 <div class="toast-content">
                     <span class="toast-label">Invoice Settled</span>
-                    <span class="toast-msg">Total Cost: @TempData["TotalCost"]</span>
+                    <span class="toast-msg">Total Cost: @alertMessages["TotalCost"]</span>
                 </div>
             </div>
         }
 
-        @if (TempData["SuccessMessage"] != null || ViewBag.Message != null)
+        @* General Success/Notification Alerts *@
+        @foreach (var key in new[] { "CreatedMessage", "UpdateMessage", "DeleteMessage", "PaymentMessage" })
         {
-            <div class="alert-toast success">
-                <span class="toast-icon">✅</span>
-                <div class="toast-content">
-                    <span class="toast-label">System Notification</span>
-                    <span class="toast-msg">@(TempData["SuccessMessage"] ?? ViewBag.Message)</span>
+            if (!string.IsNullOrEmpty(alertMessages[key]))
+            {
+                <div class="alert-toast success">
+                    <span class="toast-icon">✅</span>
+                    <div class="toast-content">
+                        <span class="toast-label">System Notification</span>
+                        <span class="toast-msg">@alertMessages[key]</span>
+                    </div>
                 </div>
-            </div>
+            }
         }
 
-        @if (TempData["ErrorMessage"] != null)
+        @* Error Alerts *@
+        @if (!string.IsNullOrEmpty(alertMessages["ErrorMessage"]))
         {
             <div class="alert-toast error">
                 <span class="toast-icon">🚫</span>
                 <div class="toast-content">
                     <span class="toast-label">Process Halted</span>
-                    <span class="toast-msg">@TempData["ErrorMessage"]</span>
+                    <span class="toast-msg">@alertMessages["ErrorMessage"]</span>
                 </div>
             </div>
         }
+
     </div>
 
     <div class="container">

@@ -97,6 +97,13 @@ select.form-control {
     background-size: 15px;
 }
 
+    /* تعديل ظهور الخيارات داخل القائمة المنسدلة */
+    select.form-control option {
+        background-color: white;
+        color: #000; /* لون أسود واضح */
+        padding: 10px;
+    }
+
 .form-control:focus {
     border-color: var(--primary);
     background: rgba(34, 197, 94, 0.05);

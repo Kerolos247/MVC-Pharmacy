@@ -11,8 +11,104 @@
     <title>SaaS Pharmacy | Medicines Catalog</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/Medicine_Main.css">
+   
+
+    <style>
+        /* Toast Messages CSS */
+        .alert-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            min-width: 250px;
+            max-width: 350px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            z-index: 1000;
+            font-family: 'Inter', sans-serif;
+            animation: slideIn 0.5s ease forwards;
+        }
+
+            .alert-toast.success {
+                background-color: #28a745;
+            }
+
+            .alert-toast.error {
+                background-color: #dc3545;
+            }
+
+        .toast-icon {
+            font-size: 20px;
+            margin-right: 12px;
+        }
+
+        .toast-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .toast-label {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .toast-msg {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        @@keyframes slideIn {
+            from
+
+        {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        }
+    </style>
 </head>
 <body>
+
+    @* Messages Toasts *@
+    @if (!string.IsNullOrEmpty(TempData["CreatedMessage"] as string))
+    {
+        <div class="alert-toast success">
+            <span class="toast-icon">✅</span>
+            <div class="toast-content">
+                <span class="toast-label">System Notification</span>
+                <span class="toast-msg">@TempData["CreatedMessage"]</span>
+            </div>
+        </div>
+    }
+    @if (!string.IsNullOrEmpty(TempData["UpdatedMessage"] as string))
+    {
+        <div class="alert-toast success">
+            <span class="toast-icon">✏️</span>
+            <div class="toast-content">
+                <span class="toast-label">System Notification</span>
+                <span class="toast-msg">@TempData["UpdatedMessage"]</span>
+            </div>
+        </div>
+    }
+    @if (!string.IsNullOrEmpty(TempData["DeletedMessage"] as string))
+    {
+        <div class="alert-toast error">
+            <span class="toast-icon">🗑️</span>
+            <div class="toast-content">
+                <span class="toast-label">System Notification</span>
+                <span class="toast-msg">@TempData["DeletedMessage"]</span>
+            </div>
+        </div>
+    }
 
     <div class="container">
         <header class="page-header">

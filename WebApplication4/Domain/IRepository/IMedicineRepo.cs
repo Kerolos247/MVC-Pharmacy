@@ -9,8 +9,8 @@ namespace WebApplication4.Domain.IRepository
 
         Task<Medicine?> GetByIdAsync(int id);
         Task<List<Medicine>> GetAllMedicinesAsync();
-        Task<Medicine> CreateAsync(RequestCreateMedcine medicine);
-        Task<Medicine?> UpdateAsync(int id, UpdateMedcineDto medicine);
-        Task<bool> DeleteAsync(int id);
+        Task<Result<bool>> CreateAsync(RequestCreateMedcine medicine);
+        Task<Result<bool>> UpdateAsync(int id, UpdateMedcineDto medicine);
+        Task<Result<bool>> DeleteAsync(int id);
     }
 }

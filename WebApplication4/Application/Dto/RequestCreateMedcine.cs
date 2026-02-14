@@ -32,7 +32,7 @@ namespace WebApplication4.Application.Dto
 
 
         [Required(ErrorMessage = "Quantity is required")]
-        [Range(1, int.MaxValue, ErrorMessage = "Quantity must be at least 1")]
+        [Range(10, int.MaxValue, ErrorMessage = "Quantity must be at least 10")]
         public int Quantity { get; set; }
 
         [Required(ErrorMessage = "Expiry date is required")]

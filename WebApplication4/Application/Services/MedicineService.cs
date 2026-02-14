@@ -27,19 +27,19 @@ namespace WebApplication4.Application.Services
         }
 
        
-        public async Task<Medicine> CreateAsync(RequestCreateMedcine medicine)
+        public async Task<Result<bool>> CreateAsync(RequestCreateMedcine medicine)
         {
             return await _medicineRepo.CreateAsync(medicine);
         }
 
        
-        public async Task<Medicine?> UpdateAsync(int id, UpdateMedcineDto medicine)
+        public async Task<Result<bool>> UpdateAsync(int id, UpdateMedcineDto medicine)
         {
             return await _medicineRepo.UpdateAsync(id, medicine);
         }
 
       
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<Result<bool>> DeleteAsync(int id)
         {
             return await _medicineRepo.DeleteAsync(id);
         }

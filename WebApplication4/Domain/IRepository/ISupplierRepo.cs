@@ -7,8 +7,8 @@ namespace WebApplication4.Domain.IRepository
     {
         Task<Supplier?> GetByIdAsync(int id);
         Task<List<Supplier>> GetAllSuppliersAsync();
-        Task<Supplier> CreateAsync(RequestCreateSupplier dto);
-        Task<Supplier?> UpdateAsync(int id, UpdateSupplierDto dto);
-        Task<bool> DeleteAsync(int id);
+        Task<Result<bool>> CreateAsync(RequestCreateSupplier dto);
+        Task<Result<bool>> UpdateAsync(int id, UpdateSupplierDto dto);
+        Task<Result<bool>> DeleteAsync(int id);
     }
 }

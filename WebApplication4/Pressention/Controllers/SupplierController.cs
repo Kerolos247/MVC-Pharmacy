@@ -36,16 +36,22 @@ namespace WebApplication4.Pressention.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(RequestCreateSupplier dto)
         {
-            if (!ModelState.IsValid) return View(dto);
+            if (!ModelState.IsValid) 
+                return View(dto);
 
-            await _supplierService.CreateAsync(dto);
+            var res = await _supplierService.CreateAsync(dto);
+            if (!res.IsSuccess)
+                TempData["CreatedMessage"] = res.ErrorMessage;
+            else
+                TempData["CreatedMessage"] = "Supplier created successfully!";
             return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Edit(int id)
         {
             var supplier = await _supplierService.GetByIdAsync(id);
-            if (supplier == null) return NotFound();
+            if (supplier == null)
+                return NotFound();
 
             var dto = new UpdateSupplierDto
             {
@@ -60,10 +66,15 @@ namespace WebApplication4.Pressention.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, UpdateSupplierDto dto)
         {
-            if (!ModelState.IsValid) return View(dto);
+            if (!ModelState.IsValid)
+                return View(dto);
 
-            var updated = await _supplierService.UpdateAsync(id, dto);
-            if (updated == null) return NotFound();
+            var res = await _supplierService.UpdateAsync(id, dto);
+            if (!res.IsSuccess)
+                TempData["UpdateMessage"]=res.ErrorMessage;
+            else
+                TempData["UpdateMessage"] = "Supplier updated successfully!";
+            
 
             return RedirectToAction(nameof(Index));
         }
@@ -80,9 +91,13 @@ namespace WebApplication4.Pressention.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var success = await _supplierService.DeleteAsync(id);
-            if (!success)
+            var res = await _supplierService.DeleteAsync(id);
+            if (!res.IsSuccess)
                 return View("No_Delete");
+            else
+                TempData["DeleteMessage"] = "Supplier deleted successfully!";
+
+
             return RedirectToAction(nameof(Index));
         }
     }

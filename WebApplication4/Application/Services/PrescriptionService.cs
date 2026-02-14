@@ -27,19 +27,19 @@ namespace WebApplication4.Application.Services
         }
 
        
-        public async Task<Prescription> CreateAsync(RequestCreatePrescription dto)
+        public async Task<Result<bool>> CreateAsync(RequestCreatePrescription dto)
         {
             return await _prescriptionRepo.CreateAsync(dto);
         }
 
       
-        public async Task<Prescription?> UpdateAsync(int id, UpdatePrescriptionDto dto)
+        public async Task<Result<bool>> UpdateAsync(int id, UpdatePrescriptionDto dto, string pharmacistId)
         {
-            return await _prescriptionRepo.UpdateAsync(id, dto);
+            return await _prescriptionRepo.UpdateAsync(id, dto,pharmacistId);
         }
 
        
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<Result<bool>> DeleteAsync(int id)
         {
             return await _prescriptionRepo.DeleteAsync(id);
         }

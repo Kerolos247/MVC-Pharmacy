@@ -27,19 +27,19 @@ namespace WebApplication4.Application.Services
         }
 
        
-        public async Task<Supplier> CreateAsync(RequestCreateSupplier dto)
+        public async Task<Result<bool>> CreateAsync(RequestCreateSupplier dto)
         {
             return await _supplierRepo.CreateAsync(dto);
         }
 
        
-        public async Task<Supplier?> UpdateAsync(int id, UpdateSupplierDto dto)
+        public async Task<Result<bool>> UpdateAsync(int id, UpdateSupplierDto dto)
         {
             return await _supplierRepo.UpdateAsync(id, dto);
         }
 
         
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<Result<bool>> DeleteAsync(int id)
         {
             return await _supplierRepo.DeleteAsync(id);
         }

@@ -6,6 +6,6 @@ namespace WebApplication4.Domain.IRepository
     {
         Task<List<InventoryDto>> GetAllInventoriesAsync();
         Task<InventoryDto?> GetByIdAsync(int id);
-        Task<bool> DeleteAsync(int id);
+        Task<Result<bool>> DeleteAsync(int id);
     }
 }

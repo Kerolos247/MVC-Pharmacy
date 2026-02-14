@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebApplication4.Application.Dto;
 using WebApplication4.Application.IServices;
@@ -27,7 +28,8 @@ namespace WebApplication4.Pressention.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var prescription = await _prescriptionService.GetByIdAsync(id);
-            if (prescription == null) return NotFound();
+            if (prescription == null)
+                return NotFound();
             return View(prescription);
         }
 
@@ -48,9 +50,14 @@ namespace WebApplication4.Pressention.Controllers
                 return View(dto);
             }
 
-            dto.PharmacistId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+            dto.PharmacistId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            await _prescriptionService.CreateAsync(dto);
+            var res = await _prescriptionService.CreateAsync(dto);
+            if (!res.IsSuccess)
+                TempData["CreatedMessage"] = "Prescription creation failed!";
+            else
+                TempData["CreatedMessage"] = "Prescription created successfully!";
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -65,6 +72,7 @@ namespace WebApplication4.Pressention.Controllers
                 Notes = prescription.Notes,
                 PatientId = prescription.PatientId
             };
+
             var patients = await _patientService.GetAllPatientsAsync();
             ViewBag.Patients = new SelectList(patients, "PatientId", "FullName", dto.PatientId);
 
@@ -75,11 +83,24 @@ namespace WebApplication4.Pressention.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, UpdatePrescriptionDto dto)
         {
-            if (!ModelState.IsValid) return View(dto);
+            if (!ModelState.IsValid)
+            {
+                return View(dto);
+            }
 
-            var updated = await _prescriptionService.UpdateAsync(id, dto);
-            if (updated == null) return NotFound();
+            var claim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (claim == null)
+                return Unauthorized();
 
+            Result<bool> updated = await _prescriptionService.UpdateAsync(id, dto, claim.Value);
+
+            if (!updated.IsSuccess)
+            {
+                TempData["UpdateMessage"] = updated.ErrorMessage;
+                return View(dto);
+            }
+
+            TempData["UpdateMessage"] = "Prescription updated successfully!";
             return RedirectToAction(nameof(Index));
         }
 
@@ -87,6 +108,8 @@ namespace WebApplication4.Pressention.Controllers
         {
             var prescription = await _prescriptionService.GetByIdAsync(id);
             if (prescription == null) return NotFound();
+
+            TempData["DeleteMessage"] = "Prescription deleted successfully!";
             return View(prescription);
         }
 
@@ -102,17 +125,16 @@ namespace WebApplication4.Pressention.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Pay(int id)
         {
-            var day = DateTime.Today;
             IPayment payment = PaymentFactory.GetStrategy();
             var success = await _prescriptionService.PayAsync(id, payment);
 
             if (!success.operation)
             {
-                TempData["ErrorMessage"] = "Payment failed. Check inventory or prescription status.";
-                return RedirectToAction("index");
+                TempData["PaymentMessage"] = "Payment failed. Check inventory or prescription status.";
+                return RedirectToAction(nameof(Index));
             }
 
-            TempData["SuccessMessage"] = "Payment successful!";
+            TempData["PaymentMessage"] = "Payment successful!";
             TempData["TotalCost"] = success.Cost.ToString("F2");
             return RedirectToAction(nameof(Index));
         }

@@ -7,8 +7,8 @@ namespace WebApplication4.Application.IServices
     {
         Task<List<Patient>> GetAllPatientsAsync();
         Task<Patient?> GetByIdAsync(int id);
-        Task<Patient> CreateAsync(RequestCreatePatient dto);
-        Task<Patient?> UpdateAsync(int id, UpdatePatientDto dto);
-        Task<bool> DeleteAsync(int id);
+        Task<Result<bool>> CreateAsync(RequestCreatePatient dto);
+        Task<Result<bool>> UpdateAsync(int id, UpdatePatientDto dto);
+        Task<Result<bool>> DeleteAsync(int id);
     }
 }

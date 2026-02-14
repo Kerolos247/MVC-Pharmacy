@@ -26,7 +26,7 @@ namespace WebApplication4.Application.Services
         }
 
        
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<Result<bool>> DeleteAsync(int id)
         {
             return await _inventoryRepo.DeleteAsync(id);
         }

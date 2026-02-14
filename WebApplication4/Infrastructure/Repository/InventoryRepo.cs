@@ -16,7 +16,7 @@ namespace WebApplication4.Infrastructure.Repository
 
         public async Task<List<InventoryDto>> GetAllInventoriesAsync()
         {
-            return await _context.Inventories
+            return await _context.Inventories.AsNoTracking()
                 .Include(i => i.Medicine)
                 .Select(i => new InventoryDto
                 {
@@ -34,7 +34,7 @@ namespace WebApplication4.Infrastructure.Repository
 
         public async Task<InventoryDto?> GetByIdAsync(int id)
         {
-            var inv = await _context.Inventories
+            var inv = await _context.Inventories.AsNoTracking()
                 .Include(i => i.Medicine)
                 .FirstOrDefaultAsync(i => i.InventoryId == id);
 
@@ -52,14 +52,15 @@ namespace WebApplication4.Infrastructure.Repository
             };
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<Result<bool>> DeleteAsync(int id)
         {
             var inventory = await _context.Inventories.FindAsync(id);
-            if (inventory == null) return false;
+            if (inventory == null)
+                return Result<bool>.Failure("Not Found Invetory");
 
             _context.Inventories.Remove(inventory);
             await _context.SaveChangesAsync();
-            return true;
+            return Result<bool>.Success(true);
         }
     }
 }
