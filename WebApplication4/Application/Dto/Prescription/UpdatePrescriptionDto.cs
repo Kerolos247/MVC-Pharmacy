@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
-namespace WebApplication4.Application.Dto
+using WebApplication4.Application.Common.Validation;
+namespace WebApplication4.Application.Dto.Prescription
 {
     public class UpdatePrescriptionDto
     {

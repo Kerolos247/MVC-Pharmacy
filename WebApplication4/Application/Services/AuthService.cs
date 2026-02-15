@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using WebApplication4.Application.Dto;
+using WebApplication4.Application.Dto.Auth;
 using WebApplication4.Application.IServices;
 using WebApplication4.Domain.Models;
 

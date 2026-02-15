@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebApplication4.Application.Dto;
+using WebApplication4.Application.Common.Results;
+using WebApplication4.Application.Dto.Supplier;
 using WebApplication4.Application.IServices;
 using WebApplication4.Domain.IRepository;
 using WebApplication4.Domain.Models;

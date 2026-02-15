@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using WebApplication4.Application.Dto;
+using WebApplication4.Application.Dto.Medcine;
 using WebApplication4.Application.IServices;
 
 namespace WebApplication4.Pressention.Controllers

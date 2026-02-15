@@ -1,4 +1,4 @@
-﻿namespace WebApplication4.Application.Dto
+﻿namespace WebApplication4.Application.Common.Results
 {
     public class Result<T>
     {

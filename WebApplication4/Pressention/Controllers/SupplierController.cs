@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApplication4.Application.Dto;
+using WebApplication4.Application.Dto.Supplier;
 using WebApplication4.Application.IServices;
 using WebApplication4.Domain.Models;
 

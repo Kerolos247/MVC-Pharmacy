@@ -1,7 +1,8 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using WebApplication4.Application.Dto;
+using WebApplication4.Application.Common.Results;
+using WebApplication4.Application.Dto.Prescription;
 using WebApplication4.Application.IServices;
 using WebApplication4.Application.Services;
 using WebApplication4.Domain.Models;

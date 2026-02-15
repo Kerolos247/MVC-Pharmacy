@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApplication4.Application.Dto;
+using WebApplication4.Application.Dto.Patient;
 using WebApplication4.Application.IServices;
 
 namespace WebApplication4.Pressention.Controllers

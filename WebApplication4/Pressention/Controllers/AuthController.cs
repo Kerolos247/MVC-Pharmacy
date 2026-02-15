@@ -1,7 +1,8 @@
 ﻿using System.Web;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using WebApplication4.Application.Dto;
+using WebApplication4.Application.Dto.Dashboard;
+using WebApplication4.Application.Dto.Auth;
 using WebApplication4.Application.IServices;
 using WebApplication4.Domain.Models;
 
@@ -18,8 +19,7 @@ namespace WebApplication4.Pressention.Controllers
         private readonly UserManager<Pharmacist> _userManager;
 
         public AuthController(
-            IAuthService authService,
-            ICategoryService categoryService, 
+            IAuthService authService, 
             ISupplierService supplierService,
             IPatientService patientService,
             IMedicineService medicineService,

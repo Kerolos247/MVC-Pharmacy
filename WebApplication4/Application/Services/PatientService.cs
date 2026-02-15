@@ -1,7 +1,8 @@
-﻿using WebApplication4.Application.Dto;
-using WebApplication4.Domain.IRepository;
+﻿using WebApplication4.Domain.IRepository;
 using WebApplication4.Domain.Models;
 using WebApplication4.Application.IServices;
+using WebApplication4.Application.Common.Results;
+using WebApplication4.Application.Dto.Patient;
 
 namespace WebApplication4.Application.Services
 {

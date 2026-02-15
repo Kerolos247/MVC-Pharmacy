@@ -1,4 +1,4 @@
-﻿namespace WebApplication4.Application.Dto
+﻿namespace WebApplication4.Application.Dto.Category
 {
     public class UpdateCategoryDto
     {

@@ -1,4 +1,5 @@
-﻿using WebApplication4.Application.Dto;
+﻿using WebApplication4.Application.Common.Results;
+using WebApplication4.Application.Dto.Inventory;
 
 namespace WebApplication4.Application.IServices
 {

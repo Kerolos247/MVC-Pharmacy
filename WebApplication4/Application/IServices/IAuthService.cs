@@ -1,4 +1,4 @@
-﻿using WebApplication4.Application.Dto;
+﻿using WebApplication4.Application.Dto.Auth;
 
 namespace WebApplication4.Application.IServices
 {
