@@ -15,25 +15,19 @@ namespace WebApplication4.Pressention.Controllers
         private readonly IPatientService _patientService;
         private readonly IMedicineService _medicineService;
         private readonly IPrescriptionService _prescriptionService;
-        private readonly IEmailService _emailService;
-        private readonly UserManager<Pharmacist> _userManager;
 
         public AuthController(
             IAuthService authService, 
             ISupplierService supplierService,
             IPatientService patientService,
             IMedicineService medicineService,
-            IPrescriptionService prescriptionService,
-            IEmailService emailService,
-            UserManager<Pharmacist> userManager)
+            IPrescriptionService prescriptionService)
         {
             _authService = authService;
             _supplierService = supplierService;
             _patientService = patientService;
             _medicineService = medicineService;
             _prescriptionService = prescriptionService;
-            _emailService = emailService;
-            _userManager = userManager;
         }
 
         [HttpGet]
@@ -103,30 +97,12 @@ namespace WebApplication4.Pressention.Controllers
         public IActionResult ForgotPassword() => View();
 
         [HttpPost]
-        public async Task<IActionResult> ForgotPassword(ForgotPasswordDto model)
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordDto model, [FromServices] IAuthService authService)
         {
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user == null)
-                return RedirectToAction("ForgotPasswordConfirmation");
-
-            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-
-            var tokenBytes = System.Text.Encoding.UTF8.GetBytes(token);
-            var encodedToken = Convert.ToBase64String(tokenBytes)
-                                    .Replace("+", "-")
-                                    .Replace("/", "_")
-                                    .Replace("=", "");
-
-            var resetLink = $"https://lynelle-coyish-unfrivolously.ngrok-free.dev/Auth/ResetPassword?token={encodedToken}&email={model.Email}";
-
-            await _emailService.SendEmailAsync(
-                model.Email,
-                "Reset Password",
-                $"Click <a href='{resetLink}'>here</a> to reset your password."
-            );
+            await authService.SendPasswordResetEmailAsync(model.Email);
 
             return RedirectToAction("ForgotPasswordConfirmation");
         }
@@ -153,26 +129,11 @@ namespace WebApplication4.Pressention.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ResetPassword(ResetPasswordDto model)
+        public async Task<IActionResult> ResetPassword(ResetPasswordDto model, [FromServices] IAuthService authService)
         {
             if (!ModelState.IsValid) return View(model);
 
-            var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user == null)
-            {
-                TempData["Error"] = "User not found.";
-                return RedirectToAction("ForgotPassword");
-            }
-
-            var base64Token = model.Token.Replace("-", "+").Replace("_", "/");
-            switch (base64Token.Length % 4)
-            {
-                case 2: base64Token += "=="; break;
-                case 3: base64Token += "="; break;
-            }
-            var decodedToken = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(base64Token));
-
-            var result = await _userManager.ResetPasswordAsync(user, decodedToken, model.Password);
+            var result = await authService.ResetPasswordAsync(model.Email, model.Token, model.Password);
 
             if (result.Succeeded)
             {
@@ -180,10 +141,18 @@ namespace WebApplication4.Pressention.Controllers
                 return RedirectToAction("Login");
             }
 
+            
+            if (result.Errors.Any(e => e.Description == "User not found."))
+            {
+                TempData["Error"] = "User not found.";
+                return RedirectToAction("ForgotPassword");
+            }
+
             foreach (var error in result.Errors)
                 ModelState.AddModelError(string.Empty, error.Description);
 
             return View(model);
         }
+
     }
 }

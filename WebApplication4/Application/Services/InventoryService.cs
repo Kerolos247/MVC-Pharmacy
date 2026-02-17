@@ -7,29 +7,70 @@ namespace WebApplication4.Application.Services
 {
     public class InventoryService : IInventoryService
     {
-        private readonly IInventoryRepo _inventoryRepo;
+        private readonly IUnitOfWork _uow;
 
-        public InventoryService(IInventoryRepo inventoryRepo)
+        public InventoryService(IUnitOfWork uow)
         {
-            _inventoryRepo = inventoryRepo;
+            _uow = uow;
         }
 
-       
+        // Get all inventories (convert Entities → DTO)
         public async Task<List<InventoryDto>> GetAllInventoriesAsync()
         {
-            return await _inventoryRepo.GetAllInventoriesAsync();
+            var inventories = await _uow.Inventories.GetAllAsync();
+
+            return inventories.Select(i => new InventoryDto
+            {
+                InventoryId = i.InventoryId,
+                Quantity = i.Quantity,
+                ExpiryDate = i.ExpiryDate,
+                MedicineId = i.MedicineId,
+                MedicineName = i.Medicine.Name,
+                DosageForm = i.Medicine.DosageForm,
+                Strength = i.Medicine.Strength
+            }).ToList();
         }
 
-       
+        // Get inventory by ID
         public async Task<InventoryDto?> GetByIdAsync(int id)
         {
-            return await _inventoryRepo.GetByIdAsync(id);
+            var inv = await _uow.Inventories.GetByIdAsync(id);
+
+            if (inv == null) return null;
+
+            return new InventoryDto
+            {
+                InventoryId = inv.InventoryId,
+                Quantity = inv.Quantity,
+                ExpiryDate = inv.ExpiryDate,
+                MedicineId = inv.MedicineId,
+                MedicineName = inv.Medicine.Name,
+                DosageForm = inv.Medicine.DosageForm,
+                Strength = inv.Medicine.Strength
+            };
         }
 
-       
+        // Delete inventory
         public async Task<Result<bool>> DeleteAsync(int id)
         {
-            return await _inventoryRepo.DeleteAsync(id);
+            await _uow.BeginTransactionAsync();
+
+            try
+            {
+                var inventory = await _uow.Inventories.GetByIdAsync(id);
+                if (inventory == null)
+                    return Result<bool>.Failure("Inventory not found");
+
+                await _uow.Inventories.DeleteAsync(inventory);
+                await _uow.CommitAsync();
+
+                return Result<bool>.Success(true);
+            }
+            catch
+            {
+                await _uow.RollbackAsync();
+                return Result<bool>.Failure("Failed to delete inventory");
+            }
         }
     }
 }

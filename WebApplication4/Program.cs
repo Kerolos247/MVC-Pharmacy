@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using WebApplication4.Application.Common.Validation;
 using WebApplication4.Application.IServices;
 using WebApplication4.Application.Services;
 using WebApplication4.Domain.IRepository;
@@ -69,6 +70,7 @@ builder.Services.AddScoped<IPatientRepo, PatientRepo>();
 builder.Services.AddScoped<IPrescriptionRepo, PrescriptionRepo>();
 builder.Services.AddScoped<IInventoryRepo, InventoryRepo>();
 builder.Services.AddScoped<IValidationService,ValidationService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 

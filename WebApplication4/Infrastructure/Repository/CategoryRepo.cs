@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebApplication4.Application.Dto.Category;
 using WebApplication4.Domain.IRepository;
 using WebApplication4.Domain.Models;
 using WebApplication4.Infrastructure.DB;
@@ -22,46 +21,29 @@ namespace WebApplication4.Infrastructure.Repository
                 .FirstOrDefaultAsync(c => c.CategoryId == id);
         }
 
-        public async Task<List<Category>> GetAllCategoriesAsync()
+        public async Task<List<Category>> GetAllAsync()
         {
             return await _context.Categories
                 .Include(c => c.Medicines)
+                .AsNoTracking()
                 .ToListAsync();
         }
 
-        public async Task<Category> CreateAsync(RequestCreateCategory dto)
+        public async Task AddAsync(Category category)
         {
-            var category = new Category
-            {
-                Name = dto.Name,
-                Medicines = new List<Medicine>()
-            };
-
             await _context.Categories.AddAsync(category);
-            await _context.SaveChangesAsync();
-            return category;
         }
 
-        public async Task<Category?> UpdateAsync(int id, UpdateCategoryDto dto)
+        public Task UpdateAsync(Category category)
         {
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null) return null;
-
-            if (!string.IsNullOrEmpty(dto.Name))
-                category.Name = dto.Name;
-
-            await _context.SaveChangesAsync();
-            return category;
+            _context.Categories.Update(category);
+            return Task.CompletedTask;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public Task DeleteAsync(Category category)
         {
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null) return false;
-
             _context.Categories.Remove(category);
-            await _context.SaveChangesAsync();
-            return true;
+            return Task.CompletedTask;
         }
     }
 }

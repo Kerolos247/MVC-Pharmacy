@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using WebApplication4.Application.Common.Results;
 using WebApplication4.Application.Dto.Prescription;
 using WebApplication4.Application.IServices;
-using WebApplication4.Application.Services;
+using WebApplication4.Application.Services.PaymentStrategies;
 using WebApplication4.Domain.Models;
 
 namespace WebApplication4.Pressention.Controllers
@@ -129,14 +129,15 @@ namespace WebApplication4.Pressention.Controllers
             IPayment payment = PaymentFactory.GetStrategy();
             var success = await _prescriptionService.PayAsync(id, payment);
 
-            if (!success.operation)
+            if (!success.IsSuccess)
             {
-                TempData["PaymentMessage"] = "Payment failed. Check inventory or prescription status.";
+               
+                TempData["PaymentMessage"] = success.ErrorMessage;
                 return RedirectToAction(nameof(Index));
             }
 
             TempData["PaymentMessage"] = "Payment successful!";
-            TempData["TotalCost"] = success.Cost.ToString("F2");
+            TempData["TotalCost"] = success.Data.Cost.ToString("F2");
             return RedirectToAction(nameof(Index));
         }
     }

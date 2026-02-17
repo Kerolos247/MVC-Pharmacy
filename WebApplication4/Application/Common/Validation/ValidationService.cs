@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebApplication4.Application.IServices;
 using WebApplication4.Infrastructure.DB;
 
-namespace WebApplication4.Application.Services
+namespace WebApplication4.Application.Common.Validation
 {
     public class ValidationService : IValidationService
     {

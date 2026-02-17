@@ -6,15 +6,9 @@ namespace WebApplication4.Domain.IRepository
     public interface ICategoryRepo
     {
         Task<Category?> GetByIdAsync(int id);
-
-        Task<List<Category>> GetAllCategoriesAsync();
-
-        Task<Category> CreateAsync(RequestCreateCategory dto);
-
-       
-        Task<Category?> UpdateAsync(int id, UpdateCategoryDto dto);
-
-       
-        Task<bool> DeleteAsync(int id);
+        Task<List<Category>> GetAllAsync();
+        Task AddAsync(Category category);
+        Task UpdateAsync(Category category);
+        Task DeleteAsync(Category category);
     }
 }

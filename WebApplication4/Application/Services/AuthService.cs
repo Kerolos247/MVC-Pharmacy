@@ -84,6 +84,51 @@ namespace WebApplication4.Application.Services
         {
             await _signInManager.SignOutAsync();
         }
+        public async Task<Pharmacist?> FindUserByEmailAsync(string email)
+        {
+            return await _userManager.FindByEmailAsync(email);
+        }
+
+        public async Task<IdentityResult> ResetPasswordAsync(string email, string token, string newPassword)
+        {
+            var user = await FindUserByEmailAsync(email);
+            if (user == null)
+                return IdentityResult.Failed(new IdentityError { Description = "User not found." });
+
+           
+            var base64Token = token.Replace("-", "+").Replace("_", "/");
+            switch (base64Token.Length % 4)
+            {
+                case 2: base64Token += "=="; break;
+                case 3: base64Token += "="; break;
+            }
+            var decodedToken = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(base64Token));
+
+            return await _userManager.ResetPasswordAsync(user, decodedToken, newPassword);
+        }
+        public async Task SendPasswordResetEmailAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+                return; 
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+          
+            var tokenBytes = System.Text.Encoding.UTF8.GetBytes(token);
+            var encodedToken = Convert.ToBase64String(tokenBytes)
+                                    .Replace("+", "-")
+                                    .Replace("/", "_")
+                                    .Replace("=", "");
+
+            var resetLink = $"https://lynelle-coyish-unfrivolously.ngrok-free.dev/Auth/ResetPassword?token={encodedToken}&email={email}";
+
+            await _emailService.SendEmailAsync(
+                email,
+                "Reset Password",
+                $"Click <a href='{resetLink}'>here</a> to reset your password."
+            );
+        }
 
     }
 }

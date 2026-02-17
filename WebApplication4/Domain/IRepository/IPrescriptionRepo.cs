@@ -8,12 +8,12 @@ namespace WebApplication4.Domain.IRepository
     public interface IPrescriptionRepo
     {
         Task<Prescription?> GetByIdAsync(int id);
-        Task<List<Prescription>> GetAllPrescriptionsAsync();
-        Task<Result<bool>> CreateAsync(RequestCreatePrescription dto);
-        Task<Result<bool>> UpdateAsync(int id, UpdatePrescriptionDto dto, string pharmacistId);
-        Task<Result<bool>> DeleteAsync(int id);
+        Task<List<Prescription>> GetAllAsync();
+        Task AddAsync(Prescription prescription);
+        Task UpdateAsync(Prescription prescription);
+        Task DeleteAsync(Prescription prescription);
 
-        Task<ResponseCostDto> PayAsync(int id, IPayment payment);
+        Task<bool> ExistsByPatientIdAsync(int patientId);
 
     }
 }

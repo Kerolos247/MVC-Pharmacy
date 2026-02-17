@@ -1,4 +1,4 @@
-﻿namespace WebApplication4.Application.IServices
+﻿namespace WebApplication4.Application.Common.Validation
 {
     public interface IValidationService
     {
