@@ -7,12 +7,12 @@ namespace WebApplication4.Infrastructure.DB
 {
     public class ApplicationDbContext : IdentityDbContext<Pharmacist>
     {
-
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
            : base(options)
         {
         }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<PatientFeedback> PatientsFeedback { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Medicine> Medicines { get; set; }
         public DbSet<Inventory> Inventories { get; set; }
@@ -21,10 +21,16 @@ namespace WebApplication4.Infrastructure.DB
         public DbSet<PrescriptionItem> PrescriptionItems { get; set; }
         public DbSet<SupplierOrder> SupplierOrders { get; set; }
         public DbSet<SupplierOrderItem> SupplierOrderItems { get; set; }
+
+        public DbSet<PrescriptionUpload> PrescriptionsUpload { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+
+            modelBuilder.Entity<PrescriptionUpload>().HasIndex(p => p.UploadedAt);
+            modelBuilder.Entity<PatientFeedback>().HasIndex(p => p.CreatedAt);
 
             modelBuilder.Entity<Medicine>()
                 .HasOne(m => m.Inventory)

@@ -10,6 +10,8 @@ namespace WebApplication4.Application.IServices
         ICategoryRepo Categories { get; }
         IPatientRepo patients { get; }
         ISupplierRepo suppliers { get; }
+        IPrescriptionUploadRepo prescriptionUpload { get; }
+        IFeedBackRepo feedBack { get; }
 
         Task BeginTransactionAsync();
         Task CommitAsync();

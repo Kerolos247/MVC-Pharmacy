@@ -6,8 +6,8 @@ namespace WebApplication4.Application.IServices
 {
     public interface ISupplierService
     {
-        Task<List<Supplier>> GetAllSuppliersAsync();
-        Task<Supplier?> GetByIdAsync(int id);
+        Task<Result<List<Supplier>>> GetAllSuppliersAsync();
+        Task<Result<Supplier?>> GetByIdAsync(int id);
         Task<Result<bool>> CreateAsync(RequestCreateSupplier dto);
         Task<Result<bool>> UpdateAsync(int id, UpdateSupplierDto dto);
         Task<Result<bool>> DeleteAsync(int id);

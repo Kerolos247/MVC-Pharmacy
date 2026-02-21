@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebApplication4.Application.Common.Results;
@@ -9,6 +10,7 @@ using WebApplication4.Domain.Models;
 
 namespace WebApplication4.Pressention.Controllers
 {
+    [Authorize]
     public class PrescriptionController : Controller
     {
         private readonly IPrescriptionService _prescriptionService;
@@ -23,7 +25,7 @@ namespace WebApplication4.Pressention.Controllers
         public async Task<IActionResult> Index()
         {
             var prescriptions = await _prescriptionService.GetAllPrescriptionsAsync();
-            return View(prescriptions);
+            return View(prescriptions.Data);
         }
 
         public async Task<IActionResult> Details(int id)
@@ -31,13 +33,13 @@ namespace WebApplication4.Pressention.Controllers
             var prescription = await _prescriptionService.GetByIdAsync(id);
             if (prescription == null)
                 return NotFound();
-            return View(prescription);
+            return View(prescription.Data);
         }
 
         public async Task<IActionResult> Create()
         {
             var patients = await _patientService.GetAllPatientsAsync();
-            ViewBag.Patients = new SelectList(patients, "PatientId", "FullName");
+            ViewBag.Patients = new SelectList(patients.Data, "PatientId", "FullName");
             return View();
         }
 
@@ -47,7 +49,8 @@ namespace WebApplication4.Pressention.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Patients = new SelectList(await _patientService.GetAllPatientsAsync(), "PatientId", "FullName");
+                var Patients = await _patientService.GetAllPatientsAsync();
+                ViewBag.Patients = new SelectList(Patients.Data, "PatientId", "FullName");
                 return View(dto);
             }
 
@@ -55,9 +58,9 @@ namespace WebApplication4.Pressention.Controllers
 
             var res = await _prescriptionService.CreateAsync(dto);
             if (!res.IsSuccess)
-                TempData["CreatedMessage"] = "Prescription creation failed!";
+                TempData["CreatedMessage"] = res.ErrorMessage;
             else
-                TempData["CreatedMessage"] = "Prescription created successfully!";
+                TempData["CreatedMessage"] = "Prescription created successfully";
 
             return RedirectToAction(nameof(Index));
         }
@@ -69,13 +72,13 @@ namespace WebApplication4.Pressention.Controllers
 
             var dto = new UpdatePrescriptionDto
             {
-                Date = prescription.Date,
-                Notes = prescription.Notes,
-                PatientId = prescription.PatientId
+                Date = prescription.Data?.Date,
+                Notes = prescription.Data?.Notes,
+                PatientId = prescription.Data?.PatientId
             };
 
             var patients = await _patientService.GetAllPatientsAsync();
-            ViewBag.Patients = new SelectList(patients, "PatientId", "FullName", dto.PatientId);
+            ViewBag.Patients = new SelectList(patients.Data, "PatientId", "FullName", dto.PatientId);
 
             return View(dto);
         }
@@ -101,7 +104,7 @@ namespace WebApplication4.Pressention.Controllers
                 return View(dto);
             }
 
-            TempData["UpdateMessage"] = "Prescription updated successfully!";
+            TempData["UpdateMessage"] = "Prescription updated successfully";
             return RedirectToAction(nameof(Index));
         }
 
@@ -110,8 +113,8 @@ namespace WebApplication4.Pressention.Controllers
             var prescription = await _prescriptionService.GetByIdAsync(id);
             if (prescription == null) return NotFound();
 
-            TempData["DeleteMessage"] = "Prescription deleted successfully!";
-            return View(prescription);
+            TempData["DeleteMessage"] = "Prescription deleted successfully";
+            return View(prescription.Data);
         }
 
         [HttpPost, ActionName("Delete")]
@@ -136,7 +139,7 @@ namespace WebApplication4.Pressention.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            TempData["PaymentMessage"] = "Payment successful!";
+            TempData["PaymentMessage"] = "Payment successful";
             TempData["TotalCost"] = success.Data.Cost.ToString("F2");
             return RedirectToAction(nameof(Index));
         }

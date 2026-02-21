@@ -1,4 +1,5 @@
-﻿using WebApplication4.Application.Common.Results;
+﻿using System.Collections.Generic;
+using WebApplication4.Application.Common.Results;
 using WebApplication4.Application.Dto.Inventory;
 using WebApplication4.Application.IServices;
 using WebApplication4.Domain.IRepository;
@@ -15,11 +16,13 @@ namespace WebApplication4.Application.Services
         }
 
         // Get all inventories (convert Entities → DTO)
-        public async Task<List<InventoryDto>> GetAllInventoriesAsync()
+        public async Task<Result<List<InventoryDto>>> GetAllInventoriesAsync()
         {
             var inventories = await _uow.Inventories.GetAllAsync();
 
-            return inventories.Select(i => new InventoryDto
+
+
+            return Result<List<InventoryDto>>.Success(inventories.Select(i => new InventoryDto
             {
                 InventoryId = i.InventoryId,
                 Quantity = i.Quantity,
@@ -28,17 +31,20 @@ namespace WebApplication4.Application.Services
                 MedicineName = i.Medicine.Name,
                 DosageForm = i.Medicine.DosageForm,
                 Strength = i.Medicine.Strength
-            }).ToList();
+            }).ToList());
+            
         }
 
         // Get inventory by ID
-        public async Task<InventoryDto?> GetByIdAsync(int id)
+        public async Task<Result<InventoryDto?>> GetByIdAsync(int id)
         {
             var inv = await _uow.Inventories.GetByIdAsync(id);
 
-            if (inv == null) return null;
+            if (inv == null)
+                return Result<InventoryDto?>.Failure("Not Found Invetory");
 
-            return new InventoryDto
+
+            return Result<InventoryDto?>.Success(new InventoryDto
             {
                 InventoryId = inv.InventoryId,
                 Quantity = inv.Quantity,
@@ -47,7 +53,8 @@ namespace WebApplication4.Application.Services
                 MedicineName = inv.Medicine.Name,
                 DosageForm = inv.Medicine.DosageForm,
                 Strength = inv.Medicine.Strength
-            };
+            });
+           
         }
 
         // Delete inventory

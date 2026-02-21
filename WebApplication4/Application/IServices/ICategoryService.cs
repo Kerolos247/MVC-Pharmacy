@@ -6,8 +6,8 @@ namespace WebApplication4.Application.IServices
 {
     public interface ICategoryService
     {
-        Task<List<Category>> GetAllCategoriesAsync();
-        Task<Category?> GetByIdAsync(int id);
+        Task<Result<List<Category>>> GetAllCategoriesAsync();
+        Task<Result<Category?>> GetByIdAsync(int id);
         Task<Result<bool>> CreateAsync(RequestCreateCategory dto);
         Task<Result<bool>> UpdateAsync(int id, UpdateCategoryDto dto);
         Task<Result<bool>> DeleteAsync(int id);

@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApplication4.Application.Dto.Supplier;
 using WebApplication4.Application.IServices;
 using WebApplication4.Domain.Models;
 
 namespace WebApplication4.Pressention.Controllers
 {
+    [Authorize]
     public class SupplierController : Controller
     {
         private readonly ISupplierService _supplierService;
@@ -17,14 +19,15 @@ namespace WebApplication4.Pressention.Controllers
         public async Task<IActionResult> Index()
         {
             var suppliers = await _supplierService.GetAllSuppliersAsync();
-            return View(suppliers);
+            return View(suppliers.Data);
         }
 
         public async Task<IActionResult> Details(int id)
         {
             var supplier = await _supplierService.GetByIdAsync(id);
-            if (supplier == null) return NotFound();
-            return View(supplier);
+            if (supplier == null)
+                return NotFound();
+            return View(supplier.Data);
         }
 
         public IActionResult Create()
@@ -43,7 +46,7 @@ namespace WebApplication4.Pressention.Controllers
             if (!res.IsSuccess)
                 TempData["CreatedMessage"] = res.ErrorMessage;
             else
-                TempData["CreatedMessage"] = "Supplier created successfully!";
+                TempData["CreatedMessage"] = "Supplier created successfully";
             return RedirectToAction(nameof(Index));
         }
 
@@ -55,9 +58,9 @@ namespace WebApplication4.Pressention.Controllers
 
             var dto = new UpdateSupplierDto
             {
-                Name = supplier.Name,
-                Phone = supplier.Phone,
-                Email = supplier.Email
+                Name = supplier.Data?.Name,
+                Phone = supplier.Data?.Phone,
+                Email = supplier.Data?.Email
             };
             return View(dto);
         }
@@ -73,7 +76,7 @@ namespace WebApplication4.Pressention.Controllers
             if (!res.IsSuccess)
                 TempData["UpdateMessage"]=res.ErrorMessage;
             else
-                TempData["UpdateMessage"] = "Supplier updated successfully!";
+                TempData["UpdateMessage"] = "Supplier updated successfully";
             
 
             return RedirectToAction(nameof(Index));
@@ -95,7 +98,7 @@ namespace WebApplication4.Pressention.Controllers
             if (!res.IsSuccess)
                 return View("No_Delete");
             else
-                TempData["DeleteMessage"] = "Supplier deleted successfully!";
+                TempData["DeleteMessage"] = "Supplier deleted successfully";
 
 
             return RedirectToAction(nameof(Index));

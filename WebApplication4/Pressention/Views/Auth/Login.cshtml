@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="~/css/Login.css" />
 
     <style>
-        /* ستايل سريع لعرض أخطاء الـ ModelState بشكل واضح */
+       
         .error-summary-box {
             background-color: #fee2e2;
             border-left: 4px solid #ef4444;
@@ -63,7 +63,7 @@
         <form method="post" asp-action="Login">
             @Html.AntiForgeryToken()
 
-            @* عرض أخطاء الـ ModelState هنا *@
+          
             @if (!ViewData.ModelState.IsValid)
             {
                 <div asp-validation-summary="All" class="error-summary-box"></div>

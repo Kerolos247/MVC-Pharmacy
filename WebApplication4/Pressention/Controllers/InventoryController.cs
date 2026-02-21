@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApplication4.Application.IServices;
 
 namespace WebApplication4.Pressention.Controllers
 {
+    [Authorize]
     public class InventoryController : Controller
     {
         private readonly IInventoryService _inventoryService;
@@ -16,8 +18,9 @@ namespace WebApplication4.Pressention.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var inventory = await _inventoryService.GetByIdAsync(id);
-            if (inventory == null) return NotFound();
-            return View(inventory);
+            if (inventory == null)
+                return NotFound();
+            return View(inventory.Data);
         }
 
         [HttpPost, ActionName("Delete")]
@@ -28,7 +31,7 @@ namespace WebApplication4.Pressention.Controllers
             if (!res.IsSuccess)
                 TempData["DeleteMessage"] = res.ErrorMessage;
             else
-                TempData["DeleteMessage"] = "Inventory deleted successfully!";
+                TempData["DeleteMessage"] = "Inventory deleted successfully";
           
 
             return RedirectToAction(nameof(Index));
@@ -37,7 +40,7 @@ namespace WebApplication4.Pressention.Controllers
         public async Task<IActionResult> Index()
         {
             var inventories = await _inventoryService.GetAllInventoriesAsync();
-            return View(inventories);
+            return View(inventories.Data);
         }
     }
 }

@@ -3,7 +3,7 @@ using WebApplication4.Application.IServices;
 using WebApplication4.Domain.IRepository;
 using WebApplication4.Infrastructure.DB;
 
-namespace WebApplication4.Infrastructure.Repository
+namespace WebApplication4.Infrastructure.UintOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -16,12 +16,16 @@ namespace WebApplication4.Infrastructure.Repository
         public ISupplierRepo suppliers { get; }
         public ICategoryRepo Categories { get; }
         public IPatientRepo patients { get; }
+        public IPrescriptionUploadRepo prescriptionUpload { get; }
+
+        public IFeedBackRepo feedBack { get; }
 
         public UnitOfWork(
             ApplicationDbContext context,
             IPrescriptionRepo prescriptions,
             IMedicineRepo medicines,
-            IInventoryRepo inventories, IPatientRepo patientRepo, ICategoryRepo categoryRepo, ISupplierRepo supplierRepo)
+            IInventoryRepo inventories, IPatientRepo patientRepo, ICategoryRepo categoryRepo, ISupplierRepo supplierRepo,
+            IPrescriptionUploadRepo prescriptionUploadRepo,IFeedBackRepo feedBackRepo)
         {
             _context = context;
             Prescriptions = prescriptions;
@@ -30,8 +34,8 @@ namespace WebApplication4.Infrastructure.Repository
             patients = patientRepo;
             Categories = categoryRepo;
             suppliers = supplierRepo;
-
-
+            prescriptionUpload = prescriptionUploadRepo;
+            feedBack = feedBackRepo;
         }
 
         public async Task BeginTransactionAsync()

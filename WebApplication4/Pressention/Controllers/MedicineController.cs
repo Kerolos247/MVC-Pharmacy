@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApplication4.Application.Dto.Medcine;
 using WebApplication4.Application.IServices;
+using WebApplication4.Domain.Models;
 
 namespace WebApplication4.Pressention.Controllers
 {
+    [Authorize]
     public class MedicineController : Controller
     {
         private readonly IMedicineService _medicineService;
@@ -25,21 +28,24 @@ namespace WebApplication4.Pressention.Controllers
         public async Task<IActionResult> Index()
         {
             var medicines = await _medicineService.GetAllMedicinesAsync();
-            return View(medicines);
+            return View(medicines.Data);
         }
 
         public async Task<IActionResult> Details(int id)
         {
             var medicine = await _medicineService.GetByIdAsync(id);
-            if (medicine == null) return NotFound();
-            return View(medicine);
+            if (medicine == null)
+                return NotFound();
+            return View(medicine.Data);
         }
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            ViewBag.Categories = new SelectList(await _categoryService.GetAllCategoriesAsync(), "CategoryId", "Name");
-            ViewBag.Suppliers = new SelectList(await _supplierService.GetAllSuppliersAsync(), "SupplierId", "Name");
+            var Category = await _categoryService.GetAllCategoriesAsync();
+            var Supplier = await _supplierService.GetAllSuppliersAsync();
+            ViewBag.Categories = new SelectList(Category.Data,"CategoryId", "Name");
+            ViewBag.Suppliers = new SelectList(Supplier.Data, "SupplierId", "Name");
             return View();
         }
 
@@ -49,8 +55,10 @@ namespace WebApplication4.Pressention.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Categories = new SelectList(await _categoryService.GetAllCategoriesAsync(), "CategoryId", "Name");
-                ViewBag.Suppliers = new SelectList(await _supplierService.GetAllSuppliersAsync(), "SupplierId", "Name");
+                var Category = await _categoryService.GetAllCategoriesAsync();
+                var Supplier = await _supplierService.GetAllSuppliersAsync();
+                ViewBag.Categories = new SelectList(Category.Data, "CategoryId", "Name");
+                ViewBag.Suppliers = new SelectList(Supplier.Data, "SupplierId", "Name");
                 return View(dto);
             }
 
@@ -58,7 +66,7 @@ namespace WebApplication4.Pressention.Controllers
             if (!res.IsSuccess)
                 TempData["CreatedMessage"] = res.ErrorMessage;
             else
-                TempData["CreatedMessage"] = "Medicine created successfully!";
+                TempData["CreatedMessage"] = "Medicine created successfully";
             return RedirectToAction(nameof(Index));
         }
 
@@ -69,30 +77,32 @@ namespace WebApplication4.Pressention.Controllers
             if (medicine == null)
                 return NotFound();
 
-            var inventory = medicine.Inventory;
+            var inventory = medicine.Data?.Inventory;
+            var Category = await _categoryService.GetAllCategoriesAsync();
+            var Supplier = await _supplierService.GetAllSuppliersAsync();
 
             var dto = new UpdateMedcineDto
             {
-                Name = medicine.Name,
-                Description = medicine.Description,
-                DosageForm = medicine.DosageForm,
-                Strength = medicine.Strength,
-                Price = medicine.Price,
-                CategoryId = medicine.CategoryId,
-                SupplierId = medicine.SupplierId,
+                Name = medicine.Data?.Name,
+                Description = medicine.Data?.Description,
+                DosageForm = medicine.Data?.DosageForm,
+                Strength = medicine.Data?.Strength,
+                Price = medicine.Data?.Price,
+                CategoryId = medicine.Data?.CategoryId,
+                SupplierId = medicine.Data?.SupplierId,
                 Quantity = inventory?.Quantity,
                 ExpiryDate = inventory?.ExpiryDate
             };
 
             ViewBag.Categories = new SelectList(
-                await _categoryService.GetAllCategoriesAsync(),
+                Category.Data,
                 "CategoryId",
                 "Name",
                 dto.CategoryId
             );
 
             ViewBag.Suppliers = new SelectList(
-                await _supplierService.GetAllSuppliersAsync(),
+                Supplier.Data,
                 "SupplierId",
                 "Name",
                 dto.SupplierId
@@ -107,8 +117,10 @@ namespace WebApplication4.Pressention.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Categories = new SelectList(await _categoryService.GetAllCategoriesAsync(), "CategoryId", "Name", dto.CategoryId);
-                ViewBag.Suppliers = new SelectList(await _supplierService.GetAllSuppliersAsync(), "SupplierId", "Name", dto.SupplierId);
+                var Category = await _categoryService.GetAllCategoriesAsync();
+                var Supplier = await _supplierService.GetAllSuppliersAsync();
+                ViewBag.Categories = new SelectList(Category.Data, "CategoryId", "Name", dto.CategoryId);
+                ViewBag.Suppliers = new SelectList(Supplier.Data, "SupplierId", "Name", dto.SupplierId);
                 return View(dto);
             }
 
@@ -116,7 +128,7 @@ namespace WebApplication4.Pressention.Controllers
             if (!res.IsSuccess)
                 TempData["UpdatedMessage"] = res.ErrorMessage;
             else
-                TempData["UpdatedMessage"] = "Medicine updated successfully!";
+                TempData["UpdatedMessage"] = "Medicine updated successfully";
 
             return RedirectToAction(nameof(Index));
         }
@@ -126,7 +138,7 @@ namespace WebApplication4.Pressention.Controllers
         {
             var medicine = await _medicineService.GetByIdAsync(id);
             if (medicine == null) return NotFound();
-            return View(medicine);
+            return View(medicine.Data);
         }
 
         [HttpPost, ActionName("Delete")]

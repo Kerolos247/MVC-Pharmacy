@@ -1,4 +1,6 @@
-﻿using WebApplication4.Application.Common.Results;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using System.Collections.Generic;
+using WebApplication4.Application.Common.Results;
 using WebApplication4.Application.Dto.Category;
 using WebApplication4.Application.IServices;
 using WebApplication4.Domain.IRepository;
@@ -16,15 +18,17 @@ namespace WebApplication4.Application.Services
         }
 
         // Get all categories
-        public async Task<List<Category>> GetAllCategoriesAsync()
+        public async Task<Result<List<Category>>> GetAllCategoriesAsync()
         {
-            return await _uow.Categories.GetAllAsync();
+            return Result<List<Category>>.Success(await _uow.Categories.GetAllAsync());
+
         }
 
         // Get category by ID
-        public async Task<Category?> GetByIdAsync(int id)
+        public async Task<Result<Category?>> GetByIdAsync(int id)
         {
-            return await _uow.Categories.GetByIdAsync(id);
+            return Result<Category?>.Success(await _uow.Categories.GetByIdAsync(id));
+            
         }
 
         // Create category

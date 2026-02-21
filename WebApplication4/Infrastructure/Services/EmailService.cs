@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using WebApplication4.Application.IServices;
 
-namespace WebApplication4.Infrastructure.Repository
+namespace WebApplication4.Infrastructure.Services
 {
     public class EmailService : IEmailService
     {

@@ -21,15 +21,15 @@ namespace WebApplication4.Application.Services
         }
 
         // Get all suppliers
-        public async Task<List<Supplier>> GetAllSuppliersAsync()
+        public async Task<Result<List<Supplier>>> GetAllSuppliersAsync()
         {
-            return await _uow.suppliers.GetAllAsync();
+            return Result<List<Supplier>>.Success(await _uow.suppliers.GetAllAsync());
         }
 
         // Get supplier by ID
-        public async Task<Supplier?> GetByIdAsync(int id)
+        public async Task<Result<Supplier?>> GetByIdAsync(int id)
         {
-            return await _uow.suppliers.GetByIdAsync(id);
+            return Result<Supplier?>.Success(await _uow.suppliers.GetByIdAsync(id));
         }
 
         // Create supplier

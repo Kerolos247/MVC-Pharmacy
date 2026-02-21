@@ -1,0 +1,332 @@
+﻿@model List<PrescriptionUpload>
+@{
+    Layout = null;
+    int pageSize = 4;
+    int currentPage = ViewBag.CurrentPage ?? 1;
+    int totalPages = ViewBag.TotalPages ?? 1;
+}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم | صيدلية الرحمة</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+        --primary-accent: #6c5ce7;
+        --glass-bg: rgba(255, 255, 255, 0.07);
+        --glass-border: rgba(255, 255, 255, 0.12);
+        --danger-soft: rgba(239, 68, 68, 0.15);
+        }
+
+        body {
+        font-family: 'Tajawal', sans-serif;
+        background: #0f172a;
+        background-image: radial-gradient(at 0% 0%, rgba(108, 92, 231, 0.15) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(0, 210, 255, 0.1) 0px, transparent 50%);
+        color: #fff;
+        min-height: 100vh;
+        padding: 40px 0;
+        }
+
+        /* تنسيق زر الرجوع */
+        .back-nav {
+        margin-bottom: 30px;
+        }
+
+        .btn-back {
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 12px;
+        text-decoration: none;
+        transition: 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 500;
+        }
+
+        .btn-back:hover {
+        background: var(--primary-accent);
+        color: white;
+        transform: translateX(5px);
+        border-color: var(--primary-accent);
+        }
+
+        .section-title {
+        font-weight: 900;
+        font-size: 2.2rem;
+        background: linear-gradient(to right, #fff, #a29bfe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        }
+
+        /* --- باقي التنسيقات الأصلية --- */
+        .prescription-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        border-radius: 24px;
+        border: 1px solid var(--glass-border);
+        transition: 0.4s;
+        cursor: pointer;
+        height: 100%;
+        position: relative;
+        }
+
+        .prescription-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--primary-accent);
+        background: rgba(255, 255, 255, 0.1);
+        }
+
+        .img-wrapper {
+        margin: 15px;
+        border-radius: 18px;
+        overflow: hidden;
+        height: 180px;
+        position: relative;
+        }
+
+        .prescription-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        }
+
+        .date-badge {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(5px);
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-size: 0.75rem;
+        color: #ddd;
+        }
+
+        .card-details {
+        padding: 0 20px 20px;
+        }
+
+        .truncate {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        }
+
+        .patient-name {
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: #fff;
+        margin-bottom: 10px;
+        }
+
+        .info-box {
+        background: rgba(0, 0, 0, 0.2);
+        padding: 8px 12px;
+        border-radius: 10px;
+        margin-bottom: 8px;
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        }
+
+        .info-box i {
+        color: var(--primary-accent);
+        }
+
+        .btn-delete {
+        background: var(--danger-soft);
+        color: #ff7675;
+        border: 1px solid rgba(255, 118, 117, 0.3);
+        transition: 0.3s;
+        }
+
+        .btn-delete:hover {
+        background: #ff7675;
+        color: white;
+        }
+
+        .pagination .page-link {
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        color: #fff;
+        margin: 0 5px;
+        border-radius: 10px;
+        }
+
+        .pagination .page-item.active .page-link {
+        background: var(--primary-accent);
+        border-color: var(--primary-accent);
+        }
+
+        .modal-content {
+        background: #1e293b;
+        border-radius: 25px;
+        border: 1px solid var(--glass-border);
+        color: #fff;
+        }
+
+        .detail-label {
+        color: var(--primary-accent);
+        font-weight: bold;
+        font-size: 0.85rem;
+        display: block;
+        }
+
+        .detail-value {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+        color: #f8fafc;
+        }
+
+        .full-img-view {
+        width: 100%;
+        border-radius: 15px;
+        border: 1px solid var(--glass-border);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row align-items-center back-nav">
+            <div class="col-md-4">
+                <a href="/Dashboard/Pharmacist" class="btn-back">
+                    <i class="fas fa-arrow-right"></i>
+                    العودة للوحة التحكم الرئيسية
+                </a>
+            </div>
+            <div class="col-md-4 text-center">
+                <h2 class="section-title mb-0">إدارة الروشتات</h2>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
+        @if (TempData["DeleteMessage"] != null)
+        {
+            <div class="alert alert-info bg-dark text-white border-0 shadow-sm mb-4" id="deleteToast">
+                <i class="fas fa-check-circle text-success me-2"></i> @TempData["DeleteMessage"]
+            </div>
+            <script>setTimeout(() => { document.getElementById('deleteToast')?.remove(); }, 4000);</script>
+        }
+
+        <div class="row g-4" id="cardsContainer">
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                    var egyptTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Egypt Standard Time");
+                    var egyptTime = TimeZoneInfo.ConvertTimeFromUtc(item.UploadedAt, egyptTimeZone);
+                    var formattedDate = egyptTime.ToString("dd/MM/yyyy");
+                    var formattedTime = egyptTime.ToString("hh:mm tt").Replace("AM", "صباحاً").Replace("PM", "مساءً");
+
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                        <div class="prescription-card"
+                        onclick="showDetails('@item.FullName', '@item.PhoneNumber', '@item.Address', '@item.FileUrl', '@formattedDate', '@formattedTime')">
+
+                            <div class="img-wrapper">
+                                <img src="@item.FileUrl" class="prescription-img">
+                                <div class="date-badge">@formattedDate</div>
+                            </div>
+
+                            <div class="card-details">
+                                <h5 class="patient-name truncate">@item.FullName</h5>
+                                <div class="info-box truncate"><i class="fas fa-phone"></i> @item.PhoneNumber</div>
+                                <div class="info-box truncate"><i class="fas fa-map-marker-alt"></i> @item.Address</div>
+
+                                <form asp-action="DeletePrescription" asp-controller="PrescriptionUpload" method="post"
+                                class="delete-form" onsubmit="return confirm('حذف هذه الروشتة نهائياً؟');" onclick="event.stopPropagation();">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <button type="submit" class="btn btn-delete btn-sm w-100 mt-2">حذف</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="text-center mt-5">
+                    <div class="alert alert-info d-inline-block px-4 py-3">
+                        <i class="fas fa-info-circle me-2"></i>
+                        لا توجد روشتات متاحة حاليًا أونلاين.
+
+                        <p class="fw-bold text-primary fs-5">
+                            ستظهر الروشتات الجديدة هنا فور قيام العملاء برفعها.
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+
+        @if (totalPages > 1)
+        {
+            <nav class="mt-5">
+                <ul class="pagination justify-content-center">
+                    @for (int i = 1; i <= totalPages; i++)
+                    {
+                        <li class="page-item @(i == currentPage ? "active" : "")">
+                            <a class="page-link" href="?page=@i">@i</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        }
+    </div>
+
+    <div class="modal fade" id="detailsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title">تفاصيل طلب الروشتة</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <img id="modalImg" src="" class="full-img-view">
+                        </div>
+                        <div class="col-md-6">
+                            <span class="detail-label">الاسم:</span>
+                            <p id="modalName" class="detail-value text-info"></p>
+                            <span class="detail-label">الهاتف:</span>
+                            <p id="modalPhone" class="detail-value"></p>
+                            <span class="detail-label">العنوان:</span>
+                            <p id="modalAddress" class="detail-value"></p>
+                            <div class="row">
+                                <div class="col-6"><span class="detail-label">التاريخ:</span><p id="modalDate" class="detail-value"></p></div>
+                                <div class="col-6"><span class="detail-label">الوقت:</span><p id="modalTime" class="detail-value"></p></div>
+                            </div>
+                            <a id="downloadLink" href="" target="_blank" class="btn btn-primary w-100 mt-3">فتح الصورة الأصلية</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function showDetails(name, phone, address, imgUrl, date, time) {
+            document.getElementById('modalName').innerText = name;
+            document.getElementById('modalPhone').innerText = phone;
+            document.getElementById('modalAddress').innerText = address;
+            document.getElementById('modalImg').src = imgUrl;
+            document.getElementById('downloadLink').href = imgUrl;
+            document.getElementById('modalDate').innerText = date;
+            document.getElementById('modalTime').innerText = time;
+            new bootstrap.Modal(document.getElementById('detailsModal')).show();
+        }
+    </script>
+</body>
+</html>

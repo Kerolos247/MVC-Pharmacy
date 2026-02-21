@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebApplication4.Application.Dto.Auth;
 using WebApplication4.Application.IServices;
 using WebApplication4.Domain.Models;
 
-namespace WebApplication4.Application.Services
+namespace WebApplication4.Infrastructure.Services
 {
     public class AuthService : IAuthService
     {
@@ -14,7 +15,7 @@ namespace WebApplication4.Application.Services
         private readonly IEmailService _emailService;
 
         public AuthService(UserManager<Pharmacist> userManager,
-                           SignInManager<Pharmacist> signInManager,IEmailService emailService)
+                           SignInManager<Pharmacist> signInManager, IEmailService emailService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -37,8 +38,8 @@ namespace WebApplication4.Application.Services
             {
                 foreach (var error in result.Errors)
                 {
-                     authResult.Message+=error.Description;
-                     authResult.Message+= "/n";
+                    authResult.Message += error.Description;
+                    authResult.Message += "/n";
                 }
                 authResult.Success = false;
                 return authResult;
@@ -52,33 +53,63 @@ namespace WebApplication4.Application.Services
 
         public async Task<AuthResult> LoginAsync(PharmacistLoginDto dto)
         {
-            var result = await _signInManager.PasswordSignInAsync(dto.Email, dto.Password, false, true);
+            var user = await _userManager.FindByEmailAsync(dto.Email);
+
+            if (user == null)
+                return new AuthResult
+                {
+                    Success = false,
+                    Message = "Invalid Email Or Password"
+                };
+
+            var result = await _signInManager.PasswordSignInAsync(user, dto.Password, false, true);
 
             if (result.IsLockedOut)
             {
-               
                 string subject = "⚠️ Multiple failed login attempts detected";
 
-               
                 string body = "If this was you, please use \"Forgot Password\" to reset your password.\r\n" +
                               "If this was not you, please change your password immediately to secure your account.";
 
-                
                 await _emailService.SendEmailAsync(dto.Email, subject, body);
 
                 return new AuthResult
                 {
                     Success = false,
-                    Message = "Your account has been temporarily locked due to multiple failed login attempts.\r\n" +
-                              "Please try again later or contact the administrator for assistance."
+                    Message = "Your account has been temporarily locked due to multiple failed login attempts."
                 };
             }
 
             if (!result.Succeeded)
-                return new AuthResult { Success = false, Message = "Invalid Email Or Password" };
+                return new AuthResult
+                {
+                    Success = false,
+                    Message = "Invalid Email Or Password"
+                };
 
-            return new AuthResult { Success = true, Message = "Login successful" };
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            var role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
+
+            if (string.IsNullOrEmpty(role))
+            {
+                return new AuthResult
+                {
+                    Success = false,
+                    Message = "No role assigned to this user."
+                };
+            }
+
+            return new AuthResult
+            {
+                Success = true,
+                Message = "Login successful",
+                Role = role
+            };
+
         }
+
 
         public async Task LogoutAsync()
         {
@@ -95,7 +126,7 @@ namespace WebApplication4.Application.Services
             if (user == null)
                 return IdentityResult.Failed(new IdentityError { Description = "User not found." });
 
-           
+
             var base64Token = token.Replace("-", "+").Replace("_", "/");
             switch (base64Token.Length % 4)
             {
@@ -110,11 +141,11 @@ namespace WebApplication4.Application.Services
         {
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
-                return; 
+                return;
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-          
+
             var tokenBytes = System.Text.Encoding.UTF8.GetBytes(token);
             var encodedToken = Convert.ToBase64String(tokenBytes)
                                     .Replace("+", "-")

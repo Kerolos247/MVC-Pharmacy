@@ -155,7 +155,7 @@ namespace WebApplication4.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("WebApplication4.Models.Category", b =>
+            modelBuilder.Entity("WebApplication4.Domain.Models.Category", b =>
                 {
                     b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
@@ -172,7 +172,7 @@ namespace WebApplication4.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("WebApplication4.Models.Inventory", b =>
+            modelBuilder.Entity("WebApplication4.Domain.Models.Inventory", b =>
                 {
                     b.Property<int>("InventoryId")
                         .ValueGeneratedOnAdd()
@@ -197,7 +197,7 @@ namespace WebApplication4.Migrations
                     b.ToTable("Inventories");
                 });
 
-            modelBuilder.Entity("WebApplication4.Models.Medicine", b =>
+            modelBuilder.Entity("WebApplication4.Domain.Models.Medicine", b =>
                 {
                     b.Property<int>("MedicineId")
                         .ValueGeneratedOnAdd()
@@ -239,7 +239,7 @@ namespace WebApplication4.Migrations
                     b.ToTable("Medicines");
                 });
 
-            modelBuilder.Entity("WebApplication4.Models.Patient", b =>
+            modelBuilder.Entity("WebApplication4.Domain.Models.Patient", b =>
                 {
                     b.Property<int>("PatientId")
                         .ValueGeneratedOnAdd()
@@ -264,7 +264,41 @@ namespace WebApplication4.Migrations
                     b.ToTable("Patients");
                 });
 
-            modelBuilder.Entity("WebApplication4.Models.Pharmacist", b =>
+            modelBuilder.Entity("WebApplication4.Domain.Models.PatientFeedback", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PatientName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedAt");
+
+                    b.ToTable("PatientsFeedback");
+                });
+
+            modelBuilder.Entity("WebApplication4.Domain.Models.Pharmacist", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -332,7 +366,7 @@ namespace WebApplication4.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("WebApplication4.Models.Prescription", b =>
+            modelBuilder.Entity("WebApplication4.Domain.Models.Prescription", b =>
                 {
                     b.Property<int>("PrescriptionId")
                         .ValueGeneratedOnAdd()
@@ -366,7 +400,7 @@ namespace WebApplication4.Migrations
                     b.ToTable("Prescriptions");
                 });
 
-            modelBuilder.Entity("WebApplication4.Models.PrescriptionItem", b =>
+            modelBuilder.Entity("WebApplication4.Domain.Models.PrescriptionItem", b =>
                 {
                     b.Property<int>("PrescriptionItemId")
                         .ValueGeneratedOnAdd()
@@ -400,7 +434,49 @@ namespace WebApplication4.Migrations
                     b.ToTable("PrescriptionItems");
                 });
 
-            modelBuilder.Entity("WebApplication4.Models.Supplier", b =>
+            modelBuilder.Entity("WebApplication4.Domain.Models.PrescriptionUpload", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UploadedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UploadedAt");
+
+                    b.ToTable("PrescriptionsUpload");
+                });
+
+            modelBuilder.Entity("WebApplication4.Domain.Models.Supplier", b =>
                 {
                     b.Property<int>("SupplierId")
                         .ValueGeneratedOnAdd()
@@ -425,7 +501,7 @@ namespace WebApplication4.Migrations
                     b.ToTable("Suppliers");
                 });
 
-            modelBuilder.Entity("WebApplication4.Models.SupplierOrder", b =>
+            modelBuilder.Entity("WebApplication4.Domain.Models.SupplierOrder", b =>
                 {
                     b.Property<int>("SupplierOrderId")
                         .ValueGeneratedOnAdd()
@@ -446,7 +522,7 @@ namespace WebApplication4.Migrations
                     b.ToTable("SupplierOrders");
                 });
 
-            modelBuilder.Entity("WebApplication4.Models.SupplierOrderItem", b =>
+            modelBuilder.Entity("WebApplication4.Domain.Models.SupplierOrderItem", b =>
                 {
                     b.Property<int>("SupplierOrderItemId")
                         .ValueGeneratedOnAdd()
@@ -483,7 +559,7 @@ namespace WebApplication4.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("WebApplication4.Models.Pharmacist", null)
+                    b.HasOne("WebApplication4.Domain.Models.Pharmacist", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -492,7 +568,7 @@ namespace WebApplication4.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("WebApplication4.Models.Pharmacist", null)
+                    b.HasOne("WebApplication4.Domain.Models.Pharmacist", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -507,7 +583,7 @@ namespace WebApplication4.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebApplication4.Models.Pharmacist", null)
+                    b.HasOne("WebApplication4.Domain.Models.Pharmacist", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -516,33 +592,33 @@ namespace WebApplication4.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("WebApplication4.Models.Pharmacist", null)
+                    b.HasOne("WebApplication4.Domain.Models.Pharmacist", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WebApplication4.Models.Inventory", b =>
+            modelBuilder.Entity("WebApplication4.Domain.Models.Inventory", b =>
                 {
-                    b.HasOne("WebApplication4.Models.Medicine", "Medicine")
+                    b.HasOne("WebApplication4.Domain.Models.Medicine", "Medicine")
                         .WithOne("Inventory")
-                        .HasForeignKey("WebApplication4.Models.Inventory", "MedicineId")
+                        .HasForeignKey("WebApplication4.Domain.Models.Inventory", "MedicineId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Medicine");
                 });
 
-            modelBuilder.Entity("WebApplication4.Models.Medicine", b =>
+            modelBuilder.Entity("WebApplication4.Domain.Models.Medicine", b =>
                 {
-                    b.HasOne("WebApplication4.Models.Category", "Category")
+                    b.HasOne("WebApplication4.Domain.Models.Category", "Category")
                         .WithMany("Medicines")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("WebApplication4.Models.Supplier", "Supplier")
+                    b.HasOne("WebApplication4.Domain.Models.Supplier", "Supplier")
                         .WithMany("Medicines")
                         .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -553,15 +629,15 @@ namespace WebApplication4.Migrations
                     b.Navigation("Supplier");
                 });
 
-            modelBuilder.Entity("WebApplication4.Models.Prescription", b =>
+            modelBuilder.Entity("WebApplication4.Domain.Models.Prescription", b =>
                 {
-                    b.HasOne("WebApplication4.Models.Patient", "Patient")
+                    b.HasOne("WebApplication4.Domain.Models.Patient", "Patient")
                         .WithMany("Prescriptions")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebApplication4.Models.Pharmacist", "Pharmacist")
+                    b.HasOne("WebApplication4.Domain.Models.Pharmacist", "Pharmacist")
                         .WithMany("Prescriptions")
                         .HasForeignKey("PharmacistId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -572,15 +648,15 @@ namespace WebApplication4.Migrations
                     b.Navigation("Pharmacist");
                 });
 
-            modelBuilder.Entity("WebApplication4.Models.PrescriptionItem", b =>
+            modelBuilder.Entity("WebApplication4.Domain.Models.PrescriptionItem", b =>
                 {
-                    b.HasOne("WebApplication4.Models.Medicine", "Medicine")
+                    b.HasOne("WebApplication4.Domain.Models.Medicine", "Medicine")
                         .WithMany("PrescriptionItems")
                         .HasForeignKey("MedicineId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("WebApplication4.Models.Prescription", "Prescription")
+                    b.HasOne("WebApplication4.Domain.Models.Prescription", "Prescription")
                         .WithMany("PrescriptionItems")
                         .HasForeignKey("PrescriptionId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -591,9 +667,9 @@ namespace WebApplication4.Migrations
                     b.Navigation("Prescription");
                 });
 
-            modelBuilder.Entity("WebApplication4.Models.SupplierOrder", b =>
+            modelBuilder.Entity("WebApplication4.Domain.Models.SupplierOrder", b =>
                 {
-                    b.HasOne("WebApplication4.Models.Supplier", "Supplier")
+                    b.HasOne("WebApplication4.Domain.Models.Supplier", "Supplier")
                         .WithMany()
                         .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -602,15 +678,15 @@ namespace WebApplication4.Migrations
                     b.Navigation("Supplier");
                 });
 
-            modelBuilder.Entity("WebApplication4.Models.SupplierOrderItem", b =>
+            modelBuilder.Entity("WebApplication4.Domain.Models.SupplierOrderItem", b =>
                 {
-                    b.HasOne("WebApplication4.Models.Medicine", "Medicine")
+                    b.HasOne("WebApplication4.Domain.Models.Medicine", "Medicine")
                         .WithMany()
                         .HasForeignKey("MedicineId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebApplication4.Models.SupplierOrder", "SupplierOrder")
+                    b.HasOne("WebApplication4.Domain.Models.SupplierOrder", "SupplierOrder")
                         .WithMany("Items")
                         .HasForeignKey("SupplierOrderId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -621,12 +697,12 @@ namespace WebApplication4.Migrations
                     b.Navigation("SupplierOrder");
                 });
 
-            modelBuilder.Entity("WebApplication4.Models.Category", b =>
+            modelBuilder.Entity("WebApplication4.Domain.Models.Category", b =>
                 {
                     b.Navigation("Medicines");
                 });
 
-            modelBuilder.Entity("WebApplication4.Models.Medicine", b =>
+            modelBuilder.Entity("WebApplication4.Domain.Models.Medicine", b =>
                 {
                     b.Navigation("Inventory")
                         .IsRequired();
@@ -634,27 +710,27 @@ namespace WebApplication4.Migrations
                     b.Navigation("PrescriptionItems");
                 });
 
-            modelBuilder.Entity("WebApplication4.Models.Patient", b =>
+            modelBuilder.Entity("WebApplication4.Domain.Models.Patient", b =>
                 {
                     b.Navigation("Prescriptions");
                 });
 
-            modelBuilder.Entity("WebApplication4.Models.Pharmacist", b =>
+            modelBuilder.Entity("WebApplication4.Domain.Models.Pharmacist", b =>
                 {
                     b.Navigation("Prescriptions");
                 });
 
-            modelBuilder.Entity("WebApplication4.Models.Prescription", b =>
+            modelBuilder.Entity("WebApplication4.Domain.Models.Prescription", b =>
                 {
                     b.Navigation("PrescriptionItems");
                 });
 
-            modelBuilder.Entity("WebApplication4.Models.Supplier", b =>
+            modelBuilder.Entity("WebApplication4.Domain.Models.Supplier", b =>
                 {
                     b.Navigation("Medicines");
                 });
 
-            modelBuilder.Entity("WebApplication4.Models.SupplierOrder", b =>
+            modelBuilder.Entity("WebApplication4.Domain.Models.SupplierOrder", b =>
                 {
                     b.Navigation("Items");
                 });

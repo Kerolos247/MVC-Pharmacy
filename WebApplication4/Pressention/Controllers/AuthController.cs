@@ -5,31 +5,20 @@ using WebApplication4.Application.Dto.Dashboard;
 using WebApplication4.Application.Dto.Auth;
 using WebApplication4.Application.IServices;
 using WebApplication4.Domain.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication4.Pressention.Controllers
 {
+    
     public class AuthController : Controller
     {
         private readonly IAuthService _authService;
-        private readonly ISupplierService _supplierService;
-        private readonly IPatientService _patientService;
-        private readonly IMedicineService _medicineService;
-        private readonly IPrescriptionService _prescriptionService;
-
-        public AuthController(
-            IAuthService authService, 
-            ISupplierService supplierService,
-            IPatientService patientService,
-            IMedicineService medicineService,
-            IPrescriptionService prescriptionService)
+        public AuthController(IAuthService authService)
         {
             _authService = authService;
-            _supplierService = supplierService;
-            _patientService = patientService;
-            _medicineService = medicineService;
-            _prescriptionService = prescriptionService;
+            
         }
-
         [HttpGet]
         public IActionResult Register() => View();
 
@@ -59,33 +48,30 @@ namespace WebApplication4.Pressention.Controllers
 
             var success = await _authService.LoginAsync(dto);
 
-            if(!success.Success)
-            {
-                ModelState.AddModelError("",success.Message);
-                return View(dto);
-            }
-            if(success.Message == "Account Is Block")
+            if (!success.Success)
             {
                 ModelState.AddModelError("", success.Message);
                 return View(dto);
             }
-            return RedirectToAction("Main");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Main()
-        {
-            var model = new DashboardViewModel
+            if (success.Message == "Account Is Block")
             {
-                MedicinesCount = (await _medicineService.GetAllMedicinesAsync()).Count,
-                PatientsCount = (await _patientService.GetAllPatientsAsync()).Count,
-                SuppliersCount = (await _supplierService.GetAllSuppliersAsync()).Count,
-                PrescriptionsCount = (await _prescriptionService.GetAllPrescriptionsAsync()).Count
-            };
-
-            return View(model);
+                ModelState.AddModelError("", success.Message);
+                return View(dto);
+            }
+           
+            switch (success.Role)
+            {
+                case "Admin":
+                    return RedirectToAction("AdminDashboard", "Dashboard");
+                case "Pharmacist":
+                    return RedirectToAction("Pharmacist", "Dashboard");
+                default:
+                    return RedirectToAction("Not_Found");
+            }
         }
-
+       
+        [HttpGet]
+        public IActionResult Not_Found() => View();
         [HttpPost]
         public async Task<IActionResult> Logout()
         {

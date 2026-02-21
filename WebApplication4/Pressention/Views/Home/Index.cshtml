@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<PrescriptionUpload>
+
+@{
     Layout = null;
     ViewData["Title"] = "صيدلية الرحمة - نظام الإدارة الذكي";
 }
@@ -11,38 +13,187 @@
     <title>صيدلية الرحمة | Al-Rahma Pharmacy</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Noto+Kufi+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="~/css/Home.css" />
-</head>
 
+    <style>
+        .toast-notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #f3e8ff;
+            border: 2px solid #8e44ad;
+            padding: 18px 22px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 12px 35px rgba(142, 68, 173, 0.35);
+            z-index: 1000;
+            animation: slideInLeft 0.6s ease;
+            min-width: 280px;
+            max-width: 420px;
+        }
+
+        .toast-icon {
+            background: #8e44ad;
+            color: #fff;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .toast-content h4 {
+            margin: 0;
+            font-size: 1.05rem;
+            color: #5b2c83;
+            font-weight: 800;
+        }
+
+        .toast-content p {
+            margin: 5px 0 0;
+            font-size: 0.93rem;
+            color: #4a235a;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .close-toast {
+            background: none;
+            border: none;
+            color: #5b2c83;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 0;
+            margin-left: 8px;
+        }
+
+        @@keyframes slideInLeft {
+            from
+
+        {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        }
+
+        @@media (max-width: 576px) {
+            .toast-notification
+
+        {
+            right: 15px;
+            left: 15px;
+            bottom: 20px;
+        }
+
+        }
+
+        .nav-logo-img {
+            height: 40px;
+            width: auto;
+            margin-left: 10px;
+        }
+    </style>
+</head>
 <body>
 
     <div class="bg-pattern"></div>
 
     <nav class="navbar">
-        <div class="logo-container">
-            <div class="logo-icon">H</div>
+        <div class="logo-container" style="display: flex; align-items: center;">
+            <img src="https://res.cloudinary.com/doehzk8fv/image/upload/v1771597792/Al_Rahma_eunf4y.png" alt="Logo" class="nav-logo-img">
             <div class="logo-text">صيدلية الرحمة</div>
         </div>
         <div class="nav-buttons">
             <a href="/auth/login" class="btn btn-login">تسجيل الدخول</a>
-            <a href="/auth/Register" class="btn btn-signup">إنشاء حساب</a>
+            <a href="/Feedback/CreateFeedback" class="btn btn-signup">رأيكم يهمنا</a>
         </div>
     </nav>
 
     <section class="hero">
         <div class="hero-container">
             <div class="hero-content fade-in">
-                <span class="badge">نظام الإدارة المتكامل V2.0</span>
-                <h1>رعاية صحية <span>تنبض بالرحمة</span><br>وإدارة تدار بالذكاء</h1>
+                <span class="badge">خدمة متاحة 24 ساعة</span>
+                <h1>صيدلية <span>الرحمة</span><br>راحتك وصحتك أولويتنا</h1>
                 <p>
-                    نقدم لك النظام الأكثر كفاءة لإدارة صيدليتك. تتبع المخزون، المبيعات، والتقارير الطبية بكل سهولة ودقة متناهية. صمم خصيصاً ليلبي احتياجات الصيدلي العربي العصري.
+                    نوفر لك خدمة إرسال وتوصيل الأدوية في أسرع وقت ممكن،
+                    مع إمكانية رفع الروشتات أونلاين ومتابعة طلبك بكل سهولة وأمان.
+                    فريقنا الصيدلي جاهز لخدمتك على مدار الساعة.
                 </p>
                 <div class="cta-area">
-                    <a href="/Home/Privacy" class="main-action">ابدأ إدارة صيدليتك الآن</a>
+                    <a href="/PrescriptionUpload/Upload" class="main-action">ارفع روشتتك الآن</a>
                 </div>
             </div>
         </div>
     </section>
+
+    @if (TempData["UploadMessage"] != null)
+    {
+        <div class="toast-notification" id="uploadToast">
+            <div class="toast-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <div class="toast-content">
+                <h4>تم استلام الروشتة بنجاح</h4>
+                <p>@TempData["UploadMessage"]</p>
+            </div>
+            <button class="close-toast" onclick="document.getElementById('uploadToast').style.display='none'">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <script>
+            setTimeout(function () {
+                var toast = document.getElementById('uploadToast');
+                if (toast) {
+                    toast.style.transition = '0.8s';
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateX(100%)';
+                    setTimeout(() => toast.remove(), 800);
+                }
+            }, 9000);
+        </script>
+    }
+
+    @if (TempData["FeedBackMessage"] != null)
+    {
+        <div class="toast-notification" id="feedbackToast">
+            <div class="toast-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <div class="toast-content">
+                <h4>شكراً لوقتك وتقييمك</h4>
+                <p>@TempData["FeedBackMessage"]</p>
+            </div>
+            <button class="close-toast" onclick="document.getElementById('feedbackToast').style.display='none'">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <script>
+            setTimeout(function () {
+                var toast = document.getElementById('feedbackToast');
+                if (toast) {
+                    toast.style.transition = '0.8s';
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateX(100%)';
+                    setTimeout(() => toast.remove(), 800);
+                }
+            }, 9000);
+        </script>
+    }
 
 </body>
 </html>

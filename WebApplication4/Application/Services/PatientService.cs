@@ -19,15 +19,17 @@ namespace WebApplication4.Application.Services
         }
 
         // Get all patients
-        public async Task<List<Patient>> GetAllPatientsAsync()
+        public async Task<Result<List<Patient>>> GetAllPatientsAsync()
         {
-            return await _uow.patients.GetAllAsync();
+           return Result<List<Patient>>.Success(await _uow.patients.GetAllAsync());
+           
         }
 
         // Get patient by ID
-        public async Task<Patient?> GetByIdAsync(int id)
+        public async Task<Result<Patient?>> GetByIdAsync(int id)
         {
-            return await _uow.patients.GetByIdAsync(id);
+            return Result<Patient?>.Success(await _uow.patients.GetByIdAsync(id));
+            
         }
 
         // Create patient

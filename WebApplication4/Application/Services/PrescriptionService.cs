@@ -17,15 +17,16 @@ namespace WebApplication4.Application.Services
         }
 
         // Get all prescriptions
-        public async Task<List<Prescription>> GetAllPrescriptionsAsync()
+        public async Task<Result<List<Prescription>>> GetAllPrescriptionsAsync()
         {
-            return await _uow.Prescriptions.GetAllAsync();
+           return Result<List<Prescription>>.Success(await _uow.Prescriptions.GetAllAsync());
+           
         }
 
         // Get prescription by ID
-        public async Task<Prescription?> GetByIdAsync(int id)
+        public async Task<Result<Prescription?>> GetByIdAsync(int id)
         {
-            return await _uow.Prescriptions.GetByIdAsync(id);
+           return Result<Prescription?>.Success(await _uow.Prescriptions.GetByIdAsync(id));
         }
 
         // Create prescription

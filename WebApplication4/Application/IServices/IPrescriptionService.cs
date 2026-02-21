@@ -7,8 +7,8 @@ namespace WebApplication4.Application.IServices
 {
     public interface IPrescriptionService
     {
-        Task<List<Prescription>> GetAllPrescriptionsAsync();
-        Task<Prescription?> GetByIdAsync(int id);
+        Task<Result<List<Prescription>>> GetAllPrescriptionsAsync();
+        Task<Result<Prescription?>> GetByIdAsync(int id);
         Task<Result<bool>> CreateAsync(RequestCreatePrescription dto);
         Task<Result<bool>> UpdateAsync(int id, UpdatePrescriptionDto dto, string pharmacistId);
         Task<Result<bool>> DeleteAsync(int id);
