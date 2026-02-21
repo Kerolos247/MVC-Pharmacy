@@ -32,5 +32,14 @@ namespace WebApplication4.Infrastructure.Repository
                 _context.PatientsFeedback.Remove(feedBack);
             }
         }
+        public async Task SentimentAnalysis(FeedbackSentiment sentiment,int Id)
+        {
+            var feedBack = await _context.PatientsFeedback.FindAsync(Id);
+            if (feedBack != null)
+            {
+                feedBack.feedbackSentiment = sentiment;
+
+            }
+        }
     }
 }

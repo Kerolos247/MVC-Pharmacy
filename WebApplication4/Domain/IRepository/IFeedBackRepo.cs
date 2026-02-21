@@ -9,6 +9,7 @@ namespace WebApplication4.Domain.IRepository
         Task<List<PatientFeedback>> GetAllAsync();
         Task<PatientFeedback> GetByIdAsync(int id);
         Task DeleteAsync(int id);
+        Task SentimentAnalysis(FeedbackSentiment sentiment,int Id);
 
     }
 }

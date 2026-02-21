@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using WebApplication4.Domain.Models;
 namespace WebApplication4.Application.Dto.Patient
 {
     public class PatientFeedbackDto
@@ -19,5 +19,7 @@ namespace WebApplication4.Application.Dto.Patient
 
         [StringLength(500, ErrorMessage = "الملاحظات بحد أقصى 500 حرف")]
         public string Notes { get; set; }
+
+        public FeedbackSentiment feedbackSentiment { get; set; }
     }
 }

@@ -25,6 +25,8 @@ namespace WebApplication4.Infrastructure.DependencyInjection
             services.AddScoped<IFileUploadService, CloudinaryFileUploadService>();
             services.AddScoped<IPrescriptionUploadService, PrescriptionUploadService>();
             services.AddScoped<IFeedBackService, FeedBackService>();
+            services.AddScoped<ISentimentService, SentimentService>();
+
 
 
             services.AddScoped<IMedicineRepo, MedicineRepo>();
@@ -39,6 +41,9 @@ namespace WebApplication4.Infrastructure.DependencyInjection
 
 
 
+
+            services.AddMemoryCache();
+           
 
 
 

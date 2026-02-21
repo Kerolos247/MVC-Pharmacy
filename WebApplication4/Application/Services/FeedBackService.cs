@@ -14,7 +14,7 @@ namespace WebApplication4.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Result<bool>> AddAsync(PatientFeedbackDto feedBack)
+        public async Task<Result<int>> AddAsync(PatientFeedbackDto feedBack)
         {
             await _unitOfWork.BeginTransactionAsync();
             try
@@ -25,18 +25,19 @@ namespace WebApplication4.Application.Services
                     Address = feedBack.Address,
                     PhoneNumber = feedBack.PhoneNumber,
                     Notes = feedBack.Notes,
+                    feedbackSentiment = feedBack.feedbackSentiment, 
                     CreatedAt = DateTime.Now
                 };
 
                 await _unitOfWork.feedBack.AddAsync(feedBackEntity);
                 await _unitOfWork.CommitAsync();
 
-                return Result<bool>.Success(true);
+                return Result<int>.Success(feedBackEntity.Id);
             }
             catch (Exception)
             {
                 await _unitOfWork.RollbackAsync();
-                return Result<bool>.Failure("An error occurred while adding feedback.");
+                return Result<int>.Failure("An error occurred while adding feedback.");
             }
         }
 
@@ -51,7 +52,9 @@ namespace WebApplication4.Application.Services
                     PatientName = f.PatientName,
                     Address = f.Address,
                     PhoneNumber = f.PhoneNumber,
-                    Notes = f.Notes
+                    Notes = f.Notes,
+                    feedbackSentiment = f.feedbackSentiment
+
                 }).ToList();
 
                 return Result<List<PatientFeedbackDto>>.Success(result);
@@ -109,6 +112,21 @@ namespace WebApplication4.Application.Services
             {
                 await _unitOfWork.RollbackAsync();
                 return Result<bool>.Failure("An error occurred while deleting feedback.");
+            }
+        }
+        public async Task<Result<bool>> SentimentAnalysis(FeedbackSentiment sentiment, int Id)
+        {
+            await _unitOfWork.BeginTransactionAsync();
+            try
+            {
+                await _unitOfWork.feedBack.SentimentAnalysis(sentiment, Id);
+                await _unitOfWork.CommitAsync();
+                return Result<bool>.Success(true);
+            }
+            catch (Exception)
+            {
+                await _unitOfWork.RollbackAsync();
+                return Result<bool>.Failure("An error occurred while performing sentiment analysis.");
             }
         }
     }
