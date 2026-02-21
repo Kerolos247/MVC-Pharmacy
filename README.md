@@ -35,11 +35,13 @@ Designed to help pharmacists efficiently manage medications, prescriptions, pati
 
  -Add, search, and dispense prescriptions
 
+ -Online prescription upload with paginated display for better performance
+
  -Automatic total price calculation
 
- -Discounts applied dynamically using Strategy Pattern
+ -Discounts via Strategy Pattern
 
- -Print final bills efficiently using Factory Pattern
+ -Invoice generation using Factory Pattern
 
 🤖 Chatbot Feature (Future)
 
