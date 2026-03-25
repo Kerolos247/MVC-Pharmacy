@@ -18,10 +18,11 @@ namespace WebApplication4.Infrastructure.Repository
         {
             return await _context.Categories
                 .Include(c => c.Medicines)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.CategoryId == id);
         }
 
-        public async Task<List<Category>> GetAllAsync()
+        public async Task<IEnumerable<Category>> GetAllAsync()
         {
             return await _context.Categories
                 .Include(c => c.Medicines)
@@ -29,10 +30,8 @@ namespace WebApplication4.Infrastructure.Repository
                 .ToListAsync();
         }
 
-        public async Task AddAsync(Category category)
-        {
+        public async Task AddAsync(Category category)=>
             await _context.Categories.AddAsync(category);
-        }
 
         public Task UpdateAsync(Category category)
         {

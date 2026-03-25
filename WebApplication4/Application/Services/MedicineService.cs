@@ -14,11 +14,17 @@ namespace WebApplication4.Application.Services
         {
             _uow = unitOfWork;
         }
+        
+        public async Task<int> GetMedicinesCountAsync()
+        {
+
+            return await _uow.Medicines.GetMedicinesCountAsync();
+        }
 
         // Get all medicines
-        public async Task<Result<List<Medicine>>> GetAllMedicinesAsync()
+        public async Task<Result<IEnumerable<Medicine>>> GetAllMedicinesAsync()
         {
-            return Result<List<Medicine>>.Success(await _uow.Medicines.GetAllAsync());
+            return Result<IEnumerable<Medicine>>.Success(await _uow.Medicines.GetAllAsync());
         }
 
         // Get medicine by ID
@@ -139,5 +145,8 @@ namespace WebApplication4.Application.Services
                 return Result<bool>.Failure("Failed to delete medicine");
             }
         }
+        public async Task<int> GetMedicinesCountLow()
+                =>await _uow.Medicines.GetMedicinesCountLow();
+        
     }
 }

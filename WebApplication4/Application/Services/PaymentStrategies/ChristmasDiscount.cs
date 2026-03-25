@@ -5,7 +5,7 @@ namespace WebApplication4.Application.Services.PaymentStrategies
     public class ChristmasDiscount : IPayment
     {
 
-        public decimal CalculateCost(List<Medicine> medicines)
+        public decimal CalculateCost(ICollection<Medicine> medicines)
         {
             decimal totalCost = medicines.Sum(m => m.Price);
             return totalCost * 0.7m;// 30% discount for high value prescriptions

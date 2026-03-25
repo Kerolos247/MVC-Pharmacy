@@ -40,7 +40,7 @@ namespace WebApplication4.Pressention.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllPrescriptionUploaded(int page = 1)
         {
-            int pageSize = 4; // عدد العناصر في الصفحة
+            int pageSize = 4; 
 
             var res = await _service.GetAllPrescriptionsAsync();
 

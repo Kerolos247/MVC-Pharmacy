@@ -17,11 +17,15 @@ namespace WebApplication4.Application.Services
             _uow = uow;
             _validationService = validationService;
         }
+        public async Task<int> GetPatientCountAsync()
+        {
+            return await _uow.patients.GetPatientCountAsync();
+        }
 
         // Get all patients
-        public async Task<Result<List<Patient>>> GetAllPatientsAsync()
+        public async Task<Result<IEnumerable<Patient>>> GetAllPatientsAsync()
         {
-           return Result<List<Patient>>.Success(await _uow.patients.GetAllAsync());
+           return Result<IEnumerable<Patient>>.Success(await _uow.patients.GetAllAsync());
            
         }
 

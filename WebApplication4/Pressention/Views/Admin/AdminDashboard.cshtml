@@ -1,0 +1,356 @@
+﻿@model WebApplication4.Application.Dto.Dashboard.DashboardViewAdmin
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم صيدلية الرحمة | برو</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --main-bg: #0f172a;
+            --sidebar-color: #1e293b;
+            --accent-color: #38bdf8;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: radial-gradient(circle at top right, #1e293b, #0f172a);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- Sidebar المطور --- */
+        .sidebar {
+            width: 280px;
+            background: var(--sidebar-color);
+            height: 100vh;
+            position: fixed;
+            border-left: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            box-shadow: 20px 0 50px rgba(0,0,0,0.3);
+        }
+
+        .sidebar-header {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .sidebar-logo {
+            width: 70px;
+            filter: drop-shadow(0 0 10px var(--accent-color));
+            margin-bottom: 15px;
+            animation: pulse 3s infinite;
+        }
+
+        .sidebar nav {
+            flex-grow: 1;
+            padding: 0 15px;
+        }
+
+            .sidebar nav a {
+                display: flex;
+                align-items: center;
+                color: var(--text-dim);
+                padding: 14px 20px;
+                text-decoration: none;
+                border-radius: 12px;
+                margin-bottom: 8px;
+                font-weight: 600;
+            }
+
+                .sidebar nav a i {
+                    margin-left: 15px;
+                    font-size: 1.2rem;
+                }
+
+                .sidebar nav a:hover, .sidebar nav a.active {
+                    background: var(--accent-color);
+                    color: #000;
+                    transform: scale(1.05);
+                    box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3);
+                }
+
+        /* --- المحتوى الرئيسي --- */
+        .main-content {
+            margin-right: 280px;
+            padding: 40px;
+            width: 100%;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+            background: var(--glass-bg);
+            padding: 20px 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+        }
+
+        .welcome-msg h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            background: linear-gradient(to left, #fff, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- شبكة الكروت --- */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(15px);
+        }
+
+            .glass-card:hover {
+                transform: translateY(-10px);
+                border-color: var(--accent-color);
+                background: rgba(255, 255, 255, 0.05);
+            }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(56, 189, 248, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .card-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin: 10px 0;
+            display: block;
+        }
+
+        .card-label {
+            color: var(--text-dim);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .badge-status {
+            display: inline-block;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-top: 15px;
+        }
+
+        .bg-warning-soft {
+            background: rgba(241, 196, 15, 0.1);
+            color: #f1c40f;
+        }
+
+        .bg-danger-soft {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+        }
+
+        .bg-success-soft {
+            background: rgba(39, 174, 96, 0.1);
+            color: #27ae60;
+        }
+
+        /* --- Animations --- */
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @@keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+        }
+
+        .blob {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: var(--accent-color);
+            filter: blur(80px);
+            opacity: 0.1;
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        /* التنسيق الجديد للزر */
+        .btn-logout {
+            width: calc(100% - 40px);
+            margin: 20px;
+            padding: 12px;
+            background: rgba(231, 76, 60, 0.1);
+            border: 1px solid rgba(231, 76, 60, 0.2);
+            border-radius: 12px;
+            color: #ef4444;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+            .btn-logout:hover {
+                background: #ef4444;
+                color: #fff;
+                box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3);
+                transform: translateY(-3px);
+            }
+
+        .mt-auto {
+            margin-top: auto;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="https://res.cloudinary.com/doehzk8fv/image/upload/v1771597792/Al_Rahma_eunf4y.png" alt="Logo" class="sidebar-logo">
+            <h2 style="font-weight: 900; letter-spacing: 1px;">الرحمة برو</h2>
+        </div>
+
+        <nav>
+            <a href="#" class="active"><i class="fas fa-th-large"></i> الرئيسية</a>
+            <a href="#"><i class="fas fa-user-md"></i> الصيادلة (@Model.PharmscistCount)</a>
+            <a href="/Admin/FeedBack"><i class="fas fa-comment-dots"></i> الشكاوي (@Model.FeedbacksCount)</a>
+        </nav>
+
+        <form asp-controller="Auth" asp-action="Logout" method="post" class="mt-auto">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn-logout">
+                <span>🚪</span> تسجيل الخروج
+            </button>
+        </form>
+    </div>
+
+    <div class="main-content">
+        <div class="blob" style="top: 10%; right: 20%;"></div>
+        <div class="blob" style="bottom: 10%; left: 10%; background: #9b59b6;"></div>
+
+        <div class="top-bar">
+            <div class="welcome-msg">
+                <h1>لوحة التحكم الإحصائية</h1>
+                <p style="color: var(--text-dim); margin: 5px 0 0 0;">أهلاً بك، إليك ملخص نشاط الصيدلية اليوم</p>
+            </div>
+            <div class="date-badge" style="text-align: left;">
+                <div style="font-weight: 900; font-size: 1.1rem;">@DateTime.Now.ToString("dd MMMM")</div>
+                <div style="color: var(--accent-color); font-size: 0.8rem;">@DateTime.Now.ToString("yyyy")</div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="glass-card">
+                <div class="card-icon"><i class="fas fa-user-nurse"></i></div>
+                <span class="card-label">الكادر الطبي</span>
+                <span class="card-value">@Model.PharmscistCount</span>
+                <div class="badge-status bg-success-soft">نشط الآن</div>
+            </div>
+
+            <div class="glass-card">
+                <div class="card-icon" style="color: #f1c40f;"><i class="fas fa-boxes-stacked"></i></div>
+                <span class="card-label">نواقص الأدوية</span>
+                <span class="card-value">@Model.MedinesCountLow</span>
+                @if (Model.MedinesCountLow > 0)
+                {
+                    <div class="badge-status bg-danger-soft">تحتاج طلبية فورية</div>
+                }
+                else
+                {
+                    <div class="badge-status bg-success-soft">المخزون آمن</div>
+                }
+            </div>
+
+            <div class="glass-card">
+                <div class="card-icon" style="color: #e67e22;"><i class="fas fa-envelope-open-text"></i></div>
+                <span class="card-label">شكاوي المرضي</span>
+                <span class="card-value">@Model.FeedbacksCount</span>
+                <div class="badge-status bg-warning-soft">@Model.FeedbacksCount رسالة جديدة</div>
+            </div>
+
+            <div class="glass-card">
+                <div class="card-icon" style="color: #a855f7;"><i class="fas fa-handshake"></i></div>
+                <span class="card-label">شركاء التوريد</span>
+                <span class="card-value">@Model.SuppliersCount</span>
+                <div class="badge-status" style="background: rgba(168, 85, 247, 0.1); color: #a855f7;">مورد مسجل</div>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; display: flex; gap: 20px;">
+            <div class="glass-card" style="flex: 2; min-height: 150px; display: flex; align-items: center; justify-content: space-around;">
+                <div style="text-align: center;">
+                    <div style="color: var(--text-dim);">إجمالي المرضى</div>
+                    <div style="font-size: 2rem; font-weight: 800;">@Model.PatientsCount</div>
+                </div>
+                <div style="width: 2px; height: 50px; background: var(--glass-border);"></div>
+                <div style="text-align: center;">
+                    <div style="color: var(--text-dim);">الحالة البرمجية</div>
+                    <div style="color: var(--accent-color); font-weight: 700;">متصل بالخادم</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

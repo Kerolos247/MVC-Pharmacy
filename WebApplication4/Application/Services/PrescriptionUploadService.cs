@@ -2,7 +2,6 @@
 using WebApplication4.Application.IServices;
 using WebApplication4.Domain.Models;
 using WebApplication4.Application.Common.Results;
-
 namespace WebApplication4.Application.Services
 {
     public class PrescriptionUploadService : IPrescriptionUploadService
@@ -42,9 +41,9 @@ namespace WebApplication4.Application.Services
             }
 
         }
-        public async Task<Result<List<PrescriptionUpload>>> GetAllPrescriptionsAsync()
+        public async Task<Result<ICollection<PrescriptionUpload>>> GetAllPrescriptionsAsync()
         {
-            return Result<List<PrescriptionUpload>>.Success(await _uow.prescriptionUpload.GetAllAsync());
+            return Result<ICollection<PrescriptionUpload>>.Success(await _uow.prescriptionUpload.GetAllAsync());
         }
         public async Task<Result<bool>> DeletePrescriptionAsync(int id)
         {
@@ -61,7 +60,7 @@ namespace WebApplication4.Application.Services
                 return Result<bool>.Failure($"Failed to delete prescription");
             }
         }
-
+        
 
     }
 }

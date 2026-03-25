@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WebApplication4.Application.Common.Results;
-using WebApplication4.Application.Dto.Medcine;
-using WebApplication4.Domain.Models;
-
+﻿using WebApplication4.Domain.Models;
 namespace WebApplication4.Domain.IRepository
 {
     public interface IMedicineRepo
@@ -10,7 +6,7 @@ namespace WebApplication4.Domain.IRepository
 
         Task<Medicine?> GetByIdAsync(int id);
 
-        Task<List<Medicine>> GetAllAsync();
+        Task<IEnumerable<Medicine>> GetAllAsync();
 
         Task AddAsync(Medicine medicine);
 
@@ -20,6 +16,10 @@ namespace WebApplication4.Domain.IRepository
 
         Task<bool> ExistsAsync(string name, string form, string strength);
 
-        Task<List<Medicine>> GetByNamesAsync(List<string> names);
+        Task<ICollection<Medicine>> GetByNamesAsync(List<string> names);
+
+        Task<int> GetMedicinesCountAsync();
+        Task<int> GetMedicinesCountLow();
+
     }
 }

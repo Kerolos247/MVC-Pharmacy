@@ -18,9 +18,9 @@ namespace WebApplication4.Application.Services
         }
 
         // Get all categories
-        public async Task<Result<List<Category>>> GetAllCategoriesAsync()
+        public async Task<Result<IEnumerable<Category>>> GetAllCategoriesAsync()
         {
-            return Result<List<Category>>.Success(await _uow.Categories.GetAllAsync());
+            return Result<IEnumerable<Category>>.Success(await _uow.Categories.GetAllAsync());
 
         }
 

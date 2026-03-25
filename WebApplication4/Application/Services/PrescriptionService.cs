@@ -15,11 +15,14 @@ namespace WebApplication4.Application.Services
         {
             _uow = uow;
         }
-
-        // Get all prescriptions
-        public async Task<Result<List<Prescription>>> GetAllPrescriptionsAsync()
+        public async Task<int> GetPrescriptionCountAsync()
         {
-           return Result<List<Prescription>>.Success(await _uow.Prescriptions.GetAllAsync());
+            return await _uow.Prescriptions.GetPrescriptionCountAsync();
+        }
+        // Get all prescriptions
+        public async Task<Result<IEnumerable<Prescription>>> GetAllPrescriptionsAsync()
+        {
+           return Result<IEnumerable<Prescription>>.Success(await _uow.Prescriptions.GetAllAsync());
            
         }
 
@@ -186,6 +189,10 @@ namespace WebApplication4.Application.Services
                 await _uow.RollbackAsync();
                 return Result<ResponseCostDto>.Failure($"Payment failed:");
             }
+        }
+        public async Task<int> GetPharmacistsCount()
+        {
+            return await _uow.Prescriptions.GetPharmacistsCount();
         }
 
 

@@ -15,11 +15,9 @@ namespace WebApplication4.Infrastructure.Repository
         }
 
         public async Task AddAsync(Inventory item)
-        {
-            await _context.Inventories.AddAsync(item);
-        }
+            =>_context.Inventories.AddAsync(item);
 
-        public async Task<List<Inventory>> GetAllAsync()
+        public async Task<IEnumerable<Inventory>> GetAllAsync()
         {
             return await _context.Inventories
                 .Include(i => i.Medicine)
@@ -27,9 +25,8 @@ namespace WebApplication4.Infrastructure.Repository
                 .ToListAsync();
         }
         public async Task<bool> ExistsByMedicineIdAsync(int Id)
-        {
-           return await _context.Inventories.AnyAsync(i => i.MedicineId == Id);
-        }
+            =>await _context.Inventories.AnyAsync(i => i.MedicineId == Id);
+        
 
         public async Task<Inventory?> GetByIdAsync(int id)
         {

@@ -35,30 +35,29 @@ namespace WebApplication4.Pressention.Controllers
             // 1. تحليل المشاعر
             var analysisResult = await _sentimentService.AnalyzeAsync(feedbackDto.Notes);
 
-            // 2. التحويل الذكي (استخدام ToUpper لمنع مشاكل الحروف الكبيرة والصغيرة)
-            // ده أهم سطر عشان تضمن إن المقارنة تتم صح مهما كانت النتيجة راجعة إزاي
+           
             string label = analysisResult.Label?.Trim().ToUpper() ?? "NEUTRAL";
 
             FeedbackSentiment sentiment;
 
             if (label == "POSITIVE")
             {
-                TempData["FeedBackMessage"] = "رساله حلوه";
+                //TempData["FeedBackMessage"] = "رساله حلوه";
                 sentiment = FeedbackSentiment.Positive;
             }
             else if (label == "NEGATIVE")
             {
-                TempData["FeedBackMessage"] = "رساله وحشه";
+                //TempData["FeedBackMessage"] = "رساله وحشه";
                 sentiment = FeedbackSentiment.Negative;
             }
             else if (label == "NEUTRAL")
             {
-                TempData["FeedBackMessage"] = "رساله عاديه";
+                //TempData["FeedBackMessage"] = "رساله عاديه";
                 sentiment = FeedbackSentiment.Neutral;
             }
             else
             {
-                sentiment = FeedbackSentiment.Neutral; // لو جت قيمة غريبة → نخليها Neutral
+                sentiment = FeedbackSentiment.Neutral; 
             }
 
             // 3. تعيين القيمة وحفظ البيانات

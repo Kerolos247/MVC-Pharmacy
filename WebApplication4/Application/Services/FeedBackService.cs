@@ -41,7 +41,7 @@ namespace WebApplication4.Application.Services
             }
         }
 
-        public async Task<Result<List<PatientFeedbackDto>>> GetAllAsync()
+        public async Task<Result<IEnumerable<PatientFeedbackDto>>> GetAllAsync()
         {
             try
             {
@@ -57,11 +57,11 @@ namespace WebApplication4.Application.Services
 
                 }).ToList();
 
-                return Result<List<PatientFeedbackDto>>.Success(result);
+                return Result<IEnumerable<PatientFeedbackDto>>.Success(result);
             }
             catch (Exception)
             {
-                return Result<List<PatientFeedbackDto>>.Failure("An error occurred while retrieving feedback list.");
+                return Result<IEnumerable<PatientFeedbackDto>>.Failure("An error occurred while retrieving feedback list.");
             }
         }
 
@@ -129,5 +129,8 @@ namespace WebApplication4.Application.Services
                 return Result<bool>.Failure("An error occurred while performing sentiment analysis.");
             }
         }
+        public async Task<int>GetFeedbackCountAsync()
+                =>  await _unitOfWork.feedBack.GetFeedbackCountAsync();
+
     }
 }

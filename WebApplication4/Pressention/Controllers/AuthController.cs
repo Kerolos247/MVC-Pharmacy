@@ -62,9 +62,9 @@ namespace WebApplication4.Pressention.Controllers
             switch (success.Role)
             {
                 case "Admin":
-                    return RedirectToAction("AdminDashboard", "Dashboard");
+                    return RedirectToAction("AdminDashboard", "Admin");
                 case "Pharmacist":
-                    return RedirectToAction("Pharmacist", "Dashboard");
+                    return RedirectToAction("PharmacistDashboard", "Pharmacist");
                 default:
                     return RedirectToAction("Not_Found");
             }

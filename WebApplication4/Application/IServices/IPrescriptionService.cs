@@ -7,11 +7,14 @@ namespace WebApplication4.Application.IServices
 {
     public interface IPrescriptionService
     {
-        Task<Result<List<Prescription>>> GetAllPrescriptionsAsync();
+        Task<Result<IEnumerable<Prescription>>> GetAllPrescriptionsAsync();
         Task<Result<Prescription?>> GetByIdAsync(int id);
         Task<Result<bool>> CreateAsync(RequestCreatePrescription dto);
         Task<Result<bool>> UpdateAsync(int id, UpdatePrescriptionDto dto, string pharmacistId);
         Task<Result<bool>> DeleteAsync(int id);
         Task<Result<ResponseCostDto>> PayAsync(int id, IPayment payment);
+        Task<int> GetPrescriptionCountAsync();
+
+        Task<int> GetPharmacistsCount();
     }
 }

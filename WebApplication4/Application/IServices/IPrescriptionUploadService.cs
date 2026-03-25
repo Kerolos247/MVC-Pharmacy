@@ -7,8 +7,8 @@ namespace WebApplication4.Application.IServices
     public interface IPrescriptionUploadService
     {
         Task<Result<bool>> UploadPrescriptionAsync(PrescriptionUploadDto dto);
-        Task<Result<List<PrescriptionUpload>>> GetAllPrescriptionsAsync();
+        Task<Result<ICollection<PrescriptionUpload>>> GetAllPrescriptionsAsync();
         Task<Result<bool>> DeletePrescriptionAsync(int id);
-
+      
     }
 }

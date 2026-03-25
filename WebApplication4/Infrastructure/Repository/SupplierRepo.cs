@@ -15,6 +15,9 @@ namespace WebApplication4.Infrastructure.Repository
         {
             _context = context;
         }
+        public async Task<int> GetSupplierCountAsync()
+            =>await _context.Suppliers.CountAsync();
+        
 
         public async Task<Supplier?> GetByIdAsync(int id)
         {
@@ -27,7 +30,7 @@ namespace WebApplication4.Infrastructure.Repository
                 .FirstOrDefaultAsync(s => s.SupplierId == id);
         }
 
-        public async Task<List<Supplier>> GetAllAsync()
+        public async Task<IEnumerable<Supplier>> GetAllAsync()
         {
             return await _context.Suppliers
                 .Include(s => s.Medicines)
@@ -36,9 +39,8 @@ namespace WebApplication4.Infrastructure.Repository
         }
 
         public async Task AddAsync(Supplier supplier)
-        {
-            await _context.Suppliers.AddAsync(supplier);
-        }
+            =>await _context.Suppliers.AddAsync(supplier);
+        
 
         public Task UpdateAsync(Supplier supplier)
         {

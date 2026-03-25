@@ -12,18 +12,15 @@ namespace WebApplication4.Infrastructure.Repository
             _context = context;
         }
         public async Task AddAsync(PatientFeedback feedBack)
-        {
-           await _context.PatientsFeedback.AddAsync(feedBack);
-        }
+                   =>await _context.PatientsFeedback.AddAsync(feedBack);
+        
 
-        public async Task<List<PatientFeedback>> GetAllAsync()
-        {
-            return await _context.PatientsFeedback.OrderByDescending(f => f.CreatedAt).ToListAsync();
-        }
+        public async Task<IEnumerable<PatientFeedback>> GetAllAsync()
+            => await _context.PatientsFeedback.AsNoTracking().OrderByDescending(f => f.CreatedAt).ToListAsync();
+        
         public async Task<PatientFeedback?> GetByIdAsync(int id)
-        {
-            return await _context.PatientsFeedback.FindAsync(id);
-        }
+            =>await _context.PatientsFeedback.FindAsync(id);
+        
         public async Task DeleteAsync(int id)
         {
             var feedBack = await _context.PatientsFeedback.FindAsync(id);
@@ -41,5 +38,7 @@ namespace WebApplication4.Infrastructure.Repository
 
             }
         }
+        public async Task<int> GetFeedbackCountAsync()
+            => await _context.PatientsFeedback.CountAsync();
     }
 }

@@ -20,7 +20,7 @@ public class MedicineRepo : IMedicineRepo
             .FirstOrDefaultAsync(m => m.MedicineId == id);
     }
 
-    public async Task<List<Medicine>> GetAllAsync()
+    public async Task<IEnumerable<Medicine>> GetAllAsync()
     {
         return await _context.Medicines
             .Include(c => c.Category)
@@ -30,9 +30,8 @@ public class MedicineRepo : IMedicineRepo
     }
 
     public async Task AddAsync(Medicine medicine)
-    {
-        await _context.Medicines.AddAsync(medicine);
-    }
+        =>await _context.Medicines.AddAsync(medicine);
+    
 
     public Task UpdateAsync(Medicine medicine)
     {
@@ -54,7 +53,7 @@ public class MedicineRepo : IMedicineRepo
             m.Strength == strength);
     }
 
-    public async Task<List<Medicine>> GetByNamesAsync(List<string> names)
+    public async Task<ICollection<Medicine>> GetByNamesAsync(List<string> names)
     {
         var medicinesFromDb = await _context.Medicines
             .Where(m => names.Contains(m.Name))
@@ -74,4 +73,15 @@ public class MedicineRepo : IMedicineRepo
         return medicinesOrdered;
 
     }
+    public async Task<int> GetMedicinesCountAsync()
+            => await _context.Medicines.CountAsync();
+
+
+    public async Task<int> GetMedicinesCountLow()
+            => await _context.Medicines
+            .Include(m => m.Inventory)
+            .Where(m => m.Inventory != null && m.Inventory.Quantity < 10)
+            .CountAsync();
+    
+
 }

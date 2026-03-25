@@ -19,11 +19,15 @@ namespace WebApplication4.Application.Services
             _uow = uow;
             _validationService = validationService;
         }
+        public async Task<int> GetSupplierCountAsync()
+        {
+            return await _uow.suppliers.GetSupplierCountAsync();
+        }
 
         // Get all suppliers
-        public async Task<Result<List<Supplier>>> GetAllSuppliersAsync()
+        public async Task<Result<IEnumerable<Supplier>>> GetAllSuppliersAsync()
         {
-            return Result<List<Supplier>>.Success(await _uow.suppliers.GetAllAsync());
+            return Result<IEnumerable<Supplier>>.Success(await _uow.suppliers.GetAllAsync());
         }
 
         // Get supplier by ID

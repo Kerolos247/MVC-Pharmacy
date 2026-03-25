@@ -4,6 +4,6 @@ namespace WebApplication4.Application.Services.PaymentStrategies
 {
     public interface IPayment
     {
-        decimal CalculateCost(List<Medicine> medicines);
+        decimal CalculateCost(ICollection<Medicine> medicines);
     }
 }

@@ -16,13 +16,13 @@ namespace WebApplication4.Application.Services
         }
 
         // Get all inventories (convert Entities → DTO)
-        public async Task<Result<List<InventoryDto>>> GetAllInventoriesAsync()
+        public async Task<Result<IEnumerable<InventoryDto>>> GetAllInventoriesAsync()
         {
             var inventories = await _uow.Inventories.GetAllAsync();
 
 
 
-            return Result<List<InventoryDto>>.Success(inventories.Select(i => new InventoryDto
+            return Result<IEnumerable<InventoryDto>>.Success(inventories.Select(i => new InventoryDto
             {
                 InventoryId = i.InventoryId,
                 Quantity = i.Quantity,

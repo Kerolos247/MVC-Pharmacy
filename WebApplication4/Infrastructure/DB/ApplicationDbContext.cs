@@ -29,6 +29,7 @@ namespace WebApplication4.Infrastructure.DB
             base.OnModelCreating(modelBuilder);
 
 
+
             modelBuilder.Entity<PrescriptionUpload>().HasIndex(p => p.UploadedAt);
             modelBuilder.Entity<PatientFeedback>().HasIndex(p => p.CreatedAt);
 

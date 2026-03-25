@@ -4,7 +4,7 @@ namespace WebApplication4.Application.Services.PaymentStrategies
     public class ValentineDiscount : IPayment
     {
 
-        public decimal CalculateCost(List<Medicine> medicines)
+        public decimal CalculateCost(ICollection<Medicine> medicines)
         {
 
             decimal totalCost = medicines.Sum(m => m.Price);

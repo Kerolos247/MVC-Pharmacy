@@ -17,14 +17,12 @@ namespace WebApplication4.Infrastructure.Repository
         }
 
         public async Task AddAsync(PrescriptionUpload prescription)
-        {
-            await _context.PrescriptionsUpload.AddAsync(prescription);
-        }
+                =>await _context.PrescriptionsUpload.AddAsync(prescription);
+        
 
-        public async Task<List<PrescriptionUpload>> GetAllAsync()
-        {
-            return await _context.PrescriptionsUpload.OrderByDescending(p=>p.UploadedAt).ToListAsync();
-        }
+        public async Task<ICollection<PrescriptionUpload>> GetAllAsync()
+                => await _context.PrescriptionsUpload.OrderByDescending(p=>p.UploadedAt).ToListAsync();
+        
         public async Task DeleteAsync(int id)
         {
             var prescription = await _context.PrescriptionsUpload.FindAsync(id);
@@ -33,5 +31,6 @@ namespace WebApplication4.Infrastructure.Repository
                 _context.PrescriptionsUpload.Remove(prescription);
             }
         }
+        
     }
 }

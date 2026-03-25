@@ -7,7 +7,7 @@ namespace WebApplication4.Application.IServices
     {
         Task<Result<int>> AddAsync(PatientFeedbackDto feedBack);
 
-        Task<Result<List<PatientFeedbackDto>>> GetAllAsync();
+        Task<Result<IEnumerable<PatientFeedbackDto>>> GetAllAsync();
 
         Task<Result<PatientFeedbackDto?>> GetByIdAsync(int id);
 
@@ -15,5 +15,7 @@ namespace WebApplication4.Application.IServices
 
 
         Task<Result<bool>> SentimentAnalysis(FeedbackSentiment sentiment, int Id);
+
+        Task<int> GetFeedbackCountAsync();
     }
 }

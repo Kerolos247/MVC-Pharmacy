@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using WebApplication4.Domain.Models;
-
-namespace WebApplication4.Domain.Models
+﻿namespace WebApplication4.Domain.Models
 {
     public enum FeedbackSentiment
     {

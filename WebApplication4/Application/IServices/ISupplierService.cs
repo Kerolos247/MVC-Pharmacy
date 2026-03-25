@@ -6,10 +6,11 @@ namespace WebApplication4.Application.IServices
 {
     public interface ISupplierService
     {
-        Task<Result<List<Supplier>>> GetAllSuppliersAsync();
+        Task<Result<IEnumerable<Supplier>>> GetAllSuppliersAsync();
         Task<Result<Supplier?>> GetByIdAsync(int id);
         Task<Result<bool>> CreateAsync(RequestCreateSupplier dto);
         Task<Result<bool>> UpdateAsync(int id, UpdateSupplierDto dto);
         Task<Result<bool>> DeleteAsync(int id);
+        Task<int> GetSupplierCountAsync();
     }
 }

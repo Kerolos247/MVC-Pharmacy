@@ -3,7 +3,7 @@ namespace WebApplication4.Application.Services.PaymentStrategies
 {
     public class NoDiscount : IPayment
     {
-        public decimal CalculateCost(List<Medicine> medicines)
+        public decimal CalculateCost(ICollection<Medicine> medicines)
         {
             return medicines.Sum(m => m.Price);
         }

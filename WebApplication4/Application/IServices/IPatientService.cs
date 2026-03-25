@@ -6,10 +6,11 @@ namespace WebApplication4.Application.IServices
 {
     public interface IPatientService
     {
-        Task<Result<List<Patient>>> GetAllPatientsAsync();
+        Task<Result<IEnumerable<Patient>>> GetAllPatientsAsync();
         Task<Result<Patient?>> GetByIdAsync(int id);
         Task<Result<bool>> CreateAsync(RequestCreatePatient dto);
         Task<Result<bool>> UpdateAsync(int id, UpdatePatientDto dto);
         Task<Result<bool>> DeleteAsync(int id);
+        Task<int> GetPatientCountAsync();
     }
 }

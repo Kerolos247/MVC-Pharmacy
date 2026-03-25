@@ -41,7 +41,7 @@ var account = new CloudinaryDotNet.Account(
     cloudinarySettings["ApiSecret"]
 );
 
-// استخدم CloudinaryDotNet.Cloudinary لتجنب التعارض مع namespace
+
 var cloudinary = new CloudinaryDotNet.Cloudinary(account);
 
 builder.Services.AddSingleton(cloudinary);

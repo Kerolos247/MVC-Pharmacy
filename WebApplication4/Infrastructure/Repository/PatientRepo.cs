@@ -13,6 +13,9 @@ namespace WebApplication4.Infrastructure.Repository
         {
             _context = context;
         }
+        public async Task<int> GetPatientCountAsync()
+            =>await _context.Patients.CountAsync();
+        
 
         public async Task<Patient?> GetByIdAsync(int id)
         {
@@ -22,7 +25,7 @@ namespace WebApplication4.Infrastructure.Repository
                 .FirstOrDefaultAsync(p => p.PatientId == id);
         }
 
-        public async Task<List<Patient>> GetAllAsync()
+        public async Task<IEnumerable<Patient>> GetAllAsync()
         {
             return await _context.Patients
                 .Include(p => p.Prescriptions)
@@ -31,9 +34,8 @@ namespace WebApplication4.Infrastructure.Repository
         }
 
         public async Task AddAsync(Patient patient)
-        {
-            await _context.Patients.AddAsync(patient);
-        }
+            =>await _context.Patients.AddAsync(patient);
+        
 
         public Task UpdateAsync(Patient patient)
         {
