@@ -41,7 +41,7 @@ Built to help pharmacists manage medications, prescriptions, patients, and suppl
   - Confidence score
 
   📸 **Model in Action:**
-  ![Sentiment Analysis]()
+  ![Sentiment Analysis](https://github.com/Kerolos247/MVC-Pharmacy/blob/master/Screenshot%202026-03-25%20032648.png)
 
 ---
 
