@@ -23,6 +23,11 @@ Designed to help pharmacists efficiently manage medications, prescriptions, pati
 
  -Input validation & sanitization: Prevents invalid or malicious data entries to reduce vulnerability
 
+
+🤖Customer Feedback Sentiment Analysis using Custom NLP Model
+
+ -This feature analyzes customer reviews and automatically detects their sentiment (positive or negative) using an NLP model trained on our custom dataset, providing insights to improve customer satisfaction and service quality.
+
 💊 Medication Management
 
  -Add, update, search, and delete medications
