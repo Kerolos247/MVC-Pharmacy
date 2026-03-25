@@ -24,6 +24,22 @@ Built to help pharmacists manage medications, prescriptions, patients, and suppl
 - **Performance Optimization**  
   Implemented in-memory caching to reduce repeated NLP processing and improve response time
 
+  ---
+
+  ### 🤖 AI Model Details
+
+- **Model:** Arabic Sentiment Analysis (Fine-Tuned BERT)
+- **Source:** https://huggingface.co/kerolos123/arabic-sentiment-finetuned
+
+- **Description:**  
+  A fine-tuned transformer-based model built on AraBERT architecture, designed to classify Arabic text into sentiment categories (positive / negative).  
+  The model is adapted from a pre-trained Arabic sentiment model and further fine-tuned to improve accuracy on domain-specific data. :contentReference[oaicite:0]{index=0}
+
+- **How it works:**  
+  The model processes customer feedback and returns:
+  - Sentiment label (Positive / Negative)
+  - Confidence score
+
 ---
 
 ### 💊 Medication Management
