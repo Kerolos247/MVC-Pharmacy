@@ -9,6 +9,7 @@ Built to help pharmacists manage medications, prescriptions, patients, and suppl
 
 ### 🔐 Authentication & Security
 - Secure authentication using ASP.NET Identity
+- Role-based authorization (Admin, Pharmacist) to enforce secure access control and separation of responsibilities
 - Password reset via email (Forgot & Reset Password)
 - Brute-force protection with temporary account lockout
 - Email alerts for suspicious login attempts
