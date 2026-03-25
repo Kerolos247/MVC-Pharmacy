@@ -102,9 +102,17 @@ Built to help pharmacists manage medications, prescriptions, patients, and suppl
 
 ## 🧩 Design Patterns
 
-- **Repository Pattern & Unit of Work**
-- **Strategy Pattern** (Discount system)
-- **Factory Pattern** (Invoice generation)
+- **Repository Pattern & Unit of Work**  
+  To abstract data access logic and manage database transactions efficiently.
+
+- **Strategy Pattern**  
+  For implementing dynamic discount logic with flexible and extensible behavior.
+
+- **Factory Pattern**  
+  For centralized and flexible object creation (e.g., invoice generation).
+
+- **Dependency Injection (DI)**  
+  To achieve loose coupling, improve testability, and enhance maintainability.
 
 ---
 
