@@ -21,9 +21,6 @@ Built to help pharmacists manage medications, prescriptions, patients, and suppl
 - **Sentiment Analysis (NLP)**  
   Analyzes customer feedback using a custom NLP model to detect positive and negative reviews, enabling better decision-making and service improvement
 
-- **AI Chatbot Integration**  
-  Integrated with a Python FastAPI service for real-time interaction with an AI model
-
 - **Performance Optimization**  
   Implemented in-memory caching to reduce repeated NLP processing and improve response time
 
