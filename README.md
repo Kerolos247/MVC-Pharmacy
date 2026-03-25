@@ -40,6 +40,9 @@ Built to help pharmacists manage medications, prescriptions, patients, and suppl
   - Sentiment label (Positive / Negative)
   - Confidence score
 
+  📸 **Model in Action:**
+  ![Sentiment Analysis]()
+
 ---
 
 ### 💊 Medication Management
