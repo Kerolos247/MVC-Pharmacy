@@ -26,6 +26,22 @@ Built to help pharmacists manage medications, prescriptions, patients, and suppl
   Implemented in-memory caching to reduce repeated NLP processing and improve response time
 
   ---
+  ### 🤖 AI Assistant (Mistral Integration)
+
+Integrated a conversational AI assistant powered by **Mistral AI**, connected through a **FastAPI service** that communicates seamlessly with the **ASP.NET Core backend**.
+
+#### 🧠 Pharmacist Support System
+Enables pharmacists to ask medical-related queries, retrieve drug information, and receive intelligent, AI-driven suggestions in real time.
+
+#### 🔗 Backend Communication (C# ↔ Python)
+Implemented a REST-based communication layer between the **C# application** and the **FastAPI AI service**, ensuring efficient request/response handling and smooth integration.
+
+#### 💡 Use Cases
+- Drug usage guidance  
+- General medical inquiries  
+- Decision-making assistance within the system
+- 
+  ---
 
   ### 🤖 AI Model Details
 
