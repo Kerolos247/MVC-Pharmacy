@@ -105,6 +105,25 @@
             width: auto;
             margin-left: 10px;
         }
+
+        .btn-signup {
+            background: linear-gradient(135deg, #27ae60, #1e8449);
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(142, 68, 173, 0.4);
+        }
+
+            .btn-signup:hover {
+                transform: translateY(-2px) scale(1.05);
+                box-shadow: 0 12px 25px rgba(142, 68, 173, 0.5);
+                background: linear-gradient(135deg, #27ae60, #1e8449);
+            }
     </style>
 </head>
 <body>
@@ -116,9 +135,10 @@
             <img src="https://res.cloudinary.com/doehzk8fv/image/upload/v1771597792/Al_Rahma_eunf4y.png" alt="Logo" class="nav-logo-img">
             <div class="logo-text">صيدلية الرحمة</div>
         </div>
-        <div class="nav-buttons">
-            <a href="/auth/login" class="btn btn-login">تسجيل الدخول</a>
-            <a href="/Feedback/CreateFeedback" class="btn btn-signup">رأيكم يهمنا</a>
+        <div class="nav-buttons" style="flex: 1; display: flex; justify-content: flex-end;">
+            <a href="/Feedback/CreateFeedback" class="btn btn-signup">
+                💬 رأيكم يهمنا
+            </a>
         </div>
     </nav>
 

@@ -26,6 +26,7 @@ namespace WebApplication4.Infrastructure.DependencyInjection
             services.AddScoped<IPrescriptionUploadService, PrescriptionUploadService>();
             services.AddScoped<IFeedBackService, FeedBackService>();
             services.AddScoped<ISentimentService, SentimentService>();
+            services.AddScoped<IChatAiService, MistralService>();
 
 
 

@@ -42,6 +42,8 @@ var account = new CloudinaryDotNet.Account(
 );
 
 
+
+
 var cloudinary = new CloudinaryDotNet.Cloudinary(account);
 
 builder.Services.AddSingleton(cloudinary);
