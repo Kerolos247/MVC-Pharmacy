@@ -9,6 +9,7 @@ Built to help pharmacists manage medications, prescriptions, patients, and suppl
 
 ### 🔐 Authentication & Security
 - Secure authentication using ASP.NET Identity
+- Role-based authorization (Admin, Pharmacist) to enforce secure access control and separation of responsibilities
 - Password reset via email (Forgot & Reset Password)
 - Brute-force protection with temporary account lockout
 - Email alerts for suspicious login attempts
@@ -39,6 +40,9 @@ Built to help pharmacists manage medications, prescriptions, patients, and suppl
   The model processes customer feedback and returns:
   - Sentiment label (Positive / Negative)
   - Confidence score
+
+  📸 **Model in Action:**
+  ![Sentiment Analysis](https://github.com/Kerolos247/MVC-Pharmacy/blob/master/Screenshot%202026-03-25%20032648.png)
 
 ---
 
@@ -98,9 +102,17 @@ Built to help pharmacists manage medications, prescriptions, patients, and suppl
 
 ## 🧩 Design Patterns
 
-- **Repository Pattern & Unit of Work**
-- **Strategy Pattern** (Discount system)
-- **Factory Pattern** (Invoice generation)
+- **Repository Pattern & Unit of Work**  
+  To abstract data access logic and manage database transactions efficiently.
+
+- **Strategy Pattern**  
+  For implementing dynamic discount logic with flexible and extensible behavior.
+
+- **Factory Pattern**  
+  For centralized and flexible object creation (e.g., invoice generation).
+
+- **Dependency Injection (DI)**  
+  To achieve loose coupling, improve testability, and enhance maintainability.
 
 ---
 
