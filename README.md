@@ -45,7 +45,7 @@ Implemented a REST-based communication layer between the **C# application** and 
   ### 🤖 AI Model Details
 
 - **Model:** Arabic Sentiment Analysis (Fine-Tuned BERT)
-- **Source:** https://huggingface.co/kerolos123/arabic-sentiment-finetuned
+- **Source:** https://huggingface.co/kerolos1/analysis-of-Egyptian-sentiments
 
 - **Description:**  
   A fine-tuned transformer-based model built on AraBERT architecture, designed to classify Arabic text into sentiment categories (positive / negative).  
