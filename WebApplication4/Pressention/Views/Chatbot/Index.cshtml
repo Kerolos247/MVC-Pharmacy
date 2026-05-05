@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PharmaAI | مساعد الصيدلي الذكي</title>
+    <title>PharmaAI | Intelligent Pharmacist Assistant</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700&display=swap" rel="stylesheet">
@@ -204,39 +204,38 @@
                 <div class="logo-header">
                     <i class="fas fa-prescription-bottle-alt"></i>
                     <div>
-                        <h2 style="margin: 0; font-size: 1.3rem;">PharmaAI <span style="font-weight: 300; font-size: 0.9rem; color: #94a3b8;">| النظام الذكي</span></h2>
-                        <p style="margin: 2px 0 0; font-size: 0.75rem; color: var(--accent-color);">متصل بمرجع الأدوية العالمي</p>
+                        <h2 style="margin: 0; font-size: 1.3rem;">PharmaAI <span style="font-weight: 300; font-size: 0.9rem; color: #94a3b8;">| Intelligent System</span></h2>
+                        <p style="margin: 2px 0 0; font-size: 0.75rem; color: var(--accent-color);">Connected to Global Drug Database</p>
                     </div>
                 </div>
                 <div>
                     <span class="status-dot"></span>
-                    <span style="font-size: 0.85rem; color: #94a3b8;">جاهز للاستعلام</span>
+                    <span style="font-size: 0.85rem; color: #94a3b8;">Ready for Queries</span>
                 </div>
             </header>
 
             <div id="chat-window" class="chat-window">
                 <div class="message ai">
                     <i class="fas fa-robot" style="margin-left: 8px; color: var(--accent-color);"></i>
-                    مرحباً بك دكتور. كيف يمكنني مساعدتك في تدقيق الجرعات أو فحص التفاعلات الدوائية الآن؟
-                    <br><small style="font-size: 0.7rem; opacity: 0.6; display: block; margin-top: 8px;">الآن</small>
+                    Welcome, Doctor. How can I assist you with dosage validation or drug interaction checks today?
+                    <br><small style="font-size: 0.7rem; opacity: 0.6; display: block; margin-top: 8px;">Now</small>
                 </div>
             </div>
 
             <div class="input-area">
                 <div class="input-wrapper">
                     <i class="fas fa-search" style="color: #64748b; margin-left: 10px;"></i>
-                    <input type="text" id="question" placeholder="اسأل عن تفاعلات الأدوية، البدائل، أو الجرعات الدقيقة...">
+                    <input type="text" id="question" placeholder="Ask about drug interactions, alternatives, or precise dosages...">
                     <button onclick="askQuestion()" id="sendBtn">
                         <i class="fas fa-paper-plane"></i>
                     </button>
                 </div>
                 <p style="text-align: center; font-size: 0.7rem; color: #475569; margin-top: 15px;">
-                    هذا النظام مخصص للمساعدة المهنية فقط، يرجى مراجعة القرارات الطبية النهائية.
+                    This system is intended for professional assistance only. Please verify all final medical decisions.
                 </p>
             </div>
         </main>
     </div>
-
     <script>
         async function askQuestion() {
             const input = document.getElementById('question');
@@ -266,7 +265,7 @@
 
             } catch (error) {
                 removeLoadingIndicator(loadingId);
-                appendMessage("عذراً دكتور، حدث خطأ أثناء معالجة الطلب. يرجى المحاولة مرة أخرى.", 'ai');
+                appendMessage("Sorry Doctor, an error occurred while processing the request. Please try again.", 'ai');
             }
         }
 
@@ -290,7 +289,7 @@
             const loadDiv = document.createElement('div');
             loadDiv.className = 'message ai';
             loadDiv.id = id;
-            loadDiv.innerHTML = `<i class="fas fa-sync fa-spin" style="margin-left: 8px;"></i> جاري تحليل البيانات الطبية...`;
+            loadDiv.innerHTML = `<i class="fas fa-sync fa-spin" style="margin-left: 8px;"></i> Medical data is being analyzed...`;
             chatWindow.appendChild(loadDiv);
             chatWindow.scrollTop = chatWindow.scrollHeight;
             return id;

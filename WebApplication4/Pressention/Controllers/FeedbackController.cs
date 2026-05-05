@@ -45,20 +45,12 @@ namespace WebApplication4.Pressention.Controllers
                 //TempData["FeedBackMessage"] = "رساله حلوه";
                 sentiment = FeedbackSentiment.Positive;
             }
-            else if (label == "NEGATIVE")
+            else
             {
                 //TempData["FeedBackMessage"] = "رساله وحشه";
                 sentiment = FeedbackSentiment.Negative;
             }
-            else if (label == "NEUTRAL")
-            {
-                //TempData["FeedBackMessage"] = "رساله عاديه";
-                sentiment = FeedbackSentiment.Neutral;
-            }
-            else
-            {
-                sentiment = FeedbackSentiment.Neutral; 
-            }
+           
 
             // 3. تعيين القيمة وحفظ البيانات
             feedbackDto.feedbackSentiment = sentiment;
@@ -66,7 +58,7 @@ namespace WebApplication4.Pressention.Controllers
 
             if (res.IsSuccess)
             {
-                /*TempData["FeedBackMessage"] = "تم استلام تقييمك بنجاح"*/
+                TempData["FeedBackMessage"] = "تم استلام تقييمك بنجاح";
                 return RedirectToAction("Index", "Home");
             }
 

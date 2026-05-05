@@ -8,7 +8,7 @@ namespace WebApplication4.Infrastructure.Services
     public class MistralService : IChatAiService
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly string _fastApiUrl = "https://lynelle-coyish-unfrivolously.ngrok-free.dev/ask";
+        private readonly string _fastApiUrl = "http://127.0.0.1:8000/chat";
 
         public MistralService(IHttpClientFactory httpClientFactory)
         {
@@ -21,7 +21,7 @@ namespace WebApplication4.Infrastructure.Services
             {
                 var client = _httpClientFactory.CreateClient();
 
-                var payload = new { prompt = question };
+                var payload = new { message = question };
                 var jsonContent = new StringContent(
                     JsonSerializer.Serialize(payload),
                     Encoding.UTF8,
